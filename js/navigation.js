@@ -2,7 +2,7 @@ var navigationservice = angular.module('navigationservice', [])
 
 .factory('NavigationService', function ($http) {
 
-    var adminurl = "http://localhost/rest/rest/index.php/";
+    var adminurl = "http://localhost/inqrest/rest/index.php/";
     //var adminurl = "http://pixoloproductions.com/inq/admin/rest/index.php/";
 
     var navigation = [{
@@ -299,6 +299,17 @@ var navigationservice = angular.module('navigationservice', [])
         bulkuploadquestions: function (formdata) {
             return $http({
                 url: adminurl + 'questions/bulkupload',
+                method: "POST",
+                headers: {
+                    "Content-Type": undefined
+                },
+                data: formdata,
+                transformRequest: angular.identity
+            });
+        },
+        uploadquestion: function (formdata) {
+            return $http({
+                url: adminurl + 'questions/uploadquestion',
                 method: "POST",
                 headers: {
                     "Content-Type": undefined

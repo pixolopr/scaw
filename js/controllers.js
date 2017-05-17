@@ -787,6 +787,19 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
             };
         };
 
+
+        $scope.submit = function () {
+
+            var formdata = new FormData();
+            formdata.append('question', $scope.question);
+            formdata.append('answer', $scope.answer);
+
+
+            NavigationService.uploadquestion(formdata).success(function (response) {
+                console.log(response);
+            });
+        };
+
         $scope.createquestion = function () {
             if ($scope.editid != '0') {
 
