@@ -1,0 +1,59 @@
+<div class="logo">
+    <a href="#" class="simple-text">
+					INQ
+				</a>
+</div>
+
+<div class="sidebar-wrapper">
+    <ul class="nav">
+        <li ng-class="{'active':title=='dashboard'}">
+            <a href="#/home">
+                <i class="material-icons">dashboard</i>
+                <p>Dashboard</p>
+            </a>
+        </li>
+        <li ng-class="{'active':title=='users'}">
+            <a href="#/users">
+                <i class="material-icons">person</i>
+                <p>Users</p>
+            </a>
+        </li>
+        <li ng-class="{'active':title=='syllabus'}">
+            <a href="#/syllabus">
+                <i class="material-icons">content_paste</i>
+                <p>Syllabus</p>
+            </a>
+        </li>
+        <li ng-class="{'active':title=='questions'}">
+            <a href="#/questions">
+                <i class="material-icons">library_books</i>
+                <p>Q&A</p>
+            </a>
+        </li>
+        <li ng-class="{'active':title=='concepts'}">
+            <a href="#/concepts">
+                <i class="material-icons">library_books</i>
+                <p>Concepts</p>
+            </a>
+        </li>
+        <li ng-class="{'active':title=='leaderboard'}">
+            <a href="#/leaderboard">
+                <i class="material-icons">bubble_chart</i>
+                <p>Leaderboard</p>
+            </a>
+        </li>
+        <li ng-class="{'active':title=='notifications'}">
+            <a href="#/notifications">
+                <i class="material-icons text-gray">notifications</i>
+                <p>Notifications</p>
+            </a>
+        </li>
+        
+        <li ng-click="logout()">
+            <a href="#/login">
+                <i class="material-icons text-gray">logout</i>
+                <p>Logout</p>
+            </a>
+        </li>
+    </ul>
+</div>

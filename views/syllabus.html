@@ -1,0 +1,111 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 textcenter syllabustitle">{{path.currentpath | capitalize}}</div>
+        <div class="col-md-12 marginbottom10px pointer"><a ng-click="changepath('boards', 'board',{})" ng-if="path.board != ''">Board:</a> <a ng-click="changepath('Standards', 'board', path.board)">{{path.board.name}}</a> <a ng-if="path.standard != ''">Standard:</a> <a>{{path.standard.name}}</a><a ng-if="path.subject != ''">Subject:</a> <a>{{path.subject.name}}</a> <a ng-if="path.chapter != ''">Chapter:</a> <a>{{path.chapter.name}}</a></div>
+
+        <!--BOARD-->
+        <div class="col-md-4 textcenter marginbottom10px" ng-repeat="board in path.boards" ng-if="path.currentpath == 'boards'">
+            <div class="boardbutton primarybg marginauto pointer" ng-click="changepath('standards', 'board', board)" ng-if="board.sync == true">{{board.name}}</div>
+
+            <div class="boardbutton primarybg marginauto" ng-if="board.sync == false">
+                <input type="text" ng-model="board.name">
+                <button ng-click="syncdata(board, $index)">Add</button>
+            </div>
+
+        </div>
+
+        <!--STANDARD-->
+        <div class="col-md-4 textcenter marginbottom10px" ng-repeat="std in path.standards" ng-if="path.currentpath == 'standards'">
+            <div class="standardbutton primarybg marginauto pointer" ng-click="changepath('subjects', 'standard', std)" ng-if="std.sync == true">{{std.name | capitalize}}</div>
+
+            <div class="standardbutton primarybg marginauto" ng-if="std.sync == false">
+                <input type="text" ng-model="std.name">
+                <button ng-click="syncdata(std, $index)">Add</button>
+            </div>
+        </div>
+
+        <!--SUBJECTs-->
+        <div class="col-md-3 textcenter marginbottom10px" ng-repeat="sub in path.subjects" ng-if="path.currentpath == 'subjects'">
+            <div class="primarybg marginauto subjectbutton pointer" ng-click="changepath('chapters', 'subject', sub)" ng-if="sub.sync == true">
+                <img src="img/logo_white.png" width="60%">
+                <H3 class="subjecttitle">{{sub.name | capitalize}}</H3>
+            </div>
+
+            <div class="primarybg marginauto subjectbutton" ng-if="sub.sync == false">
+                <img src="img/logo_white.png" width="60%">
+                <input type="text" ng-model="sub.name">
+                <button ng-click="syncdata(sub, $index)">Add</button>
+            </div>
+
+            <!--<div class="form-group">
+                <label class="control-label">Image</label>
+                <input type="file" nv-file-select="" uploader="uploader" />
+            </div>-->
+        </div>
+
+        <!--CHAPTERS-->
+        <div ui-sortable="sortableOptions" ng-model="path.chapters">
+            <div class="col-md-12" ng-repeat="chapter in path.chapters" ng-if="path.currentpath == 'chapters'">
+                <div class="chaptersbutton pointer" ng-click="changepath('concepts', 'chapter', chapter)" ng-if="chapter.sync == true">
+                    <h3 class="subjecttitle">{{chapter.name | capitalize}}</h3>
+                </div>
+
+                <div class="chaptersbutton" ng-if="chapter.sync == false">
+                    <input type="text" ng-model="chapter.name">
+                    <button ng-click="syncdata(chapter, $index)">Add</button>
+                </div>
+            </div>
+        </div>
+
+        <!--CONCEPTS-->
+        <div ui-sortable="sortableOptions" ng-model="path.concepts">
+            <div class="col-md-12" style="z-index:{{path.concepts.length - $index}}" ng-repeat="concept in path.concepts" ng-if="path.currentpath == 'concepts'">
+                <div class="conceptbutton pointer" ng-if="concept.sync == true">
+                    <div class="row marginbottom0">
+                        <div class="col-md-10">
+                            <h3 class="subjecttitle displayinline">{{concept.id}}</h3>
+                            <h3 class="subjecttitle displayinline">{{concept.name | capitalize}}</h3>
+                        </div>
+                        <div class="col-md-2">
+                            <i class="fa fa-trash concepticons redcolor" aria-hidden="true" ng-click="deletedata($index)"></i>
+                            <i class="fa fa-pencil-square-o concepticons" aria-hidden="true" ng-click="editdata($index)"></i>
+                            <i class="fa fa-arrow-circle-o-right concepticons secondarycolor" aria-hidden="true" ng-click="gotocardcreator(concept.id)"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="conceptbutton" ng-if="concept.sync == false">
+                    <input type="text" ng-model="concept.name">
+                    <button ng-click="syncdata(concept, $index)" class="btn btn-primary secondarybg">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 textcenter">
+            <button type="button" class="btn btn-info btn-lg adddatabtn" ng-click="adddata()">Add {{path.currentpath}}</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <p>Some text in the modal.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>

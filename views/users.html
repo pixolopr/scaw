@@ -1,0 +1,65 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <a class="waves-effect waves-light btn primarybutton" ng-click="changeuser(4)" ng-class="{'primarybg': useraccesstype == 4}">Students</a>
+            <a class="waves-effect waves-light btn primarybutton" ng-click="changeuser(5)" ng-class="{'primarybg': useraccesstype == 5}">Outsiders</a>
+            <a class="waves-effect waves-light btn primarybutton" ng-click="changeuser(3)" ng-class="{'primarybg': useraccesstype == 3}">Teachers</a>
+            <a class="waves-effect waves-light btn primarybutton" ng-click="changeuser(1)" ng-class="{'primarybg': useraccesstype == 1}">Admins</a>
+            <a class="waves-effect waves-light btn primarybutton" ng-click="changeuser(2)" ng-class="{'primarybg': useraccesstype == 2}">Editors</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header primarybg row" data-background-color="">
+                    <div class="col-md-8">
+                        <h4 class="title">Users</h4>
+                        <p class="category">This is where you can Add/Edit/Delete Users</p>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="fixed-action-btn horizontal click-to-toggle" style="position: initial;
+">
+                            <a class="btn-floating btn-large primarylightbg floatright">
+                                <i class="material-icons">menu</i>
+                            </a>
+                            <ul>
+                                <li><a class="btn-floating primarydarkbg darken-1"><i class="material-icons">print</i></a></li>
+                                <li><a class="btn-floating primarydarkbg"><i class="material-icons">view_list</i></a></li>
+                                <li><a class="btn-floating primarydarkbg" ng-click="adduser(useraccesstype, 0)"><i class="material-icons">add</i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-content table-responsive">
+                    <table class="table">
+                        <thead class="primarycolor">
+                            <th>Name</th>
+                            <th>School</th>
+                            <th>Contact</th>
+                            <th>Email</th>
+                            <th>Activity</th>
+                            <th>Actions</th>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="user in users">
+                                <td class="textcapitalize">{{user.name | capitalize}}</td>
+                                <td class="textcapitalize">{{user.school | capitalize}}</td>
+                                <td>{{user.contact}}</td>
+                                <td>{{user.email}}</td>
+                                <td>
+                                    Asked : {{user.asked}}
+                                    <br> Answered: {{user.answered}}
+                                </td>
+                                <td>
+                                    <a class="actionbutton1 waves-effect waves-light" ng-click="adduser(useraccesstype, user.id)"><i class="material-icons">mode_edit</i></a>
+                                    <a class="actionbutton2 waves-effect waves-light" ng-click="deleteuser(user.id)"><i class="material-icons">delete</i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

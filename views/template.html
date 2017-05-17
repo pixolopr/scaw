@@ -1,0 +1,32 @@
+<div ng-show="showupload" class="loaderdiv">
+    <img id="uploadimage" src="img/uploadgif.gif" width="50%" style="margin-top: 4%;">
+</div>
+
+<div class="wrapper">
+
+    <div class="sidebar" data-color="purple" style="background-image:url(img/studybg.jpg)" ng-if="!loginpage">
+        <div style="background-color:rgba(255, 255, 255, 0.85)" ng-include="template.menu">
+            <!--
+		        Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
+
+		        Tip 2: you can also add an image using data-image tag
+		    -->
+        </div>
+    </div>
+
+    <div class="main-panel" ng-if="!loginpage">
+        <div ng-include="template.header">
+
+        </div>
+
+        <div class="content" ng-include="template.content">
+
+        </div>
+
+        <div ng-include="template.footer" class="template footer"></div>
+
+    </div>
+
+    <div ng-include="template.content" ng-if="loginpage" class="wrapper loginbg"></div>
+
+</div>

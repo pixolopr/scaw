@@ -1,0 +1,99 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header primarybg" data-background-color="">
+                    <h4 class="title">Create/Edit User</h4>
+                    <p class="category">Create or Edit a User</p>
+                </div>
+                <div class="card-content">
+                    <form name="userform">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="dropdown">
+                                    <button class="btn btn-primary dropdown-toggle primarybg" type="button" data-toggle="dropdown">{{usertypename}}
+                                        <span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                        <li ng-repeat="type in access" class="capitalize"><a class="capitalize" ng-click="settype($index)">{{type.name}}</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Name</label>
+                                    <input type="text" class="form-control" ng-model="user.name" name="name" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Email address</label>
+                                    <input type="email" class="form-control" ng-model="user.email" name="email">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Mobile</label>
+                                    <input type="tel" class="form-control" name="contact" ng-model="user.contact" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Password</label>
+                                    <input type="text" class="form-control" ng-model="user.password">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Confirm Password</label>
+                                    <input type="text" class="form-control" ng-model="pass.confirmpassword">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">School</label>
+                                    <input type="text" class="form-control" ng-model="user.school">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Board</label>
+                                    <select ng-model="user.board_id" ng-change="getstandards()">
+                                        <option value="" disabled selected>Choose your option</option>
+                                        <option value="{{board.id}}" ng-selected="board.id == user.board_id" ng-repeat="board in boards">{{board.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Standard</label>
+                                    <select ng-model="user.standard_id">
+                                        <option value="" disabled selected>Choose your option</option>
+                                        <option value="{{std.id}}" ng-selected="std.id == user.standard_id" ng-repeat="std in standards">{{std.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-10">
+                                <div class="form-group label-floating">
+                                    <input type="checkbox" id="indeterminate-checkbox" ng-model="user.verified" ng-true-value="1" ng-false-value="0"/>
+                                    <label for="indeterminate-checkbox">Verified</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary pull-right primarybg" ng-click="createuser()">Update</button>
+                        <div class="clearfix"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

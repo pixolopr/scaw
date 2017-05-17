@@ -1,0 +1,38 @@
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+
+        <button type="button" class="btn btn-default primarybg" ng-click="gotocreatecustomer(0)">Create</button>
+
+        <div class="bulkuploaddiv">
+            <input id="quesexcelinp" class="questionschoosefile" type="file" aria-label="Add Excel to your post" class="upload" name="file" onchange="angular.element(this).scope().LoadFileData(this.files)" multiple="">
+
+            <input type="button" class="btn btn-default primarybg" ng-click="submit()" value="Upload" />
+        </div>
+
+        <table id="" class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Sr.</th>
+                    <th>Question</th>
+                    <th>Type</th>
+                    <th>Options</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+
+            <tbody>
+                <tr ng-repeat="q in questions">
+                    <td>{{$index+1}}</td>
+                    <td>{{q.question}}</td>
+                    <td>{{q.type}}</td>
+                    <td>{{q.optionsavailable}}</td>
+                    <td class="text-center">
+                        <button type="button" class="btn btn-default" ng-click="gotocreatecustomer(q.id)">Edit</button>
+                        <button type="button" class="btn btn-default" ng-click="deletequestion(q.id)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
