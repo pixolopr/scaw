@@ -1,6 +1,8 @@
 var phonecatControllers = angular.module('phonecatControllers', ['templateservicemod', 'navigationservice']);
 
 var adminurl = "http://localhost/rest/rest/index.php/";
+var imageurl = "http://localhost/rest/rest/uploads/";
+//var imageurl = "http://pixoloproductions.com/inq/admin/rest/uploads/";
 
 phonecatControllers.controller('home', ['$scope', 'TemplateService', 'NavigationService', '$rootScope',
   function ($scope, TemplateService, NavigationService, $rootScope) {
@@ -312,18 +314,40 @@ phonecatControllers.controller('syllabusCtrl', ['$scope', 'TemplateService', 'Na
             if (currpath == 'boards') {
                 getboards();
             } else {
-                $scope.addid = obj.id;
-                getdata(currpath, obj.id);
+
+                if (!obj.name) {
+                    if (currpath == 'standards') {
+                        getdata(currpath, $scope.path.board);
+                    };
+                    if (currpath == 'subjects') {
+                        getdata(currpath, $scope.path.standard);
+                    };
+                    if (currpath == 'chapters') {
+                        getdata(currpath, $scope.path.subject);
+                    };
+                } else {
+                    $scope.addid = obj.id;
+                    getdata(currpath, obj.id);
+                };
+
             };
 
         };
 
         /*ADD DATA*/
         $scope.adddata = function () {
-            $scope.path[$scope.path.currentpath].push({
-                'name': 'ABC',
-                'sync': false
-            });
+            if ($scope.path.currentpath == 'subjects') {
+                $scope.path[$scope.path.currentpath].push({
+                    'name': 'ABC',
+                    'sync': false,
+                    'image': 'logo.png'
+                });
+            } else {
+                $scope.path[$scope.path.currentpath].push({
+                    'name': 'ABC',
+                    'sync': false
+                });
+            };
             //$location.path('/addsyllabusdata/' + $scope.path.currentpath + '/' + $scope.addid + '/0');
         };
 
@@ -342,6 +366,13 @@ phonecatControllers.controller('syllabusCtrl', ['$scope', 'TemplateService', 'Na
                 console.log(response.data);
             };
             NavigationService.deletedata($scope.path[$scope.path.currentpath][ind].id, $scope.path.currentpath).then(deletedatasuccess, deletedataerror);
+        };
+
+        /*UPLOAD SUBJECT IMAGE*/
+        $scope.files = [];
+
+        $scope.LoadFileData = function (files) {
+            $scope.files = files;
         };
 
         $scope.syncdata = function (obj, ind) {
@@ -368,8 +399,23 @@ phonecatControllers.controller('syllabusCtrl', ['$scope', 'TemplateService', 'Na
                 var createdataerror = function (response) {
                     console.log(response.data);
                 };
+
+
                 var sortorder = ind + 1;
-                NavigationService.createdata(obj.name, $scope.addid, $scope.path.currentpath, sortorder).then(createdatasuccess, createdataerror);
+                if ($scope.path.currentpath == "subjects") {
+
+                    var formdata = new FormData();
+                    formdata.append(name, name);
+                    formdata.append(parentid, pid);
+                    formdata.append(sortorder, sortorder);
+                    formdata.append(subjectimage, $scope.files[0]);
+
+                    NavigationService.createsubject(formdata).then(createdatasuccess, createdataerror);
+                } else {
+                    NavigationService.createdata(obj.name, $scope.addid, $scope.path.currentpath, sortorder).then(createdatasuccess, createdataerror, $scope.files);
+                };
+
+
             };
 
         };
@@ -534,6 +580,11 @@ phonecatControllers.controller('questionsCtrl', ['$scope', 'TemplateService', 'N
         $scope.title = "questions";
 
         $scope.questions = [];
+        $scope.boards = [];
+        $scope.standards = [];
+        $scope.subjects = [];
+        $scope.chapters = [];
+
 
         var getquestionssuccess = function (response) {
             console.log(response.data);
@@ -545,8 +596,67 @@ phonecatControllers.controller('questionsCtrl', ['$scope', 'TemplateService', 'N
         var getquestionserror = function (response) {
             console.log(response.data);
         };
-        //GET QUESTIONS WITH LIMIT
-        NavigationService.getquestions(0, 1000).then(getquestionssuccess, getquestionserror);
+
+        $scope.filter = {
+            'count': 0,
+            'limit': 1000,
+            'chapterid': '0',
+            'subjectid': '0',
+            'standardid': '0',
+            'boardid': '0'
+        };
+
+        /*
+          PARAMS TO SEND GET QUESTIONS
+          1: current count
+          2: limit
+          3: chapter id OR 0
+          4: subject id OR o
+          5: standard id or 0
+        */
+
+        var getquestions = function () {
+            NavigationService.getquestions($scope.filter).then(getquestionssuccess, getquestionserror);
+        };
+
+        $scope.getdata = function (objname, id) {
+            var getdatasuccess = function (response) {
+                console.log(response.data);
+                $scope[objname] = response.data;
+
+                getquestions();
+            };
+            var getdataerror = function (response) {
+                console.log(response.data, id);
+            };
+            if (objname == 'standards' || objname == 'subjects' || objname == 'chapters') {
+                $scope.filter.chapterid = '0';
+            };
+            if (objname == 'standards' || objname == 'subjects') {
+                $scope.filter.subjectid = '0';
+            };
+            if (objname == 'standards') {
+                $scope.filter.standardid = '0';
+            };
+            if (objname == 'concepts') {
+                getquestions();
+            } else {
+                NavigationService.getdata(id, objname).then(getdatasuccess, getdataerror);
+            };
+
+        };
+
+        /*GET ALL BOARDS INITIALLY*/
+        var getboardssuccess = function (response) {
+            console.log(response.data);
+            $scope.boards = response.data;
+
+            NavigationService.getquestions($scope.filter).then(getquestionssuccess, getquestionserror);
+        };
+        var getboardserror = function (response) {
+            console.log(response.data);
+        };
+        NavigationService.getboards().then(getboardssuccess, getboardserror);
 
         //CREATE / EDIT
         $scope.gotocreatecustomer = function (id) {
@@ -557,7 +667,7 @@ phonecatControllers.controller('questionsCtrl', ['$scope', 'TemplateService', 'N
         $scope.deletequestion = function (id) {
             var deletequestionandanswersuccess = function (response) {
                 console.log(response.data);
-                NavigationService.getquestions(0, 1000).then(getquestionssuccess, getquestionserror);
+                NavigationService.getquestions($scope.filter).then(getquestionssuccess, getquestionserror);
             };
             var deletequestionandanswererror = function (response) {
                 console.log(response.data);
@@ -607,7 +717,7 @@ phonecatControllers.controller('questionsCtrl', ['$scope', 'TemplateService', 'N
                 };
 
 
-                NavigationService.getquestions(0, 1000).then(getquestionssuccess, getquestionserror);
+                NavigationService.getquestions($scope.filter).then(getquestionssuccess, getquestionserror);
             });
         };
 
@@ -713,7 +823,7 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
                 'optionsavailable': '0',
                 'difficulty': '1',
                 'user_id': '1',
-                'verified': '0'
+                'questionverified': '0'
             };
             $scope.answer = {
                 'question_id': '',
@@ -724,7 +834,7 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
                 'option4': '',
                 'answerformat': 1,
                 'optionformat': 1,
-                'user_id': '1'
+                'answerverified': '0'
             };
         };
 
@@ -788,14 +898,39 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
         };
 
 
+        /*STORE IMAGE IN FILES*/
+        $scope.files = [];
+        $scope.LoadFileData = function (files, ind) {
+            $scope.files[ind] = files[0];
+        };
+
+        /*UPLOAD QUESTION-ANSWER-IMAGE-CONCEPTS*/
         $scope.submit = function () {
 
             var formdata = new FormData();
-            formdata.append('question', $scope.question);
-            formdata.append('answer', $scope.answer);
+
+            angular.forEach($scope.question, function (value, key) {
+                console.log(value);
+                formdata.append(key, value);
+            });
+            angular.forEach($scope.answer, function (value, key) {
+                formdata.append(key, value);
+            });
+
+            //console.log($scope.files);
+            formdata.append('quesfile', $scope.files[0]);
+            formdata.append('ansfile', $scope.files[1]);
+
+            var conceptsarray = [];
+            for (var cs = 0; cs < $scope.concept.concepts.length; cs++) {
+                if ($scope.concept.concepts[cs]) {
+                    conceptsarray.push($scope.conceptsdropdown[cs].id);
+                };
+            };
+            formdata.append('concepts', conceptsarray);
 
 
-            NavigationService.uploadquestion(formdata).success(function (response) {
+            NavigationService.uploadfullquestiondata(formdata).success(function (response) {
                 console.log(response);
             });
         };
@@ -806,9 +941,11 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
                 var editquestionsuccess = function (response) {
                     console.log(response.data);
                     if (response.data == 'true') {
+
                         var editanswersuccess = function (response) {
                             console.log(response.data);
                             if (response.data == 'true') {
+
                                 var removeallconceptssuccess = function (response) {
                                     console.log(response.data);
                                     if (response.data == 'true') {
@@ -917,8 +1054,8 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
 
   }]);
 
-phonecatControllers.controller('cardcreatorCtrl', ['$scope', 'TemplateService', 'NavigationService', '$location', '$routeParams', 'textAngularManager', 'FileUploader',
-  function ($scope, TemplateService, NavigationService, $location, $routeParams, textAngularManager, FileUploader) {
+phonecatControllers.controller('cardcreatorCtrl', ['$scope', 'TemplateService', 'NavigationService', '$location', '$routeParams', 'textAngularManager', 'FileUploader', '$filter','$rootScope',
+  function ($scope, TemplateService, NavigationService, $location, $routeParams, textAngularManager, FileUploader, $filter, $rootScope) {
         $scope.template = TemplateService;
         TemplateService.content = "views/cardcreator.html";
         $scope.title = "syllabus";
@@ -935,6 +1072,10 @@ phonecatControllers.controller('cardcreatorCtrl', ['$scope', 'TemplateService', 
             'sync': false
         };
 
+        $rootScope.math = {
+            'code': 'Abhay'
+        };
+
         /*GET CARDS BY CONCEPT ID*/
         var getcardsbyconceptidsuccess = function (response) {
             console.log(response.data);
@@ -944,7 +1085,8 @@ phonecatControllers.controller('cardcreatorCtrl', ['$scope', 'TemplateService', 
                 var dataarray = [];
                 _.forEach(response.data, function (value) {
                     console.log(value);
-                    console.log(value.conceptdata);
+
+                    _.replace(value.conceptdata, '<img src="', '<img src+"' + imageurl);
 
                     value.sync = true;
                 });
@@ -993,6 +1135,78 @@ phonecatControllers.controller('cardcreatorCtrl', ['$scope', 'TemplateService', 
             }
         };
 
+        $scope.changeposition = function (ind, change) {
+            if ((ind + change) > 0 || (ind + change) < $scope.cards.length) {
+
+                console.log($scope.cards);
+
+                var tempcard1 = $scope.cards[ind];
+                var tempcard2 = $scope.cards[ind + change];
+
+                $scope.cards[ind] = tempcard2;
+                $scope.cards[ind + change] = tempcard1;
+
+                console.log($scope.cards);
+
+                _.forEach($scope.cards, function (value, key) {
+                    var updatesortordersuccess = function (response) {
+                        console.log(response.data);
+                    };
+                    var updatesortordererror = function (response) {
+                        console.log(response.data);
+                    };
+
+                    var so = key + 1;
+
+                    if (value.id) {
+                        console.log(value);
+                        NavigationService.updatecardsortorder(value.id, so).then(updatesortordersuccess, updatesortordererror);
+                    };
+                });
+            };
+
+
+        };
+
+        $scope.dropHandler = function (file, insertAction) {
+            if (file.type.substring(0, 5) !== "image") {
+                // add your own code here
+                alert("only images can be added");
+                return;
+            }
+            if (file.size > 500000) {
+                // add your own code here
+                alert("file size cannot exceed 0.5MB");
+                return;
+            };
+
+
+
+            var formdata = new FormData();
+            formdata.append('image', file);
+
+            NavigationService.getimagename(formdata).success(function (response) {
+                console.log(response);
+
+                response = response.replace(/[\s]/g, '');
+                response = imageurl + response;
+                //var filterresponse = $filter('imagepath', response);
+                // create a base64 string
+                var reader = new FileReader();
+                reader.onload = function () {
+                    reader.result && insertAction("insertImage", response, true);
+                };
+
+                reader.readAsDataURL(file);
+
+
+            });
+
+            return true;
+
+
+        };
+
         $scope.createcard = function () {
 
             var cardnumber = 0;
@@ -1005,6 +1219,8 @@ phonecatControllers.controller('cardcreatorCtrl', ['$scope', 'TemplateService', 
                     /**/
                     if (value.conceptdata == '') {
                         value.conceptdata = "No Content Here";
+                    } else {
+                        _.replace(value.conceptdata, imageurl, '');
                     };
 
                     /*ADD CARD TO DATABASE*/
@@ -1154,7 +1370,7 @@ phonecatControllers.controller('cardcreatorCtrl', ['$scope', 'TemplateService', 
 
         console.info('uploader', uploader);
 
-}]);
+                }]);
 
 phonecatControllers.controller('cardviewerCtrl', ['$scope', 'TemplateService', 'NavigationService', '$routeParams', '$location',
   function ($scope, TemplateService, NavigationService, $routeParams, $location) {
@@ -1196,6 +1412,13 @@ phonecatControllers.controller('cardviewerCtrl', ['$scope', 'TemplateService', '
         NavigationService.getcardsbyconceptid($scope.editid).then(getcardsbyconceptidsuccess, getcardsbyconceptiderror);
 
 
+  }]);
+
+phonecatControllers.controller('mathjaxeditorCtrl', ['$scope', 'TemplateService', 'NavigationService',
+  function ($scope, TemplateService, NavigationService) {
+        $scope.template = TemplateService;
+
+        console.log("MATH JAX EDITOR");
   }]);
 
 phonecatControllers.controller('contact', ['$scope', 'TemplateService', 'NavigationService',

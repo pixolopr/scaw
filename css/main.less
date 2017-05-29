@@ -60,6 +60,9 @@
 .displayinline {
     display: inline !important;
 }
+.displayinlineblock {
+    display: inline-block!important;
+}
 .actionbutton1 {
     cursor: pointer;
     border-radius: 50%;
@@ -143,24 +146,25 @@
     letter-spacing: 3px;
 }
 .conceptbutton {
-    /* z-index: 10; */
+    border: 1px solid #636363;
     margin-left: auto;
     padding-left: 2%;
     /* border: 1px solid #948b8b; */
-    padding-bottom: 5px;
+    padding-bottom: 10px;
     color: #272626;
     width: 80%;
     /* border-radius: 9px; */
-    background-color: @color1 !important;
+    background-color: #03bdd6 !important;
     /* height: 65px; */
     font-size: 1em;
     /* text-align: center; */
-    padding-top: 4px;
-    margin-bottom: -3px;
+    padding-top: 14px;
+    margin-bottom: 10px;
     letter-spacing: 3px;
     margin-right: auto;
-    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.62);
+    /* box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.62); */
     color: white;
+    border-radius: 5px;
 }
 .syllabustitle {
     font-size: 1.6em;
@@ -245,7 +249,7 @@
     background-color: white;
     margin-left: 2.5%;
 }
-.onecard img{
+.onecard img {
     width: 75%;
 }
 .onecardoptionsbox {
@@ -305,8 +309,6 @@
     box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.24);
 }
 .concepticons {
-    padding-top: 10%;
-    color: white;
 }
 .concepticons::before {
     font-size: 2em;
@@ -330,6 +332,14 @@
     border-radius: 4px;
     position: relative;
     color: white;
+    width: 60%;
+}
+.questionsfilterdiv {
+    text-align: center;
+    padding-top: 1.5%;
+    /* background-color: #858b8c; */
+    /* padding-bottom: 1%; */
+    border-radius: 4px;
 }
 .bulkuploaddiv {
     display: inline-block;

@@ -1,5 +1,5 @@
 // JavaScript Document
-var firstapp = angular.module('firstapp', ['ngRoute', 'phonecatControllers', 'templateservicemod', 'navigationservice', 'angularFileUpload', 'textAngular', 'ui.sortable'
+var firstapp = angular.module('firstapp', ['ngRoute', 'phonecatControllers', 'templateservicemod', 'navigationservice', 'angularFileUpload', 'textAngular', 'ui.sortable', 'angular-loading-bar'
 ]);
 
 /*
@@ -229,6 +229,8 @@ firstapp.config(function ($provide) {
 }]);
 });
 
+
+
 firstapp.directive('ngFiles', ['$parse', function ($parse) {
 
     function fn_link(scope, element, attrs) {
@@ -244,3 +246,39 @@ firstapp.directive('ngFiles', ['$parse', function ($parse) {
         link: fn_link
     }
         }]);
+
+firstapp.config(function ($provide, $rootScope) {
+
+    function insertTextAtCursor(text) {
+        var sel, range;
+        if (window.getSelection) {
+            sel = window.getSelection();
+            if (sel.getRangeAt && sel.rangeCount) {
+                range = sel.getRangeAt(0);
+                range.deleteContents();
+                range.insertNode(document.createTextNode(text));
+            }
+        } else if (document.selection && document.selection.createRange) {
+            document.selection.createRange().text = text;
+        };
+    };
+
+    $provide.decorator('taOptions', ['taRegisterTool', '$delegate', function (taRegisterTool, taOptions) {
+        taRegisterTool('insertMyHtml', {
+            buttontext: 'Atitthya',
+            action: function (taRegisterTool, taOptions) {
+                console.log($rootScope.math.code);
+                return this.$editor().wrapSelection('insertHTML', '<p>I will display &#x20AC;</p>');
+            }
+        });
+        taOptions.toolbar[1].push('insertMyHtml');
+        return taOptions;
+    }]);
+});
+
+firstapp.filter('imagepath', function () {
+    return function (input) {
+        return "http://localhost/rest/rest/uploads/" + input;
+        //return "http://pixoloproductions.com/inq/admin/rest/uploads/" + input;
+    };
+});

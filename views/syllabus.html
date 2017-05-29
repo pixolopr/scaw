@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12 textcenter syllabustitle">{{path.currentpath | capitalize}}</div>
-        <div class="col-md-12 marginbottom10px pointer"><a ng-click="changepath('boards', 'board',{})" ng-if="path.board != ''">Board:</a> <a ng-click="changepath('Standards', 'board', path.board)">{{path.board.name}}</a> <a ng-if="path.standard != ''">Standard:</a> <a>{{path.standard.name}}</a><a ng-if="path.subject != ''">Subject:</a> <a>{{path.subject.name}}</a> <a ng-if="path.chapter != ''">Chapter:</a> <a>{{path.chapter.name}}</a></div>
+        <div class="col-md-12 marginbottom10px pointer"><a ng-click="changepath('boards', 'board',{})" ng-if="path.board.name">Board:</a> <a ng-click="changepath('boards', 'board',{})">{{path.board.name}}</a> <a ng-if="path.standard.name" ng-click="changepath('standards', 'standard',{})">Standard:</a> <a ng-click="changepath('standards', 'standard',{})">{{path.standard.name}}</a><a ng-if="path.subject.name" ng-click="changepath('subjects', 'subject',{})">Subject:</a> <a ng-click="changepath('subjects', 'subject',{})">{{path.subject.name}}</a> <a ng-if="path.chapter.name" ng-click="changepath('chapters', 'chapter',{})">Chapter:</a> <a ng-click="changepath('chapters', 'chapter',{})">{{path.chapter.name}}</a></div>
 
         <!--BOARD-->
         <div class="col-md-4 textcenter marginbottom10px" ng-repeat="board in path.boards" ng-if="path.currentpath == 'boards'">
@@ -27,12 +27,13 @@
         <!--SUBJECTs-->
         <div class="col-md-3 textcenter marginbottom10px" ng-repeat="sub in path.subjects" ng-if="path.currentpath == 'subjects'">
             <div class="primarybg marginauto subjectbutton pointer" ng-click="changepath('chapters', 'subject', sub)" ng-if="sub.sync == true">
-                <img src="img/logo_white.png" width="60%">
+                <img src="{{sub.image | imagepath}}" width="60%">
                 <H3 class="subjecttitle">{{sub.name | capitalize}}</H3>
             </div>
 
             <div class="primarybg marginauto subjectbutton" ng-if="sub.sync == false">
-                <img src="img/logo_white.png" width="60%">
+                <img src="{{sub.image | imagepath}}" width="60%">
+                <input id="subjectimage" class="questionschoosefile" type="file" aria-label="Add Image to your Subject" class="upload" name="file" onchange="angular.element(this).scope().LoadFileData(this.files, 1)" multiple="">
                 <input type="text" ng-model="sub.name">
                 <button ng-click="syncdata(sub, $index)">Add</button>
             </div>

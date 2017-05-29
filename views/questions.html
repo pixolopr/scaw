@@ -1,13 +1,38 @@
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
 
-        <button type="button" class="btn btn-default primarybg" ng-click="gotocreatecustomer(0)">Create</button>
+        <div class="row">
+            <div class="col-md-2">
+                <button type="button" class="btn btn-default primarybg" ng-click="gotocreatecustomer(0)">Create</button>
+            </div>
+            <div class="col-md-6 questionsfilterdiv">
+                <select class="displayinlineblock" style="width: 22%;" ng-model="filter.boardid" ng-change="getdata('standards', filter.boardid)">
+                    <option value="0">All Boards</option>
+                    <option value="{{board.id}}" ng-repeat="board in boards">{{board.name}}</option>
+                </select>
+                <select class="displayinlineblock" style="width: 22%;" ng-model="filter.standardid" ng-change="getdata('subjects', filter.standardid)">
+                    <option value="0">All Standards</option>
+                    <option value="{{std.id}}" ng-repeat="std in standards">{{std.name}}</option>
+                </select>
+                <select class="displayinlineblock" style="width: 22%;" ng-model="filter.subjectid" ng-change="getdata('chapters', filter.subjectid)">
+                    <option value="0">All Subjects</option>
+                    <option value="{{sub.id}}" ng-repeat="sub in subjects">{{sub.name}}</option>
+                </select>
+                <select class="displayinlineblock" style="width: 22%;" ng-model="filter.chapterid" ng-change="getdata('concepts', filter.chapterid)">
+                    <option value="0">All Chapters</option>
+                    <option value="{{chap.id}}" ng-repeat="chap in chapters">{{chap.name}}</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <div class="bulkuploaddiv">
+                    <input id="quesexcelinp" class="questionschoosefile" type="file" aria-label="Add Excel to your post" class="upload" name="file" onchange="angular.element(this).scope().LoadFileData(this.files)" multiple="">
 
-        <div class="bulkuploaddiv">
-            <input id="quesexcelinp" class="questionschoosefile" type="file" aria-label="Add Excel to your post" class="upload" name="file" onchange="angular.element(this).scope().LoadFileData(this.files)" multiple="">
-
-            <input type="button" class="btn btn-default primarybg" ng-click="submit()" value="Upload" />
+                    <input type="button" class="btn btn-default primarybg" ng-click="submit()" value="Upload" />
+                </div>
+            </div>
         </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12">
 
         <table id="" class="table table-striped table-bordered">
             <thead>

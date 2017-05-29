@@ -120,7 +120,8 @@ angular.module('textAngularSetup', [])
     },
     setup: {
         // wysiwyg mode
-        textEditorSetup: function($element){ /* Do some processing here */ },
+        textEditorSetup: function($element){ 
+            /* Do some processing here */ },
         // raw html
         htmlEditorSetup: function($element){ /* Do some processing here */ }
     },

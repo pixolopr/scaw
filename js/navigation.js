@@ -2,7 +2,7 @@ var navigationservice = angular.module('navigationservice', [])
 
 .factory('NavigationService', function ($http) {
 
-    var adminurl = "http://localhost/inqrest/rest/index.php/";
+    var adminurl = "http://localhost/rest/rest/index.php/";
     //var adminurl = "http://pixoloproductions.com/inq/admin/rest/index.php/";
 
     var navigation = [{
@@ -141,6 +141,18 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             });
         },
+        createsubject: function (formdata) {
+            
+            return $http({
+                url: adminurl + 'subjects/createsubject',
+                method: "POST",
+                headers: {
+                    "Content-Type": undefined
+                },
+                data: formdata,
+                transformRequest: angular.identity
+            });
+        },
         updatesortorder: function (addname, id, sortorder) {
             var singular = addname.substring(0, addname.length - 1);
             return $http.get(adminurl + addname + '/update' + singular + 'sortorder', {
@@ -166,11 +178,15 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             });
         },
-        getquestions: function (count, limit) {
+        getquestions: function (filter) {
             return $http.get(adminurl + 'questions/getquestionswithlimit', {
                 params: {
-                    count: count,
-                    limit: limit
+                    count: filter.count,
+                    limit: filter.limit,
+                    chapterid: filter.chapterid,
+                    subjectid: filter.subjectid,
+                    standardid: filter.standardid,
+                    boardid: filter.boardid
                 }
             });
         },
@@ -307,9 +323,20 @@ var navigationservice = angular.module('navigationservice', [])
                 transformRequest: angular.identity
             });
         },
-        uploadquestion: function (formdata) {
+        uploadfullquestiondata: function (formdata) {
             return $http({
-                url: adminurl + 'questions/uploadquestion',
+                url: adminurl + 'questions/uploadfullquestiondata',
+                method: "POST",
+                headers: {
+                    "Content-Type": undefined
+                },
+                data: formdata,
+                transformRequest: angular.identity
+            });
+        },
+        getimagename: function (formdata) {
+            return $http({
+                url: adminurl + 'questions/returnimagename',
                 method: "POST",
                 headers: {
                     "Content-Type": undefined

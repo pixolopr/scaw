@@ -1,0 +1,25 @@
+<div class="editorRoot">
+    <div class="simpleeditor">
+        <div class="editor" text-angular
+             ta-toolbar="[['bold','italics','underline', 'ul', 'ol', 'quote'], ['h1','h2','h3'], ['undo', 'redo'],['insertLink', 'unlink', 'insertFx', 'showHelp']]"
+             name="{{ editorName }}" ng-model="value"></div>
+        <div class="mathDialog clearfix " ng-show="showMathDialog">
+            <div class="pull-left">
+                <div class="header">
+                    <h4>Formelredigering:</h4>
+                </div>
+                <textarea name="asciimath" class="inputwindow" ng-model="mathDialog" ng-blur="exitDialog()">
+                </textarea>
+            </div>
+
+            <div class="pull-left">
+                <div class="header">Forhåndsvisning</div>
+                <div class="mathPreview"></div>
+            </div>
+        </div>
+    </div>
+    <div ng-show="showHelp">
+        <button class="pull-right btn" ng-click="toggleHelp()">Skjul</button>
+        <div asciimath-help ></div>
+    </div>
+</div>
