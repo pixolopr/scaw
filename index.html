@@ -88,15 +88,27 @@
     <script type='text/javascript' src='www/lib/angular-loading/loading-bar.min.js'></script>
 
 
-    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML">
 
 
-    </script>
 
     <script src="js/app.js"></script>
     <script src="js/controllers.js"></script>
     <script src="js/templateservice.js"></script>
     <script src="js/navigation.js"></script>
+
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_CHTML"></script>
+    <script src="http://www.wiris.net/demo/editor/editor"></script>
+    <script>
+        var editor;
+        window.onload = function() {
+            editor = com.wiris.jsEditor.JsEditor.newInstance({
+                'language': 'en'
+            });
+            editor.insertInto(document.getElementById('editorContainer'));
+        }
+
+    </script>
+
 
     <!-- Material Dashboard javascript methods -->
     <script src="assets/js/material-dashboard.js"></script>

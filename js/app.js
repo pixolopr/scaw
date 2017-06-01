@@ -247,7 +247,7 @@ firstapp.directive('ngFiles', ['$parse', function ($parse) {
     }
         }]);
 
-firstapp.config(function ($provide, $rootScope) {
+firstapp.config(function ($provide) {
 
     function insertTextAtCursor(text) {
         var sel, range;
@@ -267,7 +267,6 @@ firstapp.config(function ($provide, $rootScope) {
         taRegisterTool('insertMyHtml', {
             buttontext: 'Atitthya',
             action: function (taRegisterTool, taOptions) {
-                console.log($rootScope.math.code);
                 return this.$editor().wrapSelection('insertHTML', '<p>I will display &#x20AC;</p>');
             }
         });

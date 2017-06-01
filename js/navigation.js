@@ -142,7 +142,7 @@ var navigationservice = angular.module('navigationservice', [])
             });
         },
         createsubject: function (formdata) {
-            
+
             return $http({
                 url: adminurl + 'subjects/createsubject',
                 method: "POST",
@@ -355,6 +355,13 @@ var navigationservice = angular.module('navigationservice', [])
         getconceptsexceldata: function () {
             return $http.get(adminurl + 'concepts/getconceptsexceldata', {
                 params: {}
+            });
+        },
+        mathmltolatex: function (mathml) {
+            return $http.get('http://www.wiris.net/demo/editor/mathml2latex', {
+                params: {
+                    mml: mathml
+                }
             });
         },
 

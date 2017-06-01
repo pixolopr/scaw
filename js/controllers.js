@@ -1054,7 +1054,7 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
 
   }]);
 
-phonecatControllers.controller('cardcreatorCtrl', ['$scope', 'TemplateService', 'NavigationService', '$location', '$routeParams', 'textAngularManager', 'FileUploader', '$filter','$rootScope',
+phonecatControllers.controller('cardcreatorCtrl', ['$scope', 'TemplateService', 'NavigationService', '$location', '$routeParams', 'textAngularManager', 'FileUploader', '$filter', '$rootScope',
   function ($scope, TemplateService, NavigationService, $location, $routeParams, textAngularManager, FileUploader, $filter, $rootScope) {
         $scope.template = TemplateService;
         TemplateService.content = "views/cardcreator.html";
@@ -1074,6 +1074,19 @@ phonecatControllers.controller('cardcreatorCtrl', ['$scope', 'TemplateService', 
 
         $rootScope.math = {
             'code': 'Abhay'
+        };
+
+        $scope.alert = function () {
+            console.log(editor.getMathML());
+            var mathmltolatexsuccess = function (response) {
+                console.log(response.data);
+                var latexmath = '$$ '+response.data+' $$';
+                $scope.cards[0].conceptdata = $scope.cards[0].conceptdata + latexmath;
+            };
+            var mathmltolatexerror = function (response) {
+                console.log(response.data);
+            };
+            NavigationService.mathmltolatex(editor.getMathML()).then(mathmltolatexsuccess, mathmltolatexerror);
         };
 
         /*GET CARDS BY CONCEPT ID*/

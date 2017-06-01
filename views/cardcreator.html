@@ -31,13 +31,15 @@
     <div class="col-md-6 toolbardivcol">
         <button ng-click="layoutmode = !layoutmode">Layout Mode</button>
         <p style="text-align:center">
-            `x = (-b +- sqrt(b^2-4ac))/(2a) .`
+            $$ \sqrt[3]4 $$
         </p>
-        
+
         <input type="text" ng-model="math.code">
-        
-        <button ng-click="insertToHtml('Hello World !')">INSERT</button>
-        
+
+        <button ng-click="alert()">INSERT</button>
+
+        <div id="editorContainer"></div>
+
         <!-- Trigger the modal with a button -->
         <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
         <h3>Use Tools to Edit Content</h3>
@@ -82,3 +84,5 @@
 
 <!-- Compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+
+
