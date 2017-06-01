@@ -1054,8 +1054,8 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
 
   }]);
 
-phonecatControllers.controller('cardcreatorCtrl', ['$scope', 'TemplateService', 'NavigationService', '$location', '$routeParams', 'textAngularManager', 'FileUploader', '$filter', '$rootScope',
-  function ($scope, TemplateService, NavigationService, $location, $routeParams, textAngularManager, FileUploader, $filter, $rootScope) {
+phonecatControllers.controller('cardcreatorCtrl', ['$scope', 'TemplateService', 'NavigationService', '$location', '$routeParams', 'textAngularManager', 'FileUploader', '$filter', '$rootScope', '$window',
+  function ($scope, TemplateService, NavigationService, $location, $routeParams, textAngularManager, FileUploader, $filter, $rootScope, $window) {
         $scope.template = TemplateService;
         TemplateService.content = "views/cardcreator.html";
         $scope.title = "syllabus";
@@ -1080,8 +1080,16 @@ phonecatControllers.controller('cardcreatorCtrl', ['$scope', 'TemplateService', 
             console.log(editor.getMathML());
             var mathmltolatexsuccess = function (response) {
                 console.log(response.data);
-                var latexmath = '$$ '+response.data+' $$';
-                $scope.cards[0].conceptdata = $scope.cards[0].conceptdata + latexmath;
+                var latexmath = '$$ ' + response.data + ' $$';
+
+                // your custom action begins, save current position
+                _savedSelection = $window.rangy.saveSelection()
+                var editorScope = textAngularManager.retrieveEditor('carddata0').scope;
+                // ... now your custom action ends and needs to introduce content in the editor
+                editorScope.displayElements.text[0].focus();
+                $window.rangy.restoreSelection(_savedSelection);
+                editor.wrapSelection('insertHtml', latexmath, true)
+
             };
             var mathmltolatexerror = function (response) {
                 console.log(response.data);

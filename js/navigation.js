@@ -2,7 +2,8 @@ var navigationservice = angular.module('navigationservice', [])
 
 .factory('NavigationService', function ($http) {
 
-    var adminurl = "http://localhost/rest/rest/index.php/";
+    //var adminurl = "http://localhost/rest/rest/index.php/";
+    var adminurl = "http://localhost/inqrest/rest/index.php/";
     //var adminurl = "http://pixoloproductions.com/inq/admin/rest/index.php/";
 
     var navigation = [{
