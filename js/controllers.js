@@ -1076,6 +1076,25 @@ phonecatControllers.controller('cardcreatorCtrl', ['$scope', 'TemplateService', 
             'code': 'Abhay'
         };
 
+        $rootScope.abhay = "Abhay Amin";
+        var editor;
+        console.log($rootScope.abhay);
+        /* window.onload = function () {
+             editor = com.wiris.jsEditor.JsEditor.newInstance({
+                 'language': 'en'
+             });
+             editor.insertInto(document.getElementById('editorContainer'));
+         };*/
+
+        $scope.loadmathseditor = function () {
+            editor = com.wiris.jsEditor.JsEditor.newInstance({
+                'language': 'en'
+            });
+            editor.insertInto(document.getElementById('editorContainer'));
+        };
+        //Here your view content is fully loaded !!
+
+
         $scope.alert = function () {
             console.log(editor.getMathML());
             var mathmltolatexsuccess = function (response) {

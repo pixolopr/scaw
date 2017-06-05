@@ -66,6 +66,25 @@ firstapp.filter('capitalize', function () {
 });
 
 firstapp.config(function ($provide) {
+    $provide.decorator('taOptions', ['taRegisterTool', '$delegate', '$rootScope', function (taRegisterTool, taOptions, $rootScope) {
+        // $delegate is the taOptions we are decorating
+        // register the tool with textAngular
+
+
+        taRegisterTool('colourGreen1', {
+            iconclass: "fa fa-square green",
+            action: function () {
+                console.log($rootScope.abhay);
+                this.$editor().wrapSelection('forecolor', 'green');
+            }
+        });
+        // add the button to the default toolbar definition
+        taOptions.toolbar[1].push('colourGreen1');
+        return taOptions;
+	}]);
+});
+
+firstapp.config(function ($provide) {
     $provide.decorator('taOptions', ['taRegisterTool', '$delegate', function (taRegisterTool, taOptions) {
         // $delegate is the taOptions we are decorating
         // register the tool with textAngular

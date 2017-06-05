@@ -2,10 +2,14 @@ var navigationservice = angular.module('navigationservice', [])
 
 .factory('NavigationService', function ($http) {
 
-    //var adminurl = "http://localhost/rest/rest/index.php/";
-    var adminurl = "http://localhost/inqrest/rest/index.php/";
+    //MACBOOK AND HOME LAPTOP
+    var adminurl = "http://localhost/rest/rest/index.php/";
+    //PC
+    //var adminurl = "http://localhost/inqrest/rest/index.php/";
+    //SERVER
     //var adminurl = "http://pixoloproductions.com/inq/admin/rest/index.php/";
-
+    //HOME LAPTOP
+    
     var navigation = [{
         name: "Home",
         classis: "active",
