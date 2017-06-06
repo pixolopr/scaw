@@ -71,17 +71,17 @@ firstapp.config(function ($provide) {
         // register the tool with textAngular
 
 
-        taRegisterTool('colourGreen1', {
+        taRegisterTool('insertequation', {
             iconclass: "fa fa-square green",
             action: function () {
-                console.log($rootScope.abhay);
-                this.$editor().wrapSelection('forecolor', 'green');
+                console.log($rootScope.math.code);
+                $rootScope.addmathequation(this);
             }
         });
         // add the button to the default toolbar definition
-        taOptions.toolbar[1].push('colourGreen1');
+        taOptions.toolbar[1].push('insertequation');
         return taOptions;
-	}]);
+ }]);
 });
 
 firstapp.config(function ($provide) {
@@ -97,7 +97,7 @@ firstapp.config(function ($provide) {
         // add the button to the default toolbar definition
         taOptions.toolbar[1].push('colourRed');
         return taOptions;
-	}]);
+ }]);
 });
 
 firstapp.config(function ($provide) {
@@ -113,7 +113,7 @@ firstapp.config(function ($provide) {
         // add the button to the default toolbar definition
         taOptions.toolbar[1].push('colourGreen');
         return taOptions;
-	}]);
+ }]);
 });
 
 firstapp.config(function ($provide) {
@@ -129,7 +129,7 @@ firstapp.config(function ($provide) {
         // add the button to the default toolbar definition
         taOptions.toolbar[1].push('colourBlue');
         return taOptions;
-	}]);
+ }]);
 });
 
 firstapp.config(function ($provide) {
@@ -145,7 +145,7 @@ firstapp.config(function ($provide) {
         // add the button to the default toolbar definition
         taOptions.toolbar[1].push('colourBlack');
         return taOptions;
-	}]);
+ }]);
 });
 
 firstapp.config(function ($provide) {
@@ -266,33 +266,6 @@ firstapp.directive('ngFiles', ['$parse', function ($parse) {
     }
         }]);
 
-firstapp.config(function ($provide) {
-
-    function insertTextAtCursor(text) {
-        var sel, range;
-        if (window.getSelection) {
-            sel = window.getSelection();
-            if (sel.getRangeAt && sel.rangeCount) {
-                range = sel.getRangeAt(0);
-                range.deleteContents();
-                range.insertNode(document.createTextNode(text));
-            }
-        } else if (document.selection && document.selection.createRange) {
-            document.selection.createRange().text = text;
-        };
-    };
-
-    $provide.decorator('taOptions', ['taRegisterTool', '$delegate', function (taRegisterTool, taOptions) {
-        taRegisterTool('insertMyHtml', {
-            buttontext: 'Atitthya',
-            action: function (taRegisterTool, taOptions) {
-                return this.$editor().wrapSelection('insertHTML', '<p>I will display &#x20AC;</p>');
-            }
-        });
-        taOptions.toolbar[1].push('insertMyHtml');
-        return taOptions;
-    }]);
-});
 
 firstapp.filter('imagepath', function () {
     return function (input) {

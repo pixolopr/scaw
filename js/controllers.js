@@ -1076,9 +1076,7 @@ phonecatControllers.controller('cardcreatorCtrl', ['$scope', 'TemplateService', 
             'code': 'Abhay'
         };
 
-        $rootScope.abhay = "Abhay Amin";
         var editor;
-        console.log($rootScope.abhay);
         /* window.onload = function () {
              editor = com.wiris.jsEditor.JsEditor.newInstance({
                  'language': 'en'
@@ -1095,19 +1093,19 @@ phonecatControllers.controller('cardcreatorCtrl', ['$scope', 'TemplateService', 
         //Here your view content is fully loaded !!
 
 
-        $scope.alert = function () {
+        $rootScope.addmathequation = function (el) {
             console.log(editor.getMathML());
             var mathmltolatexsuccess = function (response) {
                 console.log(response.data);
                 var latexmath = '$$ ' + response.data + ' $$';
 
-                // your custom action begins, save current position
-                _savedSelection = $window.rangy.saveSelection()
-                var editorScope = textAngularManager.retrieveEditor('carddata0').scope;
-                // ... now your custom action ends and needs to introduce content in the editor
-                editorScope.displayElements.text[0].focus();
-                $window.rangy.restoreSelection(_savedSelection);
-                editor.wrapSelection('insertHtml', latexmath, true)
+                $rootScope.math.code = latexmath;
+
+                el.$editor().wrapSelection('insertHTML', $rootScope.math.code, true);
+                
+                
+                
+                textAngularManager.refreshEditor('carddata0');
 
             };
             var mathmltolatexerror = function (response) {

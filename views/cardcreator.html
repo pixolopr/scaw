@@ -29,19 +29,17 @@
     </div>
 
     <div class="col-md-6 toolbardivcol">
-        <button ng-click="layoutmode = !layoutmode">Layout Mode</button>
+        <!--<button ng-click="layoutmode = !layoutmode">Layout Mode</button>
         <p style="text-align:center">
             $$ \sqrt[3]4 $$
         </p>
 
         <input type="text" ng-model="math.code">
 
-        <button ng-click="alert()">INSERT</button>
+        <button ng-click="alert()">INSERT</button>-->
 
         <div id="editorContainer" ng-init="loadmathseditor()"></div>
 
-        <!-- Trigger the modal with a button -->
-        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
         <h3>Use Tools to Edit Content</h3>
         <text-angular-toolbar name="cardtoolbar" ta-toolbar-group-class="btngroupstyle" ta-toolbar-button-class="btngroupstylebutton" ta-toolbar-active-button-class="activetoolbarbtn"></text-angular-toolbar>
     </div>
@@ -59,28 +57,6 @@
     </div>
 </div>
 
-
-
-<!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="open" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Modal Header</h4>
-            </div>
-            <div class="modal-body">
-                <p>Some text in the modal.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-
-    </div>
-</div>
 
 <!-- Compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
