@@ -1,11 +1,20 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12 textcenter syllabustitle">{{path.currentpath | capitalize}}</div>
-        <div class="col-md-12 marginbottom10px pointer"><a ng-click="changepath('boards', 'board',{})" ng-if="path.board.name">Board:</a> <a ng-click="changepath('boards', 'board',{})">{{path.board.name}}</a> <a ng-if="path.standard.name" ng-click="changepath('standards', 'standard',{})">Standard:</a> <a ng-click="changepath('standards', 'standard',{})">{{path.standard.name}}</a><a ng-if="path.subject.name" ng-click="changepath('subjects', 'subject',{})">Subject:</a> <a ng-click="changepath('subjects', 'subject',{})">{{path.subject.name}}</a> <a ng-if="path.chapter.name" ng-click="changepath('chapters', 'chapter',{})">Chapter:</a> <a ng-click="changepath('chapters', 'chapter',{})">{{path.chapter.name}}</a></div>
+        <div class="col-md-12 marginbottom10px pointer navigation">
+            <a class="navcolor" ng-click="changepath('boards', 'board',{})" ng-if="path.board.name">Board &nbsp; > </a>
+            <a class="navcolor" ng-click="changepath('boards', 'board',{})">{{path.board.name}}</a>
+            <a class="navcolor" ng-if="path.standard.name" ng-click="changepath('standards', 'standard',{})">&nbsp; > Standard &nbsp; > </a>
+            <a class="navcolor" ng-click="changepath('standards', 'standard',{})">{{path.standard.name}}</a>
+            <a class="navcolor" ng-if="path.subject.name" ng-click="changepath('subjects', 'subject',{})">&nbsp; > Subject &nbsp; ></a>
+            <a class="navcolor" ng-click="changepath('subjects', 'subject',{})">{{path.subject.name}}</a>
+            <a class="navcolor" ng-if="path.chapter.name" ng-click="changepath('chapters', 'chapter',{})">&nbsp; > Chapter &nbsp; ></a>
+            <a class="navcolor" ng-click="changepath('chapters', 'chapter',{})">{{path.chapter.name}}</a>
+        </div>
 
         <!--BOARD-->
         <div class="col-md-4 textcenter marginbottom10px" ng-repeat="board in path.boards" ng-if="path.currentpath == 'boards'">
-            <div class="boardbutton primarybg marginauto pointer" ng-click="changepath('standards', 'board', board)" ng-if="board.sync == true">{{board.name}}</div>
+            <div class="boardbutton primarybg marginauto pointer boardbox" ng-click="changepath('standards', 'board', board)" ng-if="board.sync == true">{{board.name}}</div>
 
             <div class="boardbutton primarybg marginauto" ng-if="board.sync == false">
                 <input type="text" ng-model="board.name">
