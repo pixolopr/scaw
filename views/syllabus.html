@@ -77,9 +77,12 @@
                             <h3 class="subjecttitle displayinline">{{concept.name | capitalize}}</h3>
                         </div>
                         <div class="col-md-2">
-                            <i class="fa fa-trash concepticons redcolor" aria-hidden="true" ng-click="deletedata($index)"></i>
-                            <i class="fa fa-pencil-square-o concepticons" aria-hidden="true" ng-click="editdata($index)"></i>
-                            <i class="fa fa-arrow-circle-o-right concepticons secondarycolor" aria-hidden="true" ng-click="gotocardcreator(concept.id)"></i>
+                            <i class="material-icons concepticons" aria-hidden="true" ng-click="deletedata($index)">delete</i>
+                            
+                            <i class="material-icons concepticons" aria-hidden="true" ng-click="editdata($index)">mode_edit</i>
+                           
+                            <i class="material-icons concepticons secondarycolor" aria-hidden="true" ng-click="gotocardcreator(concept.id)">arrow_forward</i>
+                           
                         </div>
                     </div>
                 </div>

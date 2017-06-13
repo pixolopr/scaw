@@ -6,9 +6,9 @@
 
             <!--BOARD-->
             <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="heard">Board</label>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="heard">Board</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <select id="heard" class="form-control" ng-model="dropdown.board" required>
+                    <select id="heard" class="form-control questionselect" ng-model="dropdown.board" required>
                         <option value="noboard" ng-selected="dropdown.board == 'noboard'">Select Board</option>
                         <option value="{{$index}}" ng-repeat="b in boards" ng-selected="dropdown.board == $index">{{b.name}}</option>
                     </select>
@@ -17,9 +17,9 @@
 
             <!--STANDARD-->
             <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="heard">Standard</label>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="heard">Standard</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <select id="heard" class="form-control" ng-model="dropdown.standard" required>
+                    <select id="heard" class="form-control questionselect" ng-model="dropdown.standard" required>
                         <option value="{{$index}}" ng-repeat="std in boards[dropdown.board].standards" ng-selected="$index == dropdown.standard">{{std.name}}</option>
                     </select>
                 </div>
@@ -27,9 +27,9 @@
 
             <!--SUBJECT-->
             <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="heard">Subject</label>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="heard">Subject</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <select id="heard" class="form-control" ng-model="dropdown.subject" required>
+                    <select id="heard" class="form-control questionselect" ng-model="dropdown.subject" required>
                         <option value="{{$index}}" ng-repeat="sub in boards[dropdown.board].standards[dropdown.standard].subjects" ng-selected="$index == dropdown.subject">{{sub.name}}</option>
                     </select>
                 </div>
@@ -37,9 +37,9 @@
 
             <!--CHAPTER-->
             <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="heard">Chapter</label>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="heard">Chapter</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <select id="heard" class="form-control" ng-model="question.chapter_id" ng-change="chapterchange()" required>
+                    <select id="heard" class="form-control questionselect" ng-model="question.chapter_id" ng-change="chapterchange()" required>
                         <option value="{{chap.id}}" ng-repeat="chap in boards[dropdown.board].standards[dropdown.standard].subjects[dropdown.subject].chapters" ng-selected="chap.id == question.chapter_id">{{chap.name}}</option>
                     </select>
                 </div>
@@ -47,9 +47,9 @@
 
             <!--TYPE-->
             <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="heard">Type</label>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="heard">Type</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <select id="heard" class="form-control" ng-model="question.type" required>
+                    <select id="heard" class="form-control questionselect" ng-model="question.type" required>
                         <option value="1" ng-selected="question.type == 1">Practice</option>
                         <option value="2" ng-selected="question.type == 2">Test</option>
                         <option value="3" ng-selected="question.type == 3">Doubt</option>
@@ -60,9 +60,9 @@
 
             <!--FORMAT-->
             <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="heard">Format</label>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="heard">Format</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <select id="heard" class="form-control" ng-model="question.format" required>
+                    <select id="heard" class="form-control questionselect" ng-model="question.format" required>
                         <option value="1" ng-selected="question.format == 1">Normal</option>
                         <option value="2" ng-selected="question.format == 2">Code</option>
                     </select>
@@ -71,9 +71,9 @@
 
             <!--OPTIONS AVAILABLE-->
             <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="heard">Options Available</label>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="heard">Options Available</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <select id="heard" class="form-control" ng-model="question.optionsavailable" required>
+                    <select id="heard" class="form-control questionselect" ng-model="question.optionsavailable" required>
                         <option value="0" ng-selected="question.optionsavailable == 0">No</option>
                         <option value="1" ng-selected="question.optionsavailable == 1">Yes</option>
                     </select>
@@ -82,9 +82,9 @@
 
             <!--Difficulty-->
             <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="heard">Difficulty</label>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="heard">Difficulty</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <select id="heard" class="form-control" ng-model="question.difficulty" required>
+                    <select id="heard" class="form-control questionselect" ng-model="question.difficulty" required>
                         <option value="1" ng-selected="question.difficulty == 1">Easy</option>
                         <option value="2" ng-selected="question.difficulty == 2">Medium</option>
                         <option value="3" ng-selected="question.difficulty == 3">Hard</option>
@@ -94,10 +94,10 @@
 
             <!--NORMAL-->
             <div class="form-group" ng-if="question.format == 1">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Question <span class="required">*</span>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="first-name">Question <span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <textarea type="textarea" id="first-name" required="required" class="form-control col-md-7 col-xs-12" ng-model="question.question"></textarea>
+                    <textarea type="textarea" id="first-name" required="required" class="form-control col-md-7 col-xs-12 questionselect" ng-model="question.question"></textarea>
                 </div>
             </div>
 
@@ -107,7 +107,7 @@
 
             <!--WHAT YOU SEE IS WHAT YOU GET-->
             <div class="form-group" ng-if="question.format == 2">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Question <span class="required">*</span>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="first-name">Question <span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                     <div text-angular="text-angular" name="htmlcontent" ng-model="question.question" ta-disabled='disabled'></div>
@@ -116,7 +116,7 @@
 
             <!--CONCEPTS-->
             <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Concepts <span class="required">*</span>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="first-name">Concepts <span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                     <p ng-repeat="con in conceptsdropdown">
@@ -128,10 +128,10 @@
 
             <!--DETAILED ANSWER-->
             <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Detailed Answer <span class="required">*</span>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="first-name">Detailed Answer <span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <textarea type="textarea" id="first-name" required="required" class="form-control col-md-7 col-xs-12" ng-model="answer.answer"></textarea>
+                    <textarea type="textarea" id="first-name" required="required" class="form-control col-md-7 col-xs-12 questionselect" ng-model="answer.answer"></textarea>
                 </div>
             </div>
             <div class="bulkuploaddiv">
@@ -144,7 +144,7 @@
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Option 1 (right Answer) <span class="required">*</span>
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <textarea type="textarea" id="first-name" required="required" class="form-control col-md-7 col-xs-12" ng-model="answer.option1"></textarea>
+                        <textarea type="textarea" id="first-name" required="required" class="form-control col-md-7 col-xs-12 questionselect" ng-model="answer.option1"></textarea>
                     </div>
                 </div>
 
@@ -153,7 +153,7 @@
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Option 2 <span class="required">*</span>
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <textarea type="textarea" id="first-name" required="required" class="form-control col-md-7 col-xs-12" ng-model="answer.option2"></textarea>
+                        <textarea type="textarea" id="first-name" required="required" class="form-control col-md-7 col-xs-12 questionselect" ng-model="answer.option2"></textarea>
                     </div>
                 </div>
 
@@ -162,7 +162,7 @@
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Option 3 <span class="required">*</span>
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <textarea type="textarea" id="first-name" required="required" class="form-control col-md-7 col-xs-12" ng-model="answer.option3"></textarea>
+                        <textarea type="textarea" id="first-name" required="required" class="form-control col-md-7 col-xs-12 questionselect" ng-model="answer.option3"></textarea>
                     </div>
                 </div>
 
@@ -171,7 +171,7 @@
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Option 4 <span class="required">*</span>
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <textarea type="textarea" id="first-name" required="required" class="form-control col-md-7 col-xs-12" ng-model="answer.option4"></textarea>
+                        <textarea type="textarea" id="first-name" required="required" class="form-control col-md-7 col-xs-12 questionselect" ng-model="answer.option4"></textarea>
                     </div>
                 </div>
             </div>
@@ -180,9 +180,9 @@
 
             <!--VERIFIED-->
             <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="heard">Question Verified</label>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="heard">Question Verified</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <select id="heard" class="form-control" ng-model="question.questionverified" required>
+                    <select id="heard" class="form-control questionselect" ng-model="question.questionverified" required>
                         <option value="0" ng-selected="question.verified == 0">No</option>
                         <option value="1" ng-selected="question.verified == 1">Yes</option>
                     </select>
@@ -190,9 +190,9 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="heard">Answer Verified</label>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="heard">Answer Verified</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <select id="heard" class="form-control" ng-model="answer.answerverified" required>
+                    <select id="heard" class="form-control questionselect" ng-model="answer.answerverified" required>
                         <option value="0" ng-selected="question.verified == 0">No</option>
                         <option value="1" ng-selected="question.verified == 1">Yes</option>
                     </select>

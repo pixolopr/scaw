@@ -53,8 +53,14 @@
                     <td>{{q.type}}</td>
                     <td>{{q.optionsavailable}}</td>
                     <td class="text-center">
-                        <button type="button" class="btn btn-default" ng-click="gotocreatecustomer(q.id)">Edit</button>
-                        <button type="button" class="btn btn-default" ng-click="deletequestion(q.id)">Delete</button>
+                        <!-- <button type="button" class="btn btn-default" ng-click="gotocreatecustomer(q.id)">Edit</button>
+                        
+                        <button type="button" class="btn btn-default" ng-click="deletequestion(q.id)">Delete</button>-->
+                        <i class="material-icons questionicon" aria-hidden="true" ng-click="gotocreatecustomer(q.id)">mode_edit</i>
+                        <i class="material-icons questionicon" aria-hidden="true" ng-click="deletequestion(q.id)">delete</i>
+
+
+
                     </td>
                 </tr>
             </tbody>
