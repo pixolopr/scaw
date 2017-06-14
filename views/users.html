@@ -51,8 +51,12 @@
                                     <br> Answered: {{user.answered}}
                                 </td>
                                 <td>
-                                    <a class="actionbutton1 waves-effect waves-light" ng-click="adduser(useraccesstype, user.id)"><i class="material-icons">mode_edit</i></a>
-                                    <a class="actionbutton2 waves-effect waves-light" ng-click="deleteuser(user.id)"><i class="material-icons">delete</i></a>
+                                   
+                                    <i class="material-icons questionicon" aria-hidden="true" ng-click="adduser(useraccesstype, user.id)">mode_edit</i>
+                        <i class="material-icons questionicon redcolor" aria-hidden="true" ng-click="deleteuser(user.id)">delete</i>
+                                   
+                                   <!-- <a class="actionbutton1 waves-effect waves-light" ng-click="adduser(useraccesstype, user.id)"><i class="material-icons">mode_edit</i></a>
+                                    <a class="actionbutton2 waves-effect waves-light" ng-click="deleteuser(user.id)"><i class="material-icons">delete</i></a>-->
                                 </td>
                             </tr>
                         </tbody>

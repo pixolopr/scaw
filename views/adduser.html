@@ -14,7 +14,7 @@
                                     <button class="btn btn-primary dropdown-toggle primarybg" type="button" data-toggle="dropdown">{{usertypename}}
                                         <span class="caret"></span></button>
                                     <ul class="dropdown-menu">
-                                        <li ng-repeat="type in access" class="capitalize"><a class="capitalize" ng-click="settype($index)">{{type.name}}</a></li>
+                                        <li ng-repeat="type in access" class="capitalize"><a class="capitalize userhover" ng-click="settype($index)">{{type.name}}</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -101,7 +101,7 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary pull-right primarybg" ng-click="createuser()">Update</button>
+                        <button type="submit" class="btn btn-success pull-right " ng-click="createuser()">Update</button>
                         <div class="clearfix"></div>
                     </form>
                 </div>

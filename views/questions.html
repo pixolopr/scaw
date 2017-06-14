@@ -1,9 +1,14 @@
 <div class="row">
-    <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="col-md-12 col-sm-12 col-xs-12 paddingtop">
+        
+        <div class="searchicon">
+           <i class="material-icons ">search</i> <label><input ng-model="searchText"></label>
+        </div>
 
         <div class="row">
             <div class="col-md-2">
-                <button type="button" class="btn btn-default primarybg" ng-click="gotocreatecustomer(0)">Create</button>
+                <button type="button" class="btn btn-default primarybg" ng-click="gotocreatecustomer(0)">
+               Create</button>
             </div>
             <div class="col-md-6 questionsfilterdiv">
                 <select class="displayinlineblock" style="width: 22%;" ng-model="filter.boardid" ng-change="getdata('standards', filter.boardid)">
@@ -34,7 +39,7 @@
     </div>
     <div class="col-md-12 col-sm-12 col-xs-12">
 
-        <table id="" class="table table-striped table-bordered">
+        <table id="searchTextResults" class="table table-striped table-bordered">
             <thead>
                 <tr>
                     <th>Sr.</th>
@@ -47,7 +52,7 @@
 
 
             <tbody>
-                <tr ng-repeat="q in questions">
+                <tr ng-repeat="q in questions | filter:searchText">
                     <td>{{$index+1}}</td>
                     <td>{{q.question}}</td>
                     <td>{{q.type}}</td>
@@ -57,7 +62,7 @@
                         
                         <button type="button" class="btn btn-default" ng-click="deletequestion(q.id)">Delete</button>-->
                         <i class="material-icons questionicon" aria-hidden="true" ng-click="gotocreatecustomer(q.id)">mode_edit</i>
-                        <i class="material-icons questionicon" aria-hidden="true" ng-click="deletequestion(q.id)">delete</i>
+                        <i class="material-icons questionicon redcolor" aria-hidden="true" ng-click="deletequestion(q.id)">delete</i>
 
 
 

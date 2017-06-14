@@ -1,219 +1,262 @@
-<div class="row">
-    <div class="col-md-12 col-sm-12 col-xs-12">
-        <br />
-        <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header cardhead primarybg" data-background-color="">
+                    <h4 class="title">Create Question</h4>
+                    <p class="category">Create or Edit a Question</p>
+                </div>
+                <div class="card-content">
+                    <form name="userform">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                
+                                <div class="form-group">
+                                    
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="heard">Board</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select id="heard" class="form-control questionselect" ng-model="dropdown.board" required>
+                                            <option value="noboard" ng-selected="dropdown.board == 'noboard'">Select Board</option>
+                                            <option value="{{$index}}" ng-repeat="b in boards" ng-selected="dropdown.board == $index">{{b.name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="heard">Standard</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select id="heard" class="form-control questionselect" ng-model="dropdown.standard" required>
+                                            <option value="{{$index}}" ng-repeat="std in boards[dropdown.board].standards" ng-selected="$index == dropdown.standard">{{std.name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
 
 
-            <!--BOARD-->
-            <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="heard">Board</label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <select id="heard" class="form-control questionselect" ng-model="dropdown.board" required>
-                        <option value="noboard" ng-selected="dropdown.board == 'noboard'">Select Board</option>
-                        <option value="{{$index}}" ng-repeat="b in boards" ng-selected="dropdown.board == $index">{{b.name}}</option>
-                    </select>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="heard">Subject</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select id="heard" class="form-control questionselect" ng-model="dropdown.subject" required>
+                                            <option value="{{$index}}" ng-repeat="sub in boards[dropdown.board].standards[dropdown.standard].subjects" ng-selected="$index == dropdown.subject">{{sub.name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="heard">Chapter</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select id="heard" class="form-control questionselect" ng-model="question.chapter_id" ng-change="chapterchange()" required>
+                                            <option value="{{chap.id}}" ng-repeat="chap in boards[dropdown.board].standards[dropdown.standard].subjects[dropdown.subject].chapters" ng-selected="chap.id == question.chapter_id">{{chap.name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="heard">Type</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select id="heard" class="form-control questionselect" ng-model="question.type" required>
+                                            <option value="1" ng-selected="question.type == 1">Practice</option>
+                                            <option value="2" ng-selected="question.type == 2">Test</option>
+                                            <option value="3" ng-selected="question.type == 3">Doubt</option>
+                                            <option value="4" ng-selected="question.type == 4">Others</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="heard">Format</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select id="heard" class="form-control questionselect" ng-model="question.format" required>
+                                            <option value="1" ng-selected="question.format == 1">Normal</option>
+                                            <option value="2" ng-selected="question.format == 2">Code</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group label-floating">
+                                    <label class="control-label inputsize">School</label>
+                                    <input type="text" class="form-control inputbox" ng-model="user.school">
+                                </div>
+                            </div>
+                        </div>-->
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="heard">Options Available</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select id="heard" class="form-control questionselect" ng-model="question.optionsavailable" required>
+                                            <option value="0" ng-selected="question.optionsavailable == 0">No</option>
+                                            <option value="1" ng-selected="question.optionsavailable == 1">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="heard">Difficulty</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select id="heard" class="form-control questionselect" ng-model="question.difficulty" required>
+                                            <option value="1" ng-selected="question.difficulty == 1">Easy</option>
+                                            <option value="2" ng-selected="question.difficulty == 2">Medium</option>
+                                            <option value="3" ng-selected="question.difficulty == 3">Hard</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <!--SAME CONCEPTS AND DETAILED ANSWERS-->
+
+
+
+                        <div class="form-group" ng-if="question.format == 1">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="first-name">Question <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <textarea type="textarea" id="first-name" required="required" class="form-control col-md-7 col-xs-12 questionselect" ng-model="question.question"></textarea>
+                            </div>
+                        </div>
+
+                        <div class=" choosefile">
+                            <input id="questionimageupload" class="questionschoosefile" type="file" aria-label="Add Excel to your post" class="upload" name="file" onchange="angular.element(this).scope().LoadFileData(this.files, 0)" multiple="">
+                        </div>
+
+                        <!--WHAT YOU SEE IS WHAT YOU GET-->
+                        <div class="form-group" ng-if="question.format == 2">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="first-name">Question <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div text-angular="text-angular" name="htmlcontent" ng-model="question.question" ta-disabled='disabled'></div>
+                            </div>
+                        </div>
+
+                        <!--CONCEPTS-->
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="first-name">Concepts <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <p ng-repeat="con in conceptsdropdown">
+                                    <input type="checkbox" id="{{'checkbox'+$index}}" ng-model="concept.concepts[$index]" />
+                                    <label for="{{'checkbox'+$index}}">{{con.name}}</label>
+                                </p>
+                            </div>
+                        </div>
+
+                        <!--DETAILED ANSWER-->
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="first-name">Detailed Answer <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <textarea type="textarea" id="first-name" required="required" class="form-control col-md-7 col-xs-12 questionselect" ng-model="answer.answer"></textarea>
+                            </div>
+                        </div>
+                        <div class=" choosefile">
+                            <input id="questionimageupload" class="questionschoosefile" type="file" aria-label="Add Excel to your post" class="upload" name="file" onchange="angular.element(this).scope().LoadFileData(this.files, 1)" multiple="">
+                        </div>
+
+                        <div ng-show="question.optionsavailable == 1">
+                            <!--OPTION 1-->
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Option 1 (right Answer) <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <textarea type="textarea" id="first-name" required="required" class="form-control col-md-7 col-xs-12 questionselect" ng-model="answer.option1"></textarea>
+                                </div>
+                            </div>
+
+                            <!--OPTION 2-->
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Option 2 <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <textarea type="textarea" id="first-name" required="required" class="form-control col-md-7 col-xs-12 questionselect" ng-model="answer.option2"></textarea>
+                                </div>
+                            </div>
+
+                            <!--OPTION 3-->
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Option 3 <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <textarea type="textarea" id="first-name" required="required" class="form-control col-md-7 col-xs-12 questionselect" ng-model="answer.option3"></textarea>
+                                </div>
+                            </div>
+
+                            <!--OPTION 4-->
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Option 4 <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <textarea type="textarea" id="first-name" required="required" class="form-control col-md-7 col-xs-12 questionselect" ng-model="answer.option4"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="heard">Question Verified</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select id="heard" class="form-control questionselect" ng-model="question.questionverified" required>
+                                            <option value="0" ng-selected="question.verified == 0">No</option>
+                                            <option value="1" ng-selected="question.verified == 1">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="heard">Answer Verified</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select id="heard" class="form-control questionselect" ng-model="answer.answerverified" required>
+                                            <option value="0" ng-selected="question.verified == 0">No</option>
+                                            <option value="1" ng-selected="question.verified == 1">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-4">
+                                <button class="btn btn-danger" type="button" ng-click="goback()">Cancel</button>
+                                <button type="submit" class="btn btn-success" ng-click="submit()">Submit</button>
+                            </div>
+                        </div>
+
+                        <div class="clearfix"></div>
+                    </form>
                 </div>
             </div>
-
-            <!--STANDARD-->
-            <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="heard">Standard</label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <select id="heard" class="form-control questionselect" ng-model="dropdown.standard" required>
-                        <option value="{{$index}}" ng-repeat="std in boards[dropdown.board].standards" ng-selected="$index == dropdown.standard">{{std.name}}</option>
-                    </select>
-                </div>
-            </div>
-
-            <!--SUBJECT-->
-            <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="heard">Subject</label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <select id="heard" class="form-control questionselect" ng-model="dropdown.subject" required>
-                        <option value="{{$index}}" ng-repeat="sub in boards[dropdown.board].standards[dropdown.standard].subjects" ng-selected="$index == dropdown.subject">{{sub.name}}</option>
-                    </select>
-                </div>
-            </div>
-
-            <!--CHAPTER-->
-            <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="heard">Chapter</label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <select id="heard" class="form-control questionselect" ng-model="question.chapter_id" ng-change="chapterchange()" required>
-                        <option value="{{chap.id}}" ng-repeat="chap in boards[dropdown.board].standards[dropdown.standard].subjects[dropdown.subject].chapters" ng-selected="chap.id == question.chapter_id">{{chap.name}}</option>
-                    </select>
-                </div>
-            </div>
-
-            <!--TYPE-->
-            <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="heard">Type</label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <select id="heard" class="form-control questionselect" ng-model="question.type" required>
-                        <option value="1" ng-selected="question.type == 1">Practice</option>
-                        <option value="2" ng-selected="question.type == 2">Test</option>
-                        <option value="3" ng-selected="question.type == 3">Doubt</option>
-                        <option value="4" ng-selected="question.type == 4">Others</option>
-                    </select>
-                </div>
-            </div>
-
-            <!--FORMAT-->
-            <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="heard">Format</label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <select id="heard" class="form-control questionselect" ng-model="question.format" required>
-                        <option value="1" ng-selected="question.format == 1">Normal</option>
-                        <option value="2" ng-selected="question.format == 2">Code</option>
-                    </select>
-                </div>
-            </div>
-
-            <!--OPTIONS AVAILABLE-->
-            <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="heard">Options Available</label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <select id="heard" class="form-control questionselect" ng-model="question.optionsavailable" required>
-                        <option value="0" ng-selected="question.optionsavailable == 0">No</option>
-                        <option value="1" ng-selected="question.optionsavailable == 1">Yes</option>
-                    </select>
-                </div>
-            </div>
-
-            <!--Difficulty-->
-            <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="heard">Difficulty</label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <select id="heard" class="form-control questionselect" ng-model="question.difficulty" required>
-                        <option value="1" ng-selected="question.difficulty == 1">Easy</option>
-                        <option value="2" ng-selected="question.difficulty == 2">Medium</option>
-                        <option value="3" ng-selected="question.difficulty == 3">Hard</option>
-                    </select>
-                </div>
-            </div>
-
-            <!--NORMAL-->
-            <div class="form-group" ng-if="question.format == 1">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="first-name">Question <span class="required">*</span>
-                </label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <textarea type="textarea" id="first-name" required="required" class="form-control col-md-7 col-xs-12 questionselect" ng-model="question.question"></textarea>
-                </div>
-            </div>
-
-            <div class="bulkuploaddiv">
-                <input id="questionimageupload" class="questionschoosefile" type="file" aria-label="Add Excel to your post" class="upload" name="file" onchange="angular.element(this).scope().LoadFileData(this.files, 0)" multiple="">
-            </div>
-
-            <!--WHAT YOU SEE IS WHAT YOU GET-->
-            <div class="form-group" ng-if="question.format == 2">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="first-name">Question <span class="required">*</span>
-                </label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <div text-angular="text-angular" name="htmlcontent" ng-model="question.question" ta-disabled='disabled'></div>
-                </div>
-            </div>
-
-            <!--CONCEPTS-->
-            <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="first-name">Concepts <span class="required">*</span>
-                </label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <p ng-repeat="con in conceptsdropdown">
-                        <input type="checkbox" id="{{'checkbox'+$index}}" ng-model="concept.concepts[$index]" />
-                        <label for="{{'checkbox'+$index}}">{{con.name}}</label>
-                    </p>
-                </div>
-            </div>
-
-            <!--DETAILED ANSWER-->
-            <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="first-name">Detailed Answer <span class="required">*</span>
-                </label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <textarea type="textarea" id="first-name" required="required" class="form-control col-md-7 col-xs-12 questionselect" ng-model="answer.answer"></textarea>
-                </div>
-            </div>
-            <div class="bulkuploaddiv">
-                <input id="questionimageupload" class="questionschoosefile" type="file" aria-label="Add Excel to your post" class="upload" name="file" onchange="angular.element(this).scope().LoadFileData(this.files, 1)" multiple="">
-            </div>
-
-            <div ng-show="question.optionsavailable == 1">
-                <!--OPTION 1-->
-                <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Option 1 (right Answer) <span class="required">*</span>
-                    </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <textarea type="textarea" id="first-name" required="required" class="form-control col-md-7 col-xs-12 questionselect" ng-model="answer.option1"></textarea>
-                    </div>
-                </div>
-
-                <!--OPTION 2-->
-                <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Option 2 <span class="required">*</span>
-                    </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <textarea type="textarea" id="first-name" required="required" class="form-control col-md-7 col-xs-12 questionselect" ng-model="answer.option2"></textarea>
-                    </div>
-                </div>
-
-                <!--OPTION 3-->
-                <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Option 3 <span class="required">*</span>
-                    </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <textarea type="textarea" id="first-name" required="required" class="form-control col-md-7 col-xs-12 questionselect" ng-model="answer.option3"></textarea>
-                    </div>
-                </div>
-
-                <!--OPTION 4-->
-                <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Option 4 <span class="required">*</span>
-                    </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <textarea type="textarea" id="first-name" required="required" class="form-control col-md-7 col-xs-12 questionselect" ng-model="answer.option4"></textarea>
-                    </div>
-                </div>
-            </div>
-
-
-
-            <!--VERIFIED-->
-            <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="heard">Question Verified</label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <select id="heard" class="form-control questionselect" ng-model="question.questionverified" required>
-                        <option value="0" ng-selected="question.verified == 0">No</option>
-                        <option value="1" ng-selected="question.verified == 1">Yes</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="heard">Answer Verified</label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <select id="heard" class="form-control questionselect" ng-model="answer.answerverified" required>
-                        <option value="0" ng-selected="question.verified == 0">No</option>
-                        <option value="1" ng-selected="question.verified == 1">Yes</option>
-                    </select>
-                </div>
-            </div>
-
-
-
-
-
-            <div class="ln_solid"></div>
-            <div class="form-group">
-                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                    <button class="btn btn-primary" type="button" ng-click="goback()">Cancel</button>
-                    <button type="submit" class="btn btn-success" ng-click="submit()">Submit</button>
-                </div>
-            </div>
-
-        </form>
+        </div>
     </div>
 </div>
-
-<!-- Compiled and minified JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>

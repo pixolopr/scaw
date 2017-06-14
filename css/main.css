@@ -469,9 +469,49 @@
 .questionselect {
     background-image: linear-gradient(#03bdd6, #03bdd6), linear-gradient(#D2D2D2, #D2D2D2) !important;
 }
-.forgotpass{
+.forgotpass {
     color: black !important;
 }
-.forgotpass:hover{
+.forgotpass:hover {
     color: #03bdd6 !important;
+}
+.paddingtop {
+    padding-top: 20px;
+}
+.searchicon {
+    text-align: right;
+}
+.choosefile {
+    margin-left: 59% !important;
+    display: inline-block;
+}
+.userhover {
+    background-color: white !important;
+}
+.userhover:hover {
+    background-color: #03bdd6 !important;
+}
+.logouser {
+    position: relative;
+      padding: 69px 0px!important;
+    z-index: 4;
+        text-align: -webkit-center;
+}
+.usertext{
+       font-size: 17px;
+    font-weight: 700;
+        margin-top: 2px;
+}
+.userlogo{
+    text-align: -webkit-center;
+    padding-top: 11px;
+    margin-bottom: -63px;
+    opacity: 1em;
+    opacity: 0.3;
+}
+.pixolo{
+    color: #03bdd6 !important;
+}
+.pixolo:hover{
+    color: crimson!important;
 }
