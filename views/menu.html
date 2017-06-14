@@ -1,65 +1,65 @@
+<div ng-controller="headerctrl">
+    <div class="userlogo">
+        <img src="{{'img/'+userarray[user.access_id - 1].image}}" height="67" width="67">
+    </div>
+    <div class="logo logouser row ">
 
-  
-<div class="userlogo">
-    <img src="img/admin.png" height="67" width="67">
-</div>
-  <div class="logo logouser row ">
-   
-   
-    <div class="col-md-6 col-md-offset-3 usertext">Suresh Shah</div>
-    <div class="col-md-6 col-md-offset-3 ">Administrator</div>
-</div>
 
-<div class="sidebar-wrapper">
-    <ul class="nav">
-        <li ng-class="{'active':title=='dashboard'}">
-            <a href="#/home">
-                <i class="material-icons">dashboard</i>
-                <p>Dashboard</p>
-            </a>
-        </li>
-        <li ng-class="{'active':title=='users'}">
-            <a href="#/users">
-                <i class="material-icons">person</i>
-                <p>Users</p>
-            </a>
-        </li>
-        <li ng-class="{'active':title=='syllabus'}">
-            <a href="#/syllabus">
-                <i class="material-icons">content_paste</i>
-                <p>Syllabus</p>
-            </a>
-        </li>
-        <li ng-class="{'active':title=='questions'}">
-            <a href="#/questions">
-                <i class="material-icons">library_books</i>
-                <p>Q&A</p>
-            </a>
-        </li>
-        <li ng-class="{'active':title=='concepts'}">
-            <a href="#/concepts">
-                <i class="material-icons">library_books</i>
-                <p>Concepts</p>
-            </a>
-        </li>
-        <li ng-class="{'active':title=='leaderboard'}">
-            <a href="#/leaderboard">
-                <i class="material-icons">bubble_chart</i>
-                <p>Leaderboard</p>
-            </a>
-        </li>
-        <li ng-class="{'active':title=='notifications'}">
-            <a href="#/notifications">
-                <i class="material-icons text-gray">notifications</i>
-                <p>Notifications</p>
-            </a>
-        </li>
+        <div class="col-md-6 col-md-offset-3 usertext">{{user.name}}</div>
+        <div class="col-md-6 col-md-offset-3 ">{{userarray[user.access_id - 1].post}}</div>
+    </div>
 
-        <li ng-click="logout()">
-            <a href="#/login">
-                <i class="material-icons text-gray">logout</i>
-                <p>Logout</p>
-            </a>
-        </li>
-    </ul>
+    <div class="sidebar-wrapper">
+        <ul class="nav">
+            <li ng-class="{'active':title=='dashboard'}">
+                <a href="#/home">
+                    <i class="material-icons">dashboard</i>
+                    <p>Dashboard</p>
+                </a>
+            </li>
+            <li ng-class="{'active':title=='users'}" ng-if="user.access_id == 1">
+                <a href="#/users">
+                    <i class="material-icons">person</i>
+                    <p>Users</p>
+                </a>
+            </li>
+            <li ng-class="{'active':title=='syllabus'}" ng-if="user.access_id == 1">
+                <a href="#/syllabus">
+                    <i class="material-icons">content_paste</i>
+                    <p>Syllabus</p>
+                </a>
+            </li>
+            <li ng-class="{'active':title=='questions'}">
+                <a href="#/questions">
+                    <i class="material-icons">library_books</i>
+                    <p>Q&A</p>
+                </a>
+            </li>
+            <li ng-class="{'active':title=='concepts'}" ng-if="user.access_id == 1">
+                <a href="#/concepts">
+                    <i class="material-icons">library_books</i>
+                    <p>Concepts</p>
+                </a>
+            </li>
+            <li ng-class="{'active':title=='leaderboard'}" ng-if="user.access_id == 1">
+                <a href="#/leaderboard">
+                    <i class="material-icons">bubble_chart</i>
+                    <p>Leaderboard</p>
+                </a>
+            </li>
+            <li ng-class="{'active':title=='notifications'}" ng-if="user.access_id == 1">
+                <a href="#/notifications">
+                    <i class="material-icons text-gray">notifications</i>
+                    <p>Notifications</p>
+                </a>
+            </li>
+
+            <li ng-click="logout()">
+                <a>
+                    <i class="material-icons text-gray">logout</i>
+                    <p>Logout</p>
+                </a>
+            </li>
+        </ul>
+    </div>
 </div>

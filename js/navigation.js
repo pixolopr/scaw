@@ -9,7 +9,7 @@ var navigationservice = angular.module('navigationservice', [])
     //SERVER
     //var adminurl = "http://learnwithinq.com/inq/adminpanel/rest/index.php/";
     //HOME LAPTOP
-    
+
     var navigation = [{
         name: "Home",
         classis: "active",
@@ -56,6 +56,13 @@ var navigationservice = angular.module('navigationservice', [])
                 params: {
                     email: email,
                     password: pass
+                }
+            });
+        },
+        isloggedin: function (email) {
+            return $http.get(adminurl + 'users/isloggedin', {
+                params: {
+                    email: email
                 }
             });
         },

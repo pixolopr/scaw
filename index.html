@@ -52,6 +52,7 @@
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/jquery-ui.min.js"></script>
     <script src="assets/js/sortable.js"></script>
+    <script src="lib/js/jStorage.min.js"></script>
 
     <!--BOOTSTRAP JAVASCRIPT-->
     <script src="lib/js/bootstrap.js"></script>
@@ -98,7 +99,7 @@
 
     <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_CHTML"></script>
     <script src="http://www.wiris.net/demo/editor/editor"></script>
-    
+
 
 
     <!-- Material Dashboard javascript methods -->
@@ -114,6 +115,19 @@
 
 
     <div class="repeated-item" ng-view></div>
+</body>
 
+<script>
+    var user = $.jStorage.get("user");
+    $(document).ready(function() {
+        if (!user || user == {}) {
+            console.log("It shold redirect.");
+            window.location = "#/login";
+        } else {
+            window.location = "#/home";
+        }
+    });
+
+</script>
 
 </html>

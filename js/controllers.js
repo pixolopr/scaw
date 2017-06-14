@@ -4,6 +4,19 @@ var adminurl = "http://localhost/rest/rest/index.php/";
 var imageurl = "http://localhost/rest/rest/uploads/";
 //var imageurl = "http://pixoloproductions.com/inq/admin/rest/uploads/";
 
+var userarray = [{
+        'image': 'admin.png',
+        'post': 'Administrator'
+},
+    {
+        'image': 'edit.png',
+        'post': 'Editor'
+},
+    {
+        'image': 'teach.png',
+        'post': 'Teacher'
+}];
+
 phonecatControllers.controller('home', ['$scope', 'TemplateService', 'NavigationService', '$rootScope',
   function ($scope, TemplateService, NavigationService, $rootScope) {
         $scope.template = TemplateService;
@@ -11,6 +24,8 @@ phonecatControllers.controller('home', ['$scope', 'TemplateService', 'Navigation
         $scope.title = "dashboard";
         $scope.navigation = NavigationService.getnav();
         $rootScope.loginpage = false;
+
+        /*INITIALIZATIONS*/
 
         $scope.getconceptsexceldata = function () {
             var getconceptsexceldatasuccess = function (response) {
@@ -44,6 +59,7 @@ phonecatControllers.controller('loginCtrl', ['$scope', 'TemplateService', 'Navig
                 if (response.data != 'false') {
                     $rootScope.loginpage = false;
                     $scope.user = response.data;
+                    $.jStorage.set("user", response.data);
                     $location.path('/home');
                     //STORE IN JSTORAGE IF NEEDED
                 };
@@ -754,8 +770,8 @@ phonecatControllers.controller('questionsCtrl', ['$scope', 'TemplateService', 'N
 
 }]);
 
-phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService', 'NavigationService', '$location', '$routeParams', 'textAngularManager',
-  function ($scope, TemplateService, NavigationService, $location, $routeParams, textAngularManager) {
+phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService', 'NavigationService', '$location', '$routeParams', 'textAngularManager','$rootScope',
+  function ($scope, TemplateService, NavigationService, $location, $routeParams, textAngularManager, $rootScope) {
         $scope.template = TemplateService;
         TemplateService.content = "views/createquestion.html";
         $scope.title = "questions";
@@ -913,6 +929,7 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
                 console.log(value);
                 formdata.append(key, value);
             });
+            formdata.append('user_id', $rootScope.user.id);
             angular.forEach($scope.answer, function (value, key) {
                 formdata.append(key, value);
             });
@@ -932,6 +949,7 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
 
             NavigationService.uploadfullquestiondata(formdata).success(function (response) {
                 console.log(response);
+                $location.path('/questions');
             });
         };
 
@@ -1102,9 +1120,9 @@ phonecatControllers.controller('cardcreatorCtrl', ['$scope', 'TemplateService', 
                 $rootScope.math.code = latexmath;
 
                 el.$editor().wrapSelection('insertHTML', $rootScope.math.code, true);
-                
-                
-                
+
+
+
                 textAngularManager.refreshEditor('carddata0');
 
             };
@@ -1465,12 +1483,28 @@ phonecatControllers.controller('contact', ['$scope', 'TemplateService', 'Navigat
   }]);
 
 
-phonecatControllers.controller('headerctrl', ['$scope', 'TemplateService', '$location', '$rootScope',
- function ($scope, TemplateService, $location, $rootScope) {
+phonecatControllers.controller('headerctrl', ['$scope', 'TemplateService', '$location', '$rootScope', 'NavigationService',
+ function ($scope, TemplateService, $location, $rootScope, NavigationService) {
         $scope.template = TemplateService;
 
-        console.log('HEADER CTRL');
-        $rootScope.loginpage = false;
+        /*INITIALIZATIONS*/
+        $rootScope.user = $.jStorage.get("user");
+        $scope.user = $.jStorage.get("user");
+        $scope.userarray = userarray;
+
+        var isloggedinsuccess = function (response) {
+            console.log(response.data);
+            if (response.data == "true") {
+
+            } else {
+                $location.path('/login');
+            };
+        };
+        var isloggedinerror = function (response) {
+            console.log(response.data);
+        };
+        NavigationService.isloggedin($rootScope.user.email).then(isloggedinsuccess, isloggedinerror);
+        //$rootScope.loginpage = false;
 
         $scope.logout = function () {
             $location.path('/login');
