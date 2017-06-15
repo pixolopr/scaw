@@ -510,3 +510,8 @@
 .pixolo:hover {
   color: crimson!important;
 }
+.textareaquestion {
+  background-color: #eeeeee !important;
+  height: 150px !important;
+  resize: vertical !important;
+}

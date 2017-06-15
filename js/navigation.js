@@ -7,7 +7,7 @@ var navigationservice = angular.module('navigationservice', [])
     //PC
     //var adminurl = "http://localhost/inqrest/rest/index.php/";
     //SERVER
-    //var adminurl = "http://learnwithinq.com/inq/adminpanel/rest/index.php/";
+    //var adminurl = "http://learnwithinq.com/adminpanel/rest/index.php/";
     //HOME LAPTOP
 
     var navigation = [{
@@ -195,6 +195,8 @@ var navigationservice = angular.module('navigationservice', [])
                 params: {
                     count: filter.count,
                     limit: filter.limit,
+                    userid: filter.userid,
+                    access: filter.access,
                     chapterid: filter.chapterid,
                     subjectid: filter.subjectid,
                     standardid: filter.standardid,
@@ -346,6 +348,17 @@ var navigationservice = angular.module('navigationservice', [])
                 transformRequest: angular.identity
             });
         },
+        editfullquestiondata: function (formdata) {
+            return $http({
+                url: adminurl + 'questions/editfullquestiondata',
+                method: "POST",
+                headers: {
+                    "Content-Type": undefined
+                },
+                data: formdata,
+                transformRequest: angular.identity
+            });
+        },
         getimagename: function (formdata) {
             return $http({
                 url: adminurl + 'questions/returnimagename',
@@ -373,6 +386,14 @@ var navigationservice = angular.module('navigationservice', [])
             return $http.get('http://www.wiris.net/demo/editor/mathml2latex', {
                 params: {
                     mml: mathml
+                }
+            });
+        },
+        getdashboarddata: function (id, access) {
+            return $http.get(adminurl + 'users/getdashboarddata', {
+                params: {
+                    userid: id,
+                    access: access
                 }
             });
         },
