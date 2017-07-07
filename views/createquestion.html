@@ -29,7 +29,7 @@
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <select id="heard" class="form-control questionselect" ng-model="dropdown.standard" required>
                                             <option value="nostandard" ng-selected="dropdown.standard == 'nostandard'">Select Standard</option>
-                                            <option value="{{$index}}" ng-repeat="std in boards[dropdown.board].standards" ng-selected="dropdown.standard == $index">{{$index}}{{std.name}}</option>
+                                            <option value="{{$index}}" ng-repeat="std in boards[dropdown.board].standards" ng-selected="dropdown.standard == $index">{{std.name}}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -45,7 +45,7 @@
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <select id="heard" class="form-control questionselect" ng-model="dropdown.subject" required>
                                             <option value="nosubject" ng-selected="dropdown.subject == 'nosubject'">Select Subject</option>
-                                            <option value="{{$index}}" ng-repeat="sub in boards[dropdown.board].standards[dropdown.standard].subjects" ng-selected=" dropdown.subject == $index">{{$index}}{{sub.name}}</option>
+                                            <option value="{{$index}}" ng-repeat="sub in boards[dropdown.board].standards[dropdown.standard].subjects" ng-selected=" dropdown.subject == $index">{{sub.name}}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -143,7 +143,7 @@
                             </div>
                         </div>
 
-                        <div class="row">
+                        <div class="row" ng-if="question.format == 1">
                             <div class="col-md-2 createquestion">Question Image</div>
                             <div class="col-md-6">
                                 <input id="questionimageupload" class="questionschoosefile" type="file" aria-label="Add Excel to your post" class="upload" name="file" onchange="angular.element(this).scope().LoadFileData(this.files, 0)" multiple="">
@@ -153,16 +153,28 @@
                             </div>
                         </div>
 
-                        <!--<button ng-click="showfile()">SHOW</button>-->
 
 
                         <!--WHAT YOU SEE IS WHAT YOU GET-->
-                        <div class="row" ng-if="question.format == 2">
+                        <div class="row" ng-show="question.format == 2">
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="first-name">Question <span class="required">*</span>
+                                <label class="control-label col-md-12 col-sm-12 col-xs-12 createquestion" for="first-name">Question <span class="required">*</span>
                                 </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <div text-angular="text-angular" name="htmlcontent" ng-model="question.question" ta-disabled='disabled'></div>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <text-angular name="questiondata" ng-model="question.question" ng-focus="setdatavariable('question')" ta-target-toolbars="htmlcontent" ta-file-drop="dropHandler" style="background-color: #eeeeee;"></text-angular>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div id="editorContainer" ng-init="loadmathseditor()"></div>
+
+                                            <text-angular-toolbar name="htmlcontent" ta-toolbar-group-class="btngroupstyle" ta-toolbar-button-class="btngroupstylebutton" ta-toolbar-active-button-class="activetoolbarbtn"></text-angular-toolbar>
+                                        </div>
+                                    </div>
+
+
+
                                 </div>
                             </div>
                         </div>
@@ -180,9 +192,26 @@
                                 </div>
                             </div>
                         </div>
+                        
+                         <div class="row">
+                            <div class="col-md-6">
+                                
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="heard">Answer Format</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select id="heard" class="form-control questionselect" ng-model="answer.answerformat" required>
+                                            <option value="1" ng-selected="answer.answerformat == 1">Normal</option>
+                                            <option value="2" ng-selected="answer.answerformat == 2">Code</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                        <!--DETAILED ANSWER-->
-                        <div class="row">
+                        <!--DETAILIED ANSWER-->
+                        <div class="row" ng-if="answer.answerformat == 1">
                             <div class="form-group">
                                 <label class="control-label col-md-2 col-sm-2 col-xs-12 createquestion" for="first-name">Detailed Answer <span class="required">*</span>
                                 </label>
@@ -191,15 +220,40 @@
                                 </div>
                             </div>
                         </div>
+                        
 
                         <!--ANSWER IMAGE-->
-                        <div class="row">
+                        <div class="row" ng-if="answer.answerformat == 1">
                             <div class="col-md-2 createquestion">Answer Image</div>
                             <div class="col-md-6">
                                 <input id="questionimageupload" class="questionschoosefile" type="file" aria-label="Add Excel to your post" class="upload" name="file" onchange="angular.element(this).scope().LoadFileData(this.files, 1)" multiple="">
                             </div>
-                             <div class="col-md-4" ng-if="editid != 0">
+                            <div class="col-md-4" ng-if="editid != 0">
                                 <img src="{{answerimage | imagepath}}" style="width: auto;height: 120px;">
+                            </div>
+                        </div>
+                        
+                         <!--WHAT YOU SEE IS WHAT YOU GET-->
+                        <div class="row" ng-show="answer.answerformat == 2">
+                            <div class="form-group">
+                                <label class="control-label col-md-12 col-sm-12 col-xs-12 createquestion" for="first-name">Detailed Answer <span class="required">*</span>
+                                </label>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <text-angular name="answerdata" ng-model="answer.answer" ng-focus="setdatavariable('answer')" ta-target-toolbars="answerhtmlcontent" ta-file-drop="dropHandler" style="background-color: #eeeeee;"></text-angular>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div id="editorContainer2" ng-init="loadmathseditor()"></div>
+
+                                            <text-angular-toolbar name="answerhtmlcontent" ta-toolbar-group-class="btngroupstyle" ta-toolbar-button-class="btngroupstylebutton" ta-toolbar-active-button-class="activetoolbarbtn"></text-angular-toolbar>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
                             </div>
                         </div>
 
@@ -294,3 +348,5 @@
         </div>
     </div>
 </div>
+
+

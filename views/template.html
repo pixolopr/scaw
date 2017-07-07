@@ -30,3 +30,14 @@
     <div ng-include="template.content" ng-if="loginpage" class="wrapper loginbg"></div>
 
 </div>
+
+<!-- Modal Structure -->
+<div id="modal1" class="modal modal-fixed-footer" style="width: 500px;min-height: 70%;height: auto;">
+    <div class="modal-content">
+        <h4>Equation Viewer</h4>
+        <span ng-bind-html="code.question" id="MathExample"></span>
+    </div>
+    <div class="modal-footer">
+        <a class="modal-action modal-close waves-effect waves-green btn-flat" ng-click="modalchange(0)">Okay</a>
+    </div>
+</div>

@@ -3,12 +3,12 @@
         <div class="col-md-12 textcenter syllabustitle">{{path.currentpath | capitalize}}</div>
         <div class="col-md-12 marginbottom10px pointer navigation">
             <a class="navcolor" ng-click="changepath('boards', 'board',{})" ng-if="path.board.name">Board &nbsp; > </a>
-            <a class="navcolor" ng-click="changepath('boards', 'board',{})">{{path.board.name}}</a>
-            <a class="navcolor" ng-if="path.standard.name" ng-click="changepath('standards', 'standard',{})">&nbsp; > Standard &nbsp; > </a>
-            <a class="navcolor" ng-click="changepath('standards', 'standard',{})">{{path.standard.name}}</a>
-            <a class="navcolor" ng-if="path.subject.name" ng-click="changepath('subjects', 'subject',{})">&nbsp; > Subject &nbsp; ></a>
-            <a class="navcolor" ng-click="changepath('subjects', 'subject',{})">{{path.subject.name}}</a>
-            <a class="navcolor" ng-if="path.chapter.name" ng-click="changepath('chapters', 'chapter',{})">&nbsp; > Chapter &nbsp; ></a>
+            <a class="navcolor" ng-click="changepath('standards', 'board', path.board)">{{path.board.name}}</a>
+            
+            <a class="navcolor" ng-click="changepath('subjects', 'standard', path.standard)">{{path.standard.name}} &nbsp; ></a>
+            
+            <a class="navcolor" ng-click="changepath('chapters', 'subject', path.subject)">{{path.subject.name}} &nbsp; > </a>
+            
             <a class="navcolor" ng-click="changepath('chapters', 'chapter',{})">{{path.chapter.name}}</a>
         </div>
 

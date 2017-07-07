@@ -515,3 +515,10 @@
   height: 150px !important;
   resize: vertical !important;
 }
+#editorContainer img,
+#editorContainer2 img {
+  width: auto !important;
+}
+.MJXc-display {
+  display: inline !important;
+}

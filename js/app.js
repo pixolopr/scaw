@@ -72,7 +72,7 @@ firstapp.config(function ($provide) {
 
 
         taRegisterTool('insertequation', {
-            iconclass: "fa fa-square green",
+            iconclass: "fa fa-reply",
             action: function () {
                 console.log($rootScope.math.code);
                 $rootScope.addmathequation(this);
@@ -80,6 +80,25 @@ firstapp.config(function ($provide) {
         });
         // add the button to the default toolbar definition
         taOptions.toolbar[1].push('insertequation');
+        return taOptions;
+ }]);
+});
+
+firstapp.config(function ($provide) {
+    $provide.decorator('taOptions', ['taRegisterTool', '$delegate', '$rootScope', function (taRegisterTool, taOptions, $rootScope) {
+        // $delegate is the taOptions we are decorating
+        // register the tool with textAngular
+
+
+        taRegisterTool('showcardviewer', {
+            iconclass: "fa fa-eye",
+            action: function () {
+                console.log("VIEW CARD");
+                $rootScope.modalchange(1);
+            }
+        });
+        // add the button to the default toolbar definition
+        taOptions.toolbar[1].push('showcardviewer');
         return taOptions;
  }]);
 });
