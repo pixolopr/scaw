@@ -684,11 +684,11 @@ phonecatControllers.controller('questionsCtrl', ['$scope', 'TemplateService', 'N
           5: standard id or 0
         */
 
-        $rootScope.$watch(function () {
+        /*$rootScope.$watch(function () {
             var math = document.getElementById("mathtablequestion");
             MathJax.Hub.Queue(["Typeset", MathJax.Hub], math);
             return true;
-        });
+        });*/
 
         var getquestions = function () {
             NavigationService.getquestions($scope.filter).then(getquestionssuccess, getquestionserror);
