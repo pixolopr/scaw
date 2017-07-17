@@ -369,7 +369,7 @@ phonecatControllers.controller('syllabusCtrl', ['$scope', 'TemplateService', 'Na
                         break;
                     case 'subjects':
                         $scope.path.subject = [],
-                        $scope.path.chapter = [];
+                            $scope.path.chapter = [];
                         $scope.path.concept = [];
                         break;
                     case 'chapters':
@@ -1284,8 +1284,8 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
 
   }]);
 
-phonecatControllers.controller('cardcreatorCtrl', ['$scope', 'TemplateService', 'NavigationService', '$location', '$routeParams', 'textAngularManager', 'FileUploader', '$filter', '$rootScope', '$window', '$interval',
-  function ($scope, TemplateService, NavigationService, $location, $routeParams, textAngularManager, FileUploader, $filter, $rootScope, $window, $interval) {
+phonecatControllers.controller('cardcreatorCtrl', ['$scope', 'TemplateService', 'NavigationService', '$location', '$routeParams', 'textAngularManager', 'FileUploader', '$filter', '$rootScope', '$window', '$interval','$anchorScroll',
+  function ($scope, TemplateService, NavigationService, $location, $routeParams, textAngularManager, FileUploader, $filter, $rootScope, $window, $interval, $anchorScroll) {
         $scope.template = TemplateService;
         TemplateService.content = "views/cardcreator.html";
         $scope.title = "syllabus";
@@ -1325,6 +1325,35 @@ phonecatControllers.controller('cardcreatorCtrl', ['$scope', 'TemplateService', 
             $('.wrs_linksContainer').remove();
             $('.wrs_context').remove();
         }, 2000, 1);
+
+        //CARD VIEWER SET INDEX
+        $scope.code = {
+            'question': '',
+            'answer': ''
+        };
+        $scope.setdatavariable = function (ind) {
+            objectname = ind;
+            console.log(objectname);
+        };
+
+        //OPEN CARD VIEWER
+        $rootScope.modalchange = function (ind) {
+            var math = $('#MathExample');
+            $scope.code.question = $scope.cards[objectname].conceptdata;
+            console.log($scope.code.question);
+            if (ind == 1) {
+                $('#modal1').show();
+                //MathJax.Hub.Queue(["Typeset", MathJax.Hub],math);
+            } else {
+                $('#modal1').hide();
+            };
+
+            $anchorScroll('#modal1');
+
+            $interval(function () {
+                MathJax.Hub.Queue(["Typeset", MathJax.Hub, "MathExample"]);
+            }, 500, 1);
+        };
 
 
         $rootScope.addmathequation = function (el) {

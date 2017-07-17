@@ -8,7 +8,7 @@
             <div class="row" ng-repeat="card in cards track by $index" class="onecard" ng-if="card.sync != 'delete'">
                 <div class="col-md-12 onecard">
                     <div gt-editor id="my-editor" ng-model="content"></div>
-                    <text-angular name="{{'carddata' + $index}}" ng-model="card.conceptdata" ta-target-toolbars="cardtoolbar" ta-file-drop="dropHandler"></text-angular>
+                    <text-angular name="{{'carddata' + $index}}" ng-model="card.conceptdata" ta-target-toolbars="cardtoolbar" ta-file-drop="dropHandler" ng-focus="setdatavariable($index)"></text-angular>
                     <div class="onecardoptionsbox">
                         <div class="row">
                             <div class="col-md-6"></div>

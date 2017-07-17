@@ -2,14 +2,14 @@
     <div class="row">
         <div class="col-md-12 textcenter syllabustitle">{{path.currentpath | capitalize}}</div>
         <div class="col-md-12 marginbottom10px pointer navigation">
-            <a class="navcolor" ng-click="changepath('boards', 'board',{})" ng-if="path.board.name">Board &nbsp; > </a>
-            <a class="navcolor" ng-click="changepath('standards', 'board', path.board)">{{path.board.name}}</a>
+            <a class="navcolor" ng-click="changepath('boards', 'board',{})" ng-if="path.board.name">Board &nbsp; : </a>
+            <a class="navcolor" ng-click="changepath('standards', 'board', path.board)" ng-if="path.board.name">{{path.board.name}} &nbsp;</a>
             
-            <a class="navcolor" ng-click="changepath('subjects', 'standard', path.standard)">{{path.standard.name}} &nbsp; ></a>
+            <a class="navcolor" ng-click="changepath('subjects', 'standard', path.standard)" ng-if="path.standard.name">>&nbsp;{{path.standard.name}} &nbsp; </a>
             
-            <a class="navcolor" ng-click="changepath('chapters', 'subject', path.subject)">{{path.subject.name}} &nbsp; > </a>
+            <a class="navcolor" ng-click="changepath('chapters', 'subject', path.subject)" ng-if="path.subject.name">>&nbsp; {{path.subject.name}} &nbsp; </a>
             
-            <a class="navcolor" ng-click="changepath('chapters', 'chapter',{})">{{path.chapter.name}}</a>
+            <a class="navcolor" ng-click="changepath('chapters', 'chapter',{})" ng-if="path.chapter.name">>&nbsp;{{path.chapter.name}}</a>
         </div>
 
         <!--BOARD-->

@@ -288,7 +288,7 @@ firstapp.directive('ngFiles', ['$parse', function ($parse) {
 
 firstapp.filter('imagepath', function () {
     return function (input) {
-        return "http://localhost/rest/rest/uploads/" + input;
-        //return "http://learnwithinq.com/adminpanel/rest/uploads/" + input;
+        //return "http://localhost/rest/rest/uploads/" + input;
+        return "http://learnwithinq.com/adminpanel/rest/uploads/" + input;
     };
 });
