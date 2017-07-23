@@ -1,9 +1,9 @@
 var phonecatControllers = angular.module('phonecatControllers', ['templateservicemod', 'navigationservice']);
 
-var adminurl = "http://localhost/rest/rest/index.php/";
-var imageurl = "http://localhost/rest/rest/uploads/";
-//var adminurl = "http://learnwithinq.com/adminpanel/rest/index.php/";
-//var imageurl = "http://learnwithinq.com/adminpanel/rest/uploads/";
+//var adminurl = "http://localhost/rest/rest/index.php/";
+//var imageurl = "http://localhost/rest/rest/uploads/";
+var adminurl = "http://learnwithinq.com/adminpanel/rest/index.php/";
+var imageurl = "http://learnwithinq.com/adminpanel/rest/uploads/";
 
 var userarray = [{
         'image': 'admin.png',
@@ -1284,7 +1284,7 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
 
   }]);
 
-phonecatControllers.controller('cardcreatorCtrl', ['$scope', 'TemplateService', 'NavigationService', '$location', '$routeParams', 'textAngularManager', 'FileUploader', '$filter', '$rootScope', '$window', '$interval','$anchorScroll',
+phonecatControllers.controller('cardcreatorCtrl', ['$scope', 'TemplateService', 'NavigationService', '$location', '$routeParams', 'textAngularManager', 'FileUploader', '$filter', '$rootScope', '$window', '$interval', '$anchorScroll',
   function ($scope, TemplateService, NavigationService, $location, $routeParams, textAngularManager, FileUploader, $filter, $rootScope, $window, $interval, $anchorScroll) {
         $scope.template = TemplateService;
         TemplateService.content = "views/cardcreator.html";
@@ -1469,44 +1469,10 @@ phonecatControllers.controller('cardcreatorCtrl', ['$scope', 'TemplateService', 
 
         };
 
-        $scope.dropHandler = function (file, insertAction) {
-            if (file.type.substring(0, 5) !== "image") {
-                // add your own code here
-                alert("only images can be added");
-                return;
-            }
-            if (file.size > 500000) {
-                // add your own code here
-                alert("file size cannot exceed 0.5MB");
-                return;
-            };
 
 
 
-            var formdata = new FormData();
-            formdata.append('image', file);
 
-            NavigationService.getimagename(formdata).success(function (response) {
-                console.log(response);
-
-                response = response.replace(/[\s]/g, '');
-                response = imageurl + response;
-                //var filterresponse = $filter('imagepath', response);
-                // create a base64 string
-                var reader = new FileReader();
-                reader.onload = function () {
-                    reader.result && insertAction("insertImage", response, true);
-                };
-
-                reader.readAsDataURL(file);
-
-
-            });
-
-            return true;
-
-
-        };
 
         $scope.createcard = function () {
 
@@ -1747,10 +1713,50 @@ phonecatControllers.controller('headerctrl', ['$scope', 'TemplateService', '$loc
         var isloggedinerror = function (response) {
             console.log(response.data);
         };
-        NavigationService.isloggedin($rootScope.user.email).then(isloggedinsuccess, isloggedinerror);
+        //NavigationService.isloggedin($rootScope.user.email).then(isloggedinsuccess, isloggedinerror);
         //$rootScope.loginpage = false;
 
         $scope.logout = function () {
             $location.path('/login');
         };
+
+
+
+        //DROP IMAGE ON TEXT EDITOR
+        $rootScope.dropHandler = function (file, insertAction) {
+            if (file.type.substring(0, 5) !== "image") {
+                // add your own code here
+                alert("only images can be added");
+                return;
+            }
+            if (file.size > 500000) {
+                // add your own code here
+                alert("file size cannot exceed 0.5MB");
+                return;
+            };
+
+
+
+            var formdata = new FormData();
+            formdata.append('image', file);
+
+            NavigationService.getimagename(formdata).success(function (response) {
+                console.log(response);
+
+                response = response.replace(/[\s]/g, '');
+                response = imageurl + response;
+                //var filterresponse = $filter('imagepath', response);
+                // create a base64 string
+                var reader = new FileReader();
+                reader.onload = function () {
+                    reader.result && insertAction("insertImage", response, true);
+                };
+
+                reader.readAsDataURL(file);
+            });
+            return true;
+
+
+        };
+
   }]);
