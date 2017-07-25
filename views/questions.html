@@ -11,21 +11,29 @@
                Create</button>
             </div>
             <div class="col-md-6 questionsfilterdiv">
-                <select class="displayinlineblock" style="width: 22%;" ng-model="filter.boardid" ng-change="getdata('standards', filter.boardid)">
+                <select class="displayinlineblock" style="width: 15%;" ng-model="filter.boardid" ng-change="getdata('standards', filter.boardid)">
                     <option value="0">All Boards</option>
                     <option value="{{board.id}}" ng-repeat="board in boards">{{board.name}}</option>
                 </select>
-                <select class="displayinlineblock" style="width: 22%;" ng-model="filter.standardid" ng-change="getdata('subjects', filter.standardid)">
+                <select class="displayinlineblock" style="width: 15%;" ng-model="filter.standardid" ng-change="getdata('subjects', filter.standardid)">
                     <option value="0">All Standards</option>
                     <option value="{{std.id}}" ng-repeat="std in standards">{{std.name}}</option>
                 </select>
-                <select class="displayinlineblock" style="width: 22%;" ng-model="filter.subjectid" ng-change="getdata('chapters', filter.subjectid)">
+                <select class="displayinlineblock" style="width: 15%;" ng-model="filter.subjectid" ng-change="getdata('chapters', filter.subjectid)">
                     <option value="0">All Subjects</option>
                     <option value="{{sub.id}}" ng-repeat="sub in subjects">{{sub.name}}</option>
                 </select>
-                <select class="displayinlineblock" style="width: 22%;" ng-model="filter.chapterid" ng-change="getdata('concepts', filter.chapterid)">
+                <select class="displayinlineblock" style="width: 15%;" ng-model="filter.chapterid" ng-change="getdata('concepts', filter.chapterid)">
                     <option value="0">All Chapters</option>
                     <option value="{{chap.id}}" ng-repeat="chap in chapters">{{chap.name}}</option>
+                </select>
+                <select class="displayinlineblock" style="width: 15%;" ng-model="filter.conceptid" ng-change="getdata('conceptquestion', filter.conceptid)">
+                    <option value="0">All Concepts</option>
+                    <option value="{{con.id}}" ng-repeat="con in concepts">{{con.name}}</option>
+                </select>
+                <select class="displayinlineblock" style="width: 15%;" ng-model="filter.userid" ng-change="getdata('user', filter.userid)" ng-if="user.access_id == '1'">
+                    <option value="{{user.id}}">Admin</option>
+                    <option value="{{us.id}}" ng-repeat="us in users">{{us.name}}</option>
                 </select>
             </div>
             <div class="col-md-4">

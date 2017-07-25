@@ -198,6 +198,7 @@ var navigationservice = angular.module('navigationservice', [])
                     userid: filter.userid,
                     access: filter.access,
                     chapterid: filter.chapterid,
+                    conceptid: filter.conceptid,
                     subjectid: filter.subjectid,
                     standardid: filter.standardid,
                     boardid: filter.boardid
@@ -394,6 +395,12 @@ var navigationservice = angular.module('navigationservice', [])
                 params: {
                     userid: id,
                     access: access
+                }
+            });
+        },
+        geteditorsandteachers: function(){
+            return $http.get(adminurl + 'access/geteditorsandteachers', {
+                params: {
                 }
             });
         },

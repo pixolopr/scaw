@@ -651,6 +651,8 @@ phonecatControllers.controller('questionsCtrl', ['$scope', 'TemplateService', 'N
         $scope.standards = [];
         $scope.subjects = [];
         $scope.chapters = [];
+        $scope.concepts = [];
+        $scope.users = [];
 
 
         var getquestionssuccess = function (response) {
@@ -669,6 +671,7 @@ phonecatControllers.controller('questionsCtrl', ['$scope', 'TemplateService', 'N
             'userid': $rootScope.user.id,
             'access': $rootScope.user.access_id,
             'limit': 1000,
+            'conceptid': '0',
             'chapterid': '0',
             'subjectid': '0',
             'standardid': '0',
@@ -716,6 +719,18 @@ phonecatControllers.controller('questionsCtrl', ['$scope', 'TemplateService', 'N
             };
             if (objname == 'concepts') {
                 getquestions();
+            };
+            if (objname == 'conceptquestion' || objname == 'user') {
+                if (objname == 'user') {
+                    if ($rootScope.user.id == id) {
+                        $scope.filter.userid = id;
+                        $scope.filter.access = '1';
+                    } else {
+                        $scope.filter.userid = id;
+                        $scope.filter.access = '2';
+                    };
+                };
+                getquestions();
             } else {
                 NavigationService.getdata(id, objname).then(getdatasuccess, getdataerror);
             };
@@ -733,6 +748,18 @@ phonecatControllers.controller('questionsCtrl', ['$scope', 'TemplateService', 'N
             console.log(response.data);
         };
         NavigationService.getboards().then(getboardssuccess, getboardserror);
+
+        //GET ALL USERS IF ADMIN
+        if ($rootScope.user.access_id == 1) {
+            var geteditorsandteacherssuccess = function (response) {
+                console.log(response.data);
+                $scope.users = response.data;
+            };
+            var geteditorsandteacherserror = function (response) {
+                console.log(response.data);
+            };
+            NavigationService.geteditorsandteachers().then(geteditorsandteacherssuccess, geteditorsandteacherserror);
+        };
 
         //CREATE / EDIT
         $scope.gotocreatequestion = function (id) {
@@ -992,6 +1019,7 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
                 'type': '1',
                 'optionsavailable': '0',
                 'difficulty': '1',
+                'marks': '0',
                 'user_id': '1',
                 'questionverified': '0'
             };

@@ -114,7 +114,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="heard">Difficulty</label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
@@ -122,6 +122,22 @@
                                             <option value="1" ng-selected="question.difficulty == 1">Easy</option>
                                             <option value="2" ng-selected="question.difficulty == 2">Medium</option>
                                             <option value="3" ng-selected="question.difficulty == 3">Hard</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="heard">Marks</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select id="heard" class="form-control questionselect" ng-model="question.marks" required>
+                                            <option value="1" ng-selected="question.marks == 1">1</option>
+                                            <option value="2" ng-selected="question.marks == 2">2</option>
+                                            <option value="3" ng-selected="question.marks == 3">3</option>
+                                            <option value="4" ng-selected="question.marks == 4">4</option>
+                                            <option value="5" ng-selected="question.marks == 5">5</option>
+                                            <option value="6" ng-selected="question.marks == 6">6</option>
                                         </select>
                                     </div>
                                 </div>
@@ -148,8 +164,8 @@
                             <div class="col-md-6">
                                 <input id="questionimageupload" class="questionschoosefile" type="file" aria-label="Add Excel to your post" class="upload" name="file" onchange="angular.element(this).scope().LoadFileData(this.files, 0)" multiple="">
                             </div>
-                            <div class="col-md-4" ng-if="editid != 0">
-                                <img src="{{questionimage | imagepath}}" style="width: auto;height: 120px;">
+                            <div class="col-md-4" ng-if="editid != 0 && questionimage !=''">
+                                <img src="{{questionimage | imagepath}}" style="width: 100%;max-height: 120px;">
                             </div>
                         </div>
 
@@ -187,7 +203,7 @@
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <p ng-repeat="con in conceptsdropdown">
                                         <input type="checkbox" id="{{'checkbox'+$index}}" ng-model="concept.concepts[$index]" />
-                                        <label for="{{'checkbox'+$index}}">{{con.name}}</label>
+                                        <label for="{{'checkbox'+$index}}">{{con.name}} - {{con.id}}</label>
                                     </p>
                                 </div>
                             </div>
@@ -228,7 +244,7 @@
                             <div class="col-md-6">
                                 <input id="questionimageupload" class="questionschoosefile" type="file" aria-label="Add Excel to your post" class="upload" name="file" onchange="angular.element(this).scope().LoadFileData(this.files, 1)" multiple="">
                             </div>
-                            <div class="col-md-4" ng-if="editid != 0">
+                            <div class="col-md-4" ng-if="editid != 0 && answerimage !=''">
                                 <img src="{{answerimage | imagepath}}" style="width: auto;height: 120px;">
                             </div>
                         </div>
