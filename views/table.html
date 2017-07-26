@@ -1,0 +1,28 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <b>Insert number of rows and cols</b>
+    </div>
+    <div class="modal-body">
+        <form name="tableForm">
+
+            <div class="form-group">
+                <label>row</label>
+                <input type="number" class="form-control" placeholder="New member row" id="row" name="row" ng-model="newtable.row" />
+                <span class="error" ng-show="tableForm.row.$dirty && tableForm.row.$error.required">Please enter an row </span>
+                <span class="error" ng-show="tableForm.row.$error.row">Invalid row</span>
+            </div>
+
+            <div class="form-group">
+                <label>col</label>
+                <input type="number" class="form-control" placeholder="New member col" id="col" name="col" ng-model="newtable.col" />
+                <span class="error" ng-show="tableForm.col.$dirty && tableForm.col.$error.required">Please enter an col </span>
+                <span class="error" ng-show="tableForm.col.$error.col">Invalid col</span>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+                <button type="submit" class="btn btn-primary" ng-click="ok()">Send</button>
+            </div>
+        </form>
+    </div>
+</div>

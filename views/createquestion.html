@@ -114,7 +114,20 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+
+                            <div class="col-md-6">
+                                <div class="form-group" ng-show="question.optionsavailable == 1">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="heard">Options Format</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select id="heard" class="form-control questionselect" ng-model="question.optionsformat" required>
+                                            <option value="1" ng-selected="question.optionsformat == 1">Normal</option>
+                                            <option value="2" ng-selected="question.optionsformat == 2">Code</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="heard">Difficulty</label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
@@ -126,8 +139,8 @@
                                     </div>
                                 </div>
                             </div>
-                            
-                            <div class="col-md-3">
+
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="heard">Marks</label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
@@ -154,7 +167,7 @@
                                 <label class="control-label col-md-2 col-sm-2 col-xs-12 createquestion" for="first-name">Question <span class="required">*</span>
                                 </label>
                                 <div class="col-md-10 col-sm-10 col-xs-12">
-                                    <textarea type="textarea" id="first-name" required="required" class="form-control col-md-12 col-xs-12 questionselect textareaquestion" ng-model="question.question"></textarea>
+                                    <textarea type="textarea" id="first-name" required="required" class="form-control col-md-12 col-xs-12 questionselect textareaquestion textspace" ng-model="question.question"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -185,10 +198,33 @@
                                         <div class="col-md-6">
                                             <div id="editorContainer" ng-init="loadmathseditor()"></div>
 
-                                            <text-angular-toolbar name="htmlcontent" ta-toolbar-group-class="btngroupstyle" ta-toolbar-button-class="btngroupstylebutton" ta-toolbar-active-button-class="activetoolbarbtn"></text-angular-toolbar>
+                                            <text-angular-toolbar name="htmlcontent" ta-toolbar="[['h5','p','pre','quote','arrowrightsymbol','arrowbothsymbol',],
+['bold','italics','underline','strikeThrough','superscript','subscript'],['ul','ol','justifyLeft','justifyCenter','justifyRight','justifyFull','indent','outdent'],
+['undo','redo','clear'],
+['insertequation','showcardviewer']]" ta-toolbar-group-class="btngroupstyle" ta-toolbar-button-class="btngroupstylebutton" ta-toolbar-active-button-class="activetoolbarbtn"></text-angular-toolbar>
                                         </div>
                                     </div>
 
+
+                                    <!--
+['h5','p','pre','quote','arrowrightsymbol','arrowbothsymbol',],
+['bold','italics','underline','strikeThrough','superscript','subscript'],['ul','ol','justifyLeft','justifyCenter','justifyRight','justifyFull','indent','outdent'],
+['undo','redo','clear'],
+['insertequation','showcardviewer']
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->
 
 
                                 </div>
@@ -208,10 +244,10 @@
                                 </div>
                             </div>
                         </div>
-                        
-                         <div class="row">
+
+                        <div class="row">
                             <div class="col-md-6">
-                                
+
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -236,7 +272,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
 
                         <!--ANSWER IMAGE-->
                         <div class="row" ng-if="answer.answerformat == 1">
@@ -248,8 +284,8 @@
                                 <img src="{{answerimage | imagepath}}" style="width: auto;height: 120px;">
                             </div>
                         </div>
-                        
-                         <!--WHAT YOU SEE IS WHAT YOU GET-->
+
+                        <!--WHAT YOU SEE IS WHAT YOU GET-->
                         <div class="row" ng-show="answer.answerformat == 2">
                             <div class="form-group">
                                 <label class="control-label col-md-12 col-sm-12 col-xs-12 createquestion" for="first-name">Detailed Answer <span class="required">*</span>
@@ -263,7 +299,10 @@
                                         <div class="col-md-6">
                                             <div id="editorContainer2" ng-init="loadmathseditor()"></div>
 
-                                            <text-angular-toolbar name="answerhtmlcontent" ta-toolbar-group-class="btngroupstyle" ta-toolbar-button-class="btngroupstylebutton" ta-toolbar-active-button-class="activetoolbarbtn"></text-angular-toolbar>
+                                            <text-angular-toolbar name="answerhtmlcontent" ta-toolbar="[['h5','p','pre','quote','arrowrightsymbol','arrowbothsymbol',],
+['bold','italics','underline','strikeThrough','superscript','subscript'],['ul','ol','justifyLeft','justifyCenter','justifyRight','justifyFull','indent','outdent'],
+['undo','redo','clear'],
+['insertequation','showcardviewer']]" ta-toolbar-group-class="btngroupstyle" ta-toolbar-button-class="btngroupstylebutton" ta-toolbar-active-button-class="activetoolbarbtn"></text-angular-toolbar>
                                         </div>
                                     </div>
 
@@ -273,49 +312,105 @@
                             </div>
                         </div>
 
-                        <div ng-show="question.optionsavailable == 1">
+                        <!--CODED FORMAT OPTIONS-->
+                        <div ng-show="question.optionsavailable == 1 && question.optionsformat == 2">
+                            <!--OPTION 1-->
+                            <div class="row" style="border-radius: 4px;border: 2px solid rgba(0, 109, 123, 0.46);">
+                                <div class="textcenter">
+                                    <h5>Options</h5></div>
+                                <div class="col-md-6" style="height:460px;overflow-y:scroll">
+
+                                    <ul class="collapsible" data-collapsible="accordion">
+                                        <li>
+                                            <div class="collapsible-header" ng-class="{'primarycolor':answer.option1 != ''}">
+                                                <i class="material-icons" ng-if="answer.option1 == ''">arrow_drop_down_circle</i>
+                                                <i class="material-icons" ng-if="answer.option1 != ''">done</i><strong>Option A</strong></div>
+                                            <div class="collapsible-body">
+                                                <text-angular name="option1data" ng-model="answer.option1" ng-focus="setdatavariable('option1')" ta-target-toolbars="optionshtml" ta-file-drop="dropHandler" class="optiontextangular" style="background-color: #eeeeee;"></text-angular>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="collapsible-header" ng-class="{'primarycolor':answer.option2 != ''}">
+                                                <i class="material-icons" ng-if="answer.option2 == ''">arrow_drop_down_circle</i>
+                                                <i class="material-icons" ng-if="answer.option2 != ''">done</i><strong>Option B</strong></div>
+                                            <div class="collapsible-body">
+                                                <text-angular name="option2data" ng-model="answer.option2" ng-focus="setdatavariable('option2')" ta-target-toolbars="optionshtml" ta-file-drop="dropHandler" class="optiontextangular" style="background-color: #eeeeee;"></text-angular>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="collapsible-header" ng-class="{'primarycolor':answer.option3 != ''}">
+                                                <i class="material-icons" ng-if="answer.option3 == ''">arrow_drop_down_circle</i>
+                                                <i class="material-icons" ng-if="answer.option3 != ''">done</i> <strong>Option C</strong></div>
+                                            <div class="collapsible-body">
+                                                <text-angular name="option3data" ng-model="answer.option3" ng-focus="setdatavariable('option3')" ta-target-toolbars="optionshtml" ta-file-drop="dropHandler" class="optiontextangular" style="background-color: #eeeeee;"></text-angular>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="collapsible-header" ng-class="{'primarycolor':answer.option4 != ''}">
+                                                <i class="material-icons" ng-if="answer.option4 == ''">arrow_drop_down_circle</i>
+                                                <i class="material-icons" ng-if="answer.option4 != ''">done</i> <strong>Option D</strong></div>
+                                            <div class="collapsible-body">
+                                                <text-angular name="option4data" ng-model="answer.option4" ng-focus="setdatavariable('option4')" ta-target-toolbars="optionshtml" ta-file-drop="dropHandler" class="optiontextangular" style="background-color: #eeeeee;"></text-angular>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <div id="editorContainer3" ng-init="loadmathseditor()"></div>
+
+                                    <text-angular-toolbar name="optionshtml" ta-toolbar="[['h5','p','pre','quote','arrowrightsymbol','arrowbothsymbol',],
+['bold','italics','underline','strikeThrough','superscript','subscript'],['ul','ol','justifyLeft','justifyCenter','justifyRight','justifyFull','indent','outdent'],
+['undo','redo','clear'],
+['insertequation','showcardviewer']]" ta-toolbar-group-class="btngroupstyle" ta-toolbar-button-class="btngroupstylebutton" ta-toolbar-active-button-class="activetoolbarbtn"></text-angular-toolbar>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                        <!--NORMAL FORMAT OPTIONS-->
+                        <div ng-show="question.optionsavailable == 1 && question.optionsformat == 1">
                             <!--OPTION 1-->
                             <div class="row">
-                                <div class="form-group">
-                                    <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">Option 1 (right Answer) <span class="required">*</span>
-                                    </label>
-                                    <div class="col-md-10 col-sm-10 col-xs-12">
-                                        <textarea type="textarea" id="first-name" required="required" class="form-control col-md-7 col-xs-12 questionselect" ng-model="answer.option1"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!--OPTION 2-->
-                            <div class="row">
-                                <div class="form-group">
-                                    <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">Option 2 <span class="required">*</span>
-                                    </label>
-                                    <div class="col-md-10 col-sm-10 col-xs-12">
-                                        <textarea type="textarea" id="first-name" required="required" class="form-control col-md-7 col-xs-12 questionselect" ng-model="answer.option2"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!--OPTION 3-->
-                            <div class="row">
-                                <div class="form-group">
-                                    <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">Option 3 <span class="required">*</span>
-                                    </label>
-                                    <div class="col-md-10 col-sm-10 col-xs-12">
-                                        <textarea type="textarea" id="first-name" required="required" class="form-control col-md-7 col-xs-12 questionselect" ng-model="answer.option3"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!--OPTION 4-->
-                            <div class="row">
-                                <div class="form-group">
-                                    <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">Option 4 <span class="required">*</span>
-                                    </label>
-                                    <div class="col-md-10 col-sm-10 col-xs-12">
-                                        <textarea type="textarea" id="first-name" required="required" class="form-control col-md-7 col-xs-12 questionselect" ng-model="answer.option4"></textarea>
-                                    </div>
-                                </div>
+                                <ul class="collapsible" data-collapsible="accordion">
+                                    <li>
+                                        <div class="collapsible-header" ng-class="{'primarycolor':answer.option1 != ''}">
+                                            <i class="material-icons" ng-if="answer.option1 == ''">arrow_drop_down_circle</i>
+                                            <i class="material-icons" ng-if="answer.option1 != ''">done</i>
+                                            <strong>Option A</strong></div>
+                                        <div class="collapsible-body padding0">
+                                            <textarea type="textarea" id="first-name" required="required" class="form-control col-md-7 col-xs-12 questionselect textareaoptions" ng-model="answer.option1"></textarea>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="collapsible-header" ng-class="{'primarycolor':answer.option2 != ''}">
+                                            <i class="material-icons" ng-if="answer.option2 == ''">arrow_drop_down_circle</i>
+                                            <i class="material-icons" ng-if="answer.option2 != ''">done</i>
+                                            <strong>Option B</strong></div>
+                                        <div class="collapsible-body padding0">
+                                            <textarea type="textarea" id="first-name" required="required" class="form-control col-md-7 col-xs-12 questionselect textareaoptions" ng-model="answer.option2"></textarea>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="collapsible-header" ng-class="{'primarycolor':answer.option3 != ''}">
+                                            <i class="material-icons" ng-if="answer.option3 == ''">arrow_drop_down_circle</i>
+                                            <i class="material-icons" ng-if="answer.option3 != ''">done</i>
+                                            <strong>Option C</strong></div>
+                                        <div class="collapsible-body padding0">
+                                            <textarea type="textarea" id="first-name" required="required" class="form-control col-md-7 col-xs-12 questionselect textareaoptions" ng-model="answer.option3"></textarea>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="collapsible-header" ng-class="{'primarycolor':answer.option4 != ''}">
+                                            <i class="material-icons" ng-if="answer.option4 == ''">arrow_drop_down_circle</i>
+                                            <i class="material-icons" ng-if="answer.option4 != ''">done</i>
+                                            <strong>Option D</strong></div>
+                                        <div class="collapsible-body padding0">
+                                            <textarea type="textarea" id="first-name" required="required" class="form-control col-md-7 col-xs-12 questionselect textareaoptions" ng-model="answer.option4"></textarea>
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
 
@@ -364,5 +459,3 @@
         </div>
     </div>
 </div>
-
-

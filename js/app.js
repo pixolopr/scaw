@@ -267,6 +267,77 @@ firstapp.config(function ($provide) {
 }]);
 });
 
+firstapp.config(function ($provide) {
+    function createTable(colCount, rowCount) {
+        var tds = "";
+        for (var idxCol = 0; idxCol < colCount; idxCol++) {
+            tds = tds + "<td>&nbsp;</td>";
+        }
+        var trs = "";
+        for (var idxRow = 0; idxRow < rowCount; idxRow++) {
+            trs = trs + "<tr>" + tds + "</tr>";
+        }
+
+        return '<table class="table table-bordered">' + trs + '</table>';
+    }
+
+    $provide.decorator('taOptions', ['taRegisterTool', '$delegate', '$rootScope', function (taRegisterTool, taOptions, $rootScope) {
+        taRegisterTool('table', {
+            iconclass: 'fa fa-table',
+            tooltiptext: 'insert table',
+            action: function (promise, restoreSelection) {
+                var that = this;
+                $('#tablemodal').show();
+                $rootScope.invitation = {};
+                $rootScope.ok = function () {
+                    restoreSelection();
+                    var html = createTable($rootScope.invitation.col, $rootScope.invitation.row);
+                    $('#tablemodal').hide();
+                    return that.$editor().wrapSelection('insertHtml', html);
+                };
+
+                $rootScope.cancel = function () {
+                    $('#tablemodal').hide();
+                };
+                /*var modalInstance = $modal.open({
+                    templateUrl: 'views/table.html',
+                    controller: function ($rootScope, $modalInstance) {
+                        $rootScope.invitation = {};
+                        $rootScope.ok = function () {
+                            console.log($rootScope.invitation);
+                            $modalInstance.close($rootScope.invitation);
+                        };
+
+                        $rootScope.cancel = function () {
+                            $modalInstance.dismiss('cancel');
+                        };
+                    },
+                    resolve: {
+                        result: function () {
+                            return $rootScope.newtable;
+                        }
+                    },
+                    size: 'sm'
+
+                });*/
+                //define result modal , when user complete result information 
+                /*modalInstance.result.then(function (result) {
+                    if (result) {
+                        restoreSelection();
+                        var html = createTable(result.col, result.row);
+                        promise.resolve();
+                        return that.$editor().wrapSelection('insertHtml', html);
+                    }
+                });*/
+                return false;
+            }
+        });
+        // add the button to the default toolbar definition
+        taOptions.toolbar[1].push('table');
+        return taOptions;
+    }])
+});
+
 
 
 firstapp.directive('ngFiles', ['$parse', function ($parse) {

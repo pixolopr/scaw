@@ -46,6 +46,9 @@
   margin-left: auto;
   margin-right: auto;
 }
+.padding0 {
+  padding: 0px !important;
+}
 .font1p8 {
   font-size: 0.8em !important;
 }
@@ -464,6 +467,9 @@
 .questionselect {
   background-image: linear-gradient(#03bdd6, #03bdd6), linear-gradient(#d2d2d2, #d2d2d2) !important;
 }
+.textareaoptions {
+  min-height: 120px !important;
+}
 .forgotpass {
   color: black !important;
 }
@@ -511,14 +517,34 @@
   color: crimson!important;
 }
 .textareaquestion {
-  background-color: #eeeeee !important;
+  border: 1.2px solid rgba(0, 0, 0, 0.14) !important;
+  background-color: #f4f4f4 !important;
   height: 150px !important;
   resize: vertical !important;
 }
+.optiontextangular > .ta-scroll-window.form-control {
+  min-height: 200px !important;
+}
+.optiontextangular > .ta-scroll-window > .ta-bind {
+  min-height: 200px;
+}
 #editorContainer img,
-#editorContainer2 img {
+#editorContainer2 img,
+#editorContainer3 img {
   width: auto !important;
 }
 .MJXc-display {
   display: inline !important;
+}
+.MJXc-TeX-main-R {
+  font-family: MJXc-TeX-main-R, MJXc-TeX-main-Rw;
+  color: #3c4858 !important;
+  font-size: 1em !important;
+}
+.fade {
+  opacity: 1 !important;
+}
+/*MENU*/
+.sidebar-wrapper {
+  height: 72vh !important;
 }

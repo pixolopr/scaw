@@ -646,14 +646,70 @@ phonecatControllers.controller('questionsCtrl', ['$scope', 'TemplateService', 'N
         TemplateService.content = "views/questions.html";
         $scope.title = "questions";
 
-        $scope.questions = [];
-        $scope.boards = [];
-        $scope.standards = [];
-        $scope.subjects = [];
-        $scope.chapters = [];
-        $scope.concepts = [];
-        $scope.users = [];
 
+
+
+        /*INITIALIZATION*/
+
+        if ($rootScope.qafilter) {
+
+            console.log("Take from rootscope");
+
+            $scope.questions = $rootScope.questions;
+            $scope.boards = $rootScope.boards;
+            $scope.standards = $rootScope.standards;
+            $scope.subjects = $rootScope.subjects;
+            $scope.chapters = $rootScope.chapters;
+            $scope.concepts = $rootScope.concepts;
+            $scope.users = $rootScope.users;
+
+            $scope.filter = $rootScope.qafilter;
+
+            console.log($scope.filter);
+        } else {
+
+            console.log("Fresh maal");
+
+            $scope.questions = [];
+            $scope.boards = [];
+            $scope.standards = [];
+            $scope.subjects = [];
+            $scope.chapters = [];
+            $scope.concepts = [];
+            $scope.users = [];
+
+            $rootScope.questions = [];
+            $rootScope.boards = [];
+            $rootScope.standards = [];
+            $rootScope.subjects = [];
+            $rootScope.chapters = [];
+            $rootScope.concepts = [];
+            $rootScope.users = [];
+
+            $scope.filter = {
+                'count': 0,
+                'userid': $rootScope.user.id,
+                'access': $rootScope.user.access_id,
+                'limit': 1000,
+                'conceptid': '0',
+                'chapterid': '0',
+                'subjectid': '0',
+                'standardid': '0',
+                'boardid': '0'
+            };
+
+            $rootScope.qafilter = {
+                'count': 0,
+                'userid': $rootScope.user.id,
+                'access': $rootScope.user.access_id,
+                'limit': 1000,
+                'conceptid': '0',
+                'chapterid': '0',
+                'subjectid': '0',
+                'standardid': '0',
+                'boardid': '0'
+            };
+        };
 
         var getquestionssuccess = function (response) {
             console.log(response.data);
@@ -666,17 +722,8 @@ phonecatControllers.controller('questionsCtrl', ['$scope', 'TemplateService', 'N
             console.log(response.data);
         };
 
-        $scope.filter = {
-            'count': 0,
-            'userid': $rootScope.user.id,
-            'access': $rootScope.user.access_id,
-            'limit': 1000,
-            'conceptid': '0',
-            'chapterid': '0',
-            'subjectid': '0',
-            'standardid': '0',
-            'boardid': '0'
-        };
+
+
 
         /*
           PARAMS TO SEND GET QUESTIONS
@@ -702,20 +749,32 @@ phonecatControllers.controller('questionsCtrl', ['$scope', 'TemplateService', 'N
             var getdatasuccess = function (response) {
                 console.log(response.data);
                 $scope[objname] = response.data;
+                $rootScope[objname] = response.data;
 
                 getquestions();
             };
             var getdataerror = function (response) {
                 console.log(response.data, id);
             };
+            if (objname == 'standards' || objname == 'subjects' || objname == 'chapters' || objname == 'concepts') {
+                $scope.filter.conceptid = '0';
+                $rootScope.qafilter.conceptid = '0';
+                $scope.concepts = [];
+            };
             if (objname == 'standards' || objname == 'subjects' || objname == 'chapters') {
                 $scope.filter.chapterid = '0';
+                $rootScope.qafilter.chapterid = '0';
+                $scope.chapters = [];
             };
             if (objname == 'standards' || objname == 'subjects') {
                 $scope.filter.subjectid = '0';
+                $rootScope.qafilter.subjectid = '0';
+                $scope.subjects = [];
             };
             if (objname == 'standards') {
                 $scope.filter.standardid = '0';
+                $rootScope.qafilter.standardid = '0';
+                $scope.standards = [];
             };
             if (objname == 'concepts') {
                 getquestions();
@@ -725,9 +784,13 @@ phonecatControllers.controller('questionsCtrl', ['$scope', 'TemplateService', 'N
                     if ($rootScope.user.id == id) {
                         $scope.filter.userid = id;
                         $scope.filter.access = '1';
+                        $rootScope.qafilter.userid = id;
+                        $rootScope.qafilter.access = '1';
                     } else {
                         $scope.filter.userid = id;
                         $scope.filter.access = '2';
+                        $rootScope.qafilter.userid = id;
+                        $rootScope.qafilter.access = '2';
                     };
                 };
                 getquestions();
@@ -763,6 +826,7 @@ phonecatControllers.controller('questionsCtrl', ['$scope', 'TemplateService', 'N
 
         //CREATE / EDIT
         $scope.gotocreatequestion = function (id) {
+            $rootScope.qafilter = $scope.filter;
             $location.path('/createquestion/' + id);
         };
 
@@ -883,18 +947,28 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
         var objectname = '';
         $scope.setdatavariable = function (ind) {
             objectname = ind;
-            if (ind == 'answer') {
-                matheditor = editor2;
+            if (ind.slice(0, 6) != 'option') {
+                if (ind == 'answer') {
+                    matheditor = editor2;
+                } else {
+                    matheditor = editor;
+                };
             } else {
-                matheditor = editor;
+                //IF OPTION
+                matheditor = editor3;
             };
+
             console.log(objectname);
         };
 
         $rootScope.modalchange = function (ind) {
             var math = $('#MathExample');
-            console.log($scope[objectname][objectname]);
-            $scope.code.question = $scope[objectname][objectname];
+            if (objectname.slice(0, 6) != 'option') {
+                console.log($scope[objectname][objectname]);
+                $scope.code.question = $scope[objectname][objectname];
+            } else {
+                $scope.code.question = $scope.answer[objectname];
+            };
             console.log($scope.code.question);
             if (ind == 1) {
                 $('#modal1').show();
@@ -918,12 +992,21 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
             editor2 = com.wiris.jsEditor.JsEditor.newInstance({
                 'language': 'en'
             });
+            editor3 = com.wiris.jsEditor.JsEditor.newInstance({
+                'language': 'en'
+            });
             editor.insertInto(document.getElementById('editorContainer'));
             editor2.insertInto(document.getElementById('editorContainer2'));
+            editor3.insertInto(document.getElementById('editorContainer3'));
 
             $interval(function () {
                 $('.wrs_linksContainer').remove();
                 $('.wrs_context').remove();
+
+                $(document).ready(function () {
+                    $('.collapsible').collapsible();
+                });
+
             }, 1000, 1);
         };
         //Here your view content is fully loaded !!
@@ -1018,6 +1101,7 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
                 'format': 1,
                 'type': '1',
                 'optionsavailable': '0',
+                'optionsformat': 1,
                 'difficulty': '1',
                 'marks': '0',
                 'user_id': '1',
