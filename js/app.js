@@ -268,6 +268,47 @@ firstapp.config(function ($provide) {
 });
 
 firstapp.config(function ($provide) {
+    $provide.decorator('taOptions', ['taRegisterTool', '$delegate', 'taSelection',
+                function (taRegisterTool, taOptions, taSelection) {
+            // $delegate is the taOptions we are decorating
+            // register the tool with textAngular
+            taRegisterTool('editequation', {
+                iconclass: "fa fa-arrows-h",
+                action: function () {
+                    console.log(taSelection.getSelection());
+
+                    var fullText, selected, selectedText;
+                    selected = taSelection.getSelection();
+                    fullText = selected.end.element.textContent;
+                    selectedText = fullText.substring(selected.start.offset, selected.end.offset);
+
+                    if (selectedText === undefined || selectedText === null || selectedText === '') {
+                        alert('Nothing selected');
+                    } else {
+                        console.log(selectedText);
+                    }
+                    /*var mathml = $http.get('http://www.wiris.net/demo/editor/latex2mathml', {
+                        params: {
+                            latex: newStr
+                        }
+                    });
+                    console.log(mathml);*/
+                    //console.log(taSelection.getOnlySelectedElements().toString());
+                    //console.log(taSelection.getSelection().container.textContent);
+                    //return this.$editor().wrapSelection("bold", null);
+                    //return this.$editor().wrapSelection('insertHTML', '<p>&#8596;</p>');
+                },
+                activeState: function () {
+                    //return this.$editor().queryCommandState('subscript');
+                }
+            });
+            // add the button to the default toolbar definition
+            taOptions.toolbar[1].push('editequation');
+            return taOptions;
+}]);
+});
+
+firstapp.config(function ($provide) {
     function createTable(colCount, rowCount) {
         var tds = "";
         for (var idxCol = 0; idxCol < colCount; idxCol++) {
