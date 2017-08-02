@@ -389,6 +389,13 @@ var navigationservice = angular.module('navigationservice', [])
                     mml: mathml
                 }
             });
+        }, 
+        latextomathml: function (latex) {
+            return $http.get('http://www.wiris.net/demo/editor/latex2mathml', {
+                params: {
+                    latex: latex
+                }
+            });
         },
         getdashboarddata: function (id, access) {
             return $http.get(adminurl + 'users/getdashboarddata', {
