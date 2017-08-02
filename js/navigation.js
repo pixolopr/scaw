@@ -404,6 +404,12 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             });
         },
+        getbackup: function () {
+            $http.get(adminurl + 'access/getbackup', {
+                params: {
+                }
+            });
+                },
 
 
     }

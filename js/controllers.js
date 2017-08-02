@@ -18,8 +18,8 @@ var userarray = [{
         'post': 'Teacher'
 }];
 
-phonecatControllers.controller('home', ['$scope', 'TemplateService', 'NavigationService', '$rootScope',
-  function ($scope, TemplateService, NavigationService, $rootScope) {
+phonecatControllers.controller('home', ['$scope', 'TemplateService', 'NavigationService', '$rootScope','$filter','$window',
+  function ($scope, TemplateService, NavigationService, $rootScope,$filter,$window) {
         $scope.template = TemplateService;
         TemplateService.content = "views/content.html";
         $scope.title = "dashboard";
@@ -50,6 +50,18 @@ phonecatControllers.controller('home', ['$scope', 'TemplateService', 'Navigation
                 console.log(response.data);
             };
             NavigationService.getconceptsexceldata().then(getconceptsexceldatasuccess, getconceptsexceldataerror);
+        };
+
+        /*TAKE BACKUP*/
+        $scope.backupdb = function () {
+            var getbackupsuccess = function(response){
+                console.log(response.data);
+            };
+            var getbackuperror = function(response){
+                console.log(response.data);
+            };
+            //NavigationService.getbackup().then(getbackupsuccess, getbackuperror);
+            $window.open('http://www.learnwithinq.com/adminpanel/rest/index.php/access/getbackup');
         };
   }]);
 
