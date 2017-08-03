@@ -18,8 +18,8 @@ var userarray = [{
         'post': 'Teacher'
 }];
 
-phonecatControllers.controller('home', ['$scope', 'TemplateService', 'NavigationService', '$rootScope','$filter','$window',
-  function ($scope, TemplateService, NavigationService, $rootScope,$filter,$window) {
+phonecatControllers.controller('home', ['$scope', 'TemplateService', 'NavigationService', '$rootScope', '$filter', '$window',
+  function ($scope, TemplateService, NavigationService, $rootScope, $filter, $window) {
         $scope.template = TemplateService;
         TemplateService.content = "views/content.html";
         $scope.title = "dashboard";
@@ -54,10 +54,10 @@ phonecatControllers.controller('home', ['$scope', 'TemplateService', 'Navigation
 
         /*TAKE BACKUP*/
         $scope.backupdb = function () {
-            var getbackupsuccess = function(response){
+            var getbackupsuccess = function (response) {
                 console.log(response.data);
             };
-            var getbackuperror = function(response){
+            var getbackuperror = function (response) {
                 console.log(response.data);
             };
             //NavigationService.getbackup().then(getbackupsuccess, getbackuperror);
@@ -973,6 +973,28 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
             console.log(objectname);
         };
 
+        /*SET THE SELECTED EQUATIONINTO THE EDITOR*/
+        $rootScope.setselectedtextintoeditor = function () {
+            var text = "";
+            if (window.getSelection) {
+                text = window.getSelection().toString();
+            } else if (document.selection && document.selection.type != "Control") {
+                text = document.selection.createRange().text;
+            }
+            text = text.replace("$$", "");
+            text = text.replace("$$", "");
+
+            /*CONVERT LATEX TO MATHML*/
+            var latex2mathmlsuccess = function (response) {
+                console.log(response.data);
+                matheditor.setMathML(response.data);
+            };
+            var latex2mathmlerror = function (response) {
+                console.log(response.data);
+            };
+            NavigationService.latextomathml(text).then(latex2mathmlsuccess, latex2mathmlerror);
+        };
+
         $rootScope.modalchange = function (ind) {
             var math = $('#MathExample');
             if (objectname.slice(0, 6) != 'option') {
@@ -1431,12 +1453,37 @@ phonecatControllers.controller('cardcreatorCtrl', ['$scope', 'TemplateService', 
         };
 
         var editor;
+
+        /*SET THE SELECTED EQUATIONINTO THE EDITOR*/
+        $rootScope.setselectedtextintoeditor = function () {
+            var text = "";
+            if (window.getSelection) {
+                text = window.getSelection().toString();
+            } else if (document.selection && document.selection.type != "Control") {
+                text = document.selection.createRange().text;
+            }
+            text = text.replace("$$", "");
+            text = text.replace("$$", "");
+
+            /*CONVERT LATEX TO MATHML*/
+            var latex2mathmlsuccess = function (response) {
+                console.log(response.data);
+                editor.setMathML(response.data);
+            };
+            var latex2mathmlerror = function (response) {
+                console.log(response.data);
+            };
+            NavigationService.latextomathml(text).then(latex2mathmlsuccess, latex2mathmlerror);
+        };
         /* window.onload = function () {
              editor = com.wiris.jsEditor.JsEditor.newInstance({
                  'language': 'en'
              });
              editor.insertInto(document.getElementById('editorContainer'));
          };*/
+
+
+
 
         $scope.loadmathseditor = function () {
             editor = com.wiris.jsEditor.JsEditor.newInstance({
@@ -1882,5 +1929,7 @@ phonecatControllers.controller('headerctrl', ['$scope', 'TemplateService', '$loc
 
 
         };
+
+
 
   }]);

@@ -268,35 +268,14 @@ firstapp.config(function ($provide) {
 });
 
 firstapp.config(function ($provide) {
-    $provide.decorator('taOptions', ['taRegisterTool', '$delegate', 'taSelection',
-                function (taRegisterTool, taOptions, taSelection) {
+    $provide.decorator('taOptions', ['taRegisterTool', '$delegate', 'taSelection', '$rootScope',
+                function (taRegisterTool, taOptions, taSelection, $rootScope) {
             // $delegate is the taOptions we are decorating
             // register the tool with textAngular
             taRegisterTool('editequation', {
-                iconclass: "fa fa-arrows-h",
+                iconclass: "fa fa-pencil-square-o",
                 action: function () {
-                    console.log(taSelection.getSelection());
-
-                    var fullText, selected, selectedText;
-                    selected = taSelection.getSelection();
-                    fullText = selected.end.element.textContent;
-                    selectedText = fullText.substring(selected.start.offset, selected.end.offset);
-
-                    if (selectedText === undefined || selectedText === null || selectedText === '') {
-                        alert('Nothing selected');
-                    } else {
-                        console.log(selectedText);
-                    }
-                    /*var mathml = $http.get('http://www.wiris.net/demo/editor/latex2mathml', {
-                        params: {
-                            latex: newStr
-                        }
-                    });
-                    console.log(mathml);*/
-                    //console.log(taSelection.getOnlySelectedElements().toString());
-                    //console.log(taSelection.getSelection().container.textContent);
-                    //return this.$editor().wrapSelection("bold", null);
-                    //return this.$editor().wrapSelection('insertHTML', '<p>&#8596;</p>');
+                    $rootScope.setselectedtextintoeditor();
                 },
                 activeState: function () {
                     //return this.$editor().queryCommandState('subscript');
@@ -402,5 +381,12 @@ firstapp.filter('imagepath', function () {
     return function (input) {
         //return "http://localhost/rest/rest/uploads/" + input;
         return "http://learnwithinq.com/adminpanel/rest/uploads/" + input;
+    };
+});
+
+firstapp.filter('strReplace', function () {
+    return function (input) {
+        input = input || '';
+        return input.replace(new RegExp('$$', 'g'), '');
     };
 });
