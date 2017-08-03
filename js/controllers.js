@@ -29,6 +29,19 @@ phonecatControllers.controller('home', ['$scope', 'TemplateService', 'Navigation
         /*INITIALIZATIONS*/
         $scope.user = $.jStorage.get("user");
 
+        /*GET TODAYS AND YESTERDATS DATES FOR INITIAL VALUES*/
+        $scope.getDatetime = new Date();
+        var todaysdate = $filter('date')($scope.getDatetime, 'yyyy-MM-dd');
+        $scope.getDatetime.setDate($scope.getDatetime.getDate() - 1);
+        var yesterdaysdate = $filter('date')($scope.getDatetime, 'yyyy-MM-dd');
+
+        /*SET DATE IN FILTERS*/
+        $scope.date = {
+            from: yesterdaysdate,
+            to: todaysdate
+        };
+        console.log($scope.date);
+
         /*GET DASHBOARD DATA*/
         var getdashboarddatasuccess = function (response) {
             console.log(response.data);
@@ -37,7 +50,7 @@ phonecatControllers.controller('home', ['$scope', 'TemplateService', 'Navigation
         var getdashboarddataerror = function (response) {
             console.log(response.data);
         };
-        NavigationService.getdashboarddata($scope.user.id, $scope.user.access_id).then(getdashboarddatasuccess, getdashboarddataerror);
+        NavigationService.getdashboarddata($scope.user.id, $scope.user.access_id, $scope.date.from, $scope.date.to).then(getdashboarddatasuccess, getdashboarddataerror);
 
 
         /*GET CONCEPTS EXCEL*/

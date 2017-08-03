@@ -62,8 +62,8 @@
             <tbody>
                 <tr ng-repeat="q in questions | filter:searchText">
                     <td>{{$index+1}}</td>
-                    <td ng-if="q.format == '1'">{{q.question}}</td>
-                    <td id="mathtablequestion" ng-if="q.format == '2'" ng-bind-html="q.question"></td>
+                    <td ng-if="q.format == '1'" style="max-width: 58vw;">{{q.question}}</td>
+                    <td id="mathtablequestion" ng-if="q.format == '2'" ng-bind-html="q.question" style="max-width: 58vw;"></td>
                     <td>{{q.type}}</td>
                     <td>{{q.optionsavailable}}</td>
                     <td class="text-center">

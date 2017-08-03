@@ -397,11 +397,13 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             });
         },
-        getdashboarddata: function (id, access) {
+        getdashboarddata: function (id, access, from, to) {
             return $http.get(adminurl + 'users/getdashboarddata', {
                 params: {
                     userid: id,
-                    access: access
+                    access: access,
+                    from: from,
+                    to: to
                 }
             });
         },
