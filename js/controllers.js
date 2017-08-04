@@ -30,28 +30,49 @@ phonecatControllers.controller('home', ['$scope', 'TemplateService', 'Navigation
         $scope.user = $.jStorage.get("user");
 
         /*GET TODAYS AND YESTERDATS DATES FOR INITIAL VALUES*/
-        $scope.getDatetime = new Date();
+        /*$scope.getDatetime = new Date();
         var todaysdate = $filter('date')($scope.getDatetime, 'yyyy-MM-dd');
         $scope.getDatetime.setDate($scope.getDatetime.getDate() - 1);
-        var yesterdaysdate = $filter('date')($scope.getDatetime, 'yyyy-MM-dd');
+        var yesterdaysdate = $filter('date')($scope.getDatetime, 'yyyy-MM-dd');*/
 
         /*SET DATE IN FILTERS*/
-        $scope.date = {
+        /*$scope.date = {
             from: yesterdaysdate,
             to: todaysdate
         };
-        console.log($scope.date);
+        console.log($scope.date);*/
 
         /*GET DASHBOARD DATA*/
-        var getdashboarddatasuccess = function (response) {
+        /*var getdashboarddatasuccess = function (response) {
             console.log(response.data);
             $scope.dashboarddata = response.data;
         };
         var getdashboarddataerror = function (response) {
             console.log(response.data);
         };
-        NavigationService.getdashboarddata($scope.user.id, $scope.user.access_id, $scope.date.from, $scope.date.to).then(getdashboarddatasuccess, getdashboarddataerror);
+        NavigationService.getdashboarddata($scope.user.id, $scope.user.access_id, $scope.date.from, $scope.date.to).then(getdashboarddatasuccess, getdashboarddataerror);*/
 
+
+        $scope.getdashboarddatadate = function() {
+          var fromdate = $filter('date')($scope.date.from, 'yyyy-MM-dd');
+          var todate = $filter('date')($scope.date.to, 'yyyy-MM-dd');
+
+          $scope.date = {
+            from: fromdate,
+            to: todate
+          };
+          console.log($scope.date);
+
+          var getdashboarddatasuccess = function (response) {
+              console.log(response.data);
+              $scope.dashboarddata = response.data;
+          };
+          var getdashboarddataerror = function (response) {
+              console.log(response.data);
+          };
+
+          NavigationService.getdashboarddata($scope.user.id, $scope.user.access_id, $scope.date.from, $scope.date.to).then(getdashboarddatasuccess, getdashboarddataerror);
+        }
 
         /*GET CONCEPTS EXCEL*/
         $scope.getconceptsexceldata = function () {
