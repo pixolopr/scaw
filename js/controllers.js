@@ -51,28 +51,29 @@ phonecatControllers.controller('home', ['$scope', 'TemplateService', 'Navigation
             console.log(response.data);
         };
         NavigationService.getdashboarddata($scope.user.id, $scope.user.access_id, $scope.date.from, $scope.date.to).then(getdashboarddatasuccess, getdashboarddataerror);*/
-
+        $scope.date = {
+                from: "",
+                to: ""
+            };
 
         $scope.getdashboarddatadate = function () {
-          console.log("getdashboarddatadate entered");
-          var fromdate = $filter('date')($scope.date.from, 'yyyy-MM-dd');
-          var todate = $filter('date')($scope.date.to, 'yyyy-MM-dd');
+            console.log("getdashboarddatadate entered");
 
-          $scope.date = {
-            from: fromdate,
-            to: todate
-          };
-          console.log($scope.date);
+            var fromdate = $filter('date')($scope.date.from, 'yyyy-MM-dd');
+            var todate = $filter('date')($scope.date.to, 'yyyy-MM-dd');
+            console.log($scope.date);
+            
 
-          var getdashboarddatasuccess = function (response) {
-              console.log(response.data);
-              $scope.dashboarddata = response.data;
-          };
-          var getdashboarddataerror = function (response) {
-              console.log(response.data);
-          };
 
-          NavigationService.getdashboarddata($scope.user.id, $scope.user.access_id, $scope.date.from, $scope.date.to).then(getdashboarddatasuccess, getdashboarddataerror);
+            var getdashboarddatasuccess = function (response) {
+                console.log(response.data);
+                $scope.dashboarddata = response.data;
+            };
+            var getdashboarddataerror = function (response) {
+                console.log(response.data);
+            };
+
+            NavigationService.getdashboarddata($scope.user.id, $scope.user.access_id, $scope.date.from, $scope.date.to).then(getdashboarddatasuccess, getdashboarddataerror);
         }
 
         /*GET CONCEPTS EXCEL*/
