@@ -1,6 +1,16 @@
 <!--ADMINISTRATOR DASHBOARD-->
 <div class="container-fluid" ng-if="user.access_id == '1'">
 
+  <div class="row">
+    <div class="col-md-6">
+      <input type="date" ng-model="date.from">
+    </div>
+    <div class="col-md-6">
+      <input type="date" ng-model="date.to">
+    </div>
+    <button type="button" class="btn btn-default primarybg" ng-click="getdashboarddatadate()">Submit Date</button>
+  </div>
+
     <!--<div class="row">
         <div class="col-md-4">
             <div class="card">

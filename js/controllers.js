@@ -53,11 +53,12 @@ phonecatControllers.controller('home', ['$scope', 'TemplateService', 'Navigation
         NavigationService.getdashboarddata($scope.user.id, $scope.user.access_id, $scope.date.from, $scope.date.to).then(getdashboarddatasuccess, getdashboarddataerror);*/
 
 
-        $scope.getdashboarddatadate = function() {
+        $scope.getdashboarddatadate = function () {
+          console.log("getdashboarddatadate entered");
           var fromdate = $filter('date')($scope.date.from, 'yyyy-MM-dd');
           var todate = $filter('date')($scope.date.to, 'yyyy-MM-dd');
 
-          $scope.date = {
+          /*$scope.date = {
             from: fromdate,
             to: todate
           };
@@ -71,7 +72,7 @@ phonecatControllers.controller('home', ['$scope', 'TemplateService', 'Navigation
               console.log(response.data);
           };
 
-          NavigationService.getdashboarddata($scope.user.id, $scope.user.access_id, $scope.date.from, $scope.date.to).then(getdashboarddatasuccess, getdashboarddataerror);
+          NavigationService.getdashboarddata($scope.user.id, $scope.user.access_id, $scope.date.from, $scope.date.to).then(getdashboarddatasuccess, getdashboarddataerror);*/
         }
 
         /*GET CONCEPTS EXCEL*/
