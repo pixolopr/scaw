@@ -2,7 +2,7 @@
     <div class="col-md-12 col-sm-12 col-xs-12 paddingtop">
 
         <div class="searchicon">
-           <i class="material-icons ">search</i> <label><input ng-model="searchText"></label>
+            <i class="material-icons ">search</i> <label><input ng-model="searchText"></label>
         </div>
 
         <div class="row">
@@ -44,6 +44,29 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-4">
+                <select ng-model="filter.limit" id="pageSize" ng-change="fetchquestions()" class="form-control">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <button ng-disabled="currentpage == 0" ng-click="getpagedata(-1)">
+                    Previous
+                </button>
+                {{currentpage+1}}/{{totalpages}}
+                <button ng-disabled="currentpage >= totalpages" ng-click="getpagedata(1)">
+                    Next
+                </button>
+            </div>
+            <div class="col-md-4">
+
+            </div>
+        </div>
     </div>
     <div class="col-md-12 col-sm-12 col-xs-12">
 
@@ -61,7 +84,7 @@
 
             <tbody>
                 <tr ng-repeat="q in questions | filter:searchText">
-                    <td>{{$index+1}}</td>
+                    <td>{{(currentpage*filter.limit)+$index+1}}</td>
                     <td ng-if="q.format == '1'" style="max-width: 58vw;">{{q.question}}</td>
                     <td id="mathtablequestion" ng-if="q.format == '2'" ng-bind-html="q.question" style="max-width: 58vw;"></td>
                     <td>{{q.type}}</td>

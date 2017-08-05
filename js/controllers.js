@@ -720,10 +720,14 @@ phonecatControllers.controller('questionsCtrl', ['$scope', 'TemplateService', 'N
                 'boardid': '0'
             };
         };
-
+        
+        $scope.currentpage = 0;
+      
         var getquestionssuccess = function (response) {
             console.log(response.data);
-            $scope.questions = response.data;
+            $scope.questions = response.data.questions;
+            $scope.totalquestions = response.data.totalquestions;
+            $scope.totalpages = Math.ceil($scope.totalquestions / $scope.filter.limit);
             for (var q = 0; q < $scope.questions.length; q++) {
 
             };
@@ -750,7 +754,17 @@ phonecatControllers.controller('questionsCtrl', ['$scope', 'TemplateService', 'N
         var getquestions = function () {
             NavigationService.getquestions($scope.filter).then(getquestionssuccess, getquestionserror);
         };
-
+      
+      /*WHEN NEXT AND PREVIOUS BUTTON CLICKED*/
+      $scope.getpagedata = function(inc) {
+          $scope.currentpage += inc;
+          $scope.filter.count = $scope.currentpage * $scope.filter.limit;
+          getquestions();
+      }
+      
+      $scope.fetchquestions = function() {
+          getquestions();
+      }
 
         $scope.getdata = function (objname, id) {
             var getdatasuccess = function (response) {
