@@ -29,46 +29,25 @@ phonecatControllers.controller('home', ['$scope', 'TemplateService', 'Navigation
         /*INITIALIZATIONS*/
         $scope.user = $.jStorage.get("user");
 
-        /*GET TODAYS AND YESTERDATS DATES FOR INITIAL VALUES*/
-        /*$scope.getDatetime = new Date();
-        var todaysdate = $filter('date')($scope.getDatetime, 'yyyy-MM-dd');
-        $scope.getDatetime.setDate($scope.getDatetime.getDate() - 1);
-        var yesterdaysdate = $filter('date')($scope.getDatetime, 'yyyy-MM-dd');*/
+        $scope.date = {
+            from: "",
+            to: ""
+        };
 
-        /*SET DATE IN FILTERS*/
-        /*$scope.date = {
+        /*GET TODAYS AND YESTERDATS DATES FOR INITIAL VALUES*/
+        $scope.getDatetime = new Date();
+        var todaysdate = new Date();
+        $scope.getDatetime.setDate($scope.getDatetime.getDate() - 1);
+        var yesterdaysdate = $scope.getDatetime;
+
+        /*SET INITIAL DATE IN FILTERS*/
+        $scope.date = {
             from: yesterdaysdate,
             to: todaysdate
         };
-        console.log($scope.date);*/
-
-        /*GET DASHBOARD DATA*/
-        /*var getdashboarddatasuccess = function (response) {
-            console.log(response.data);
-            $scope.dashboarddata = response.data;
-        };
-        var getdashboarddataerror = function (response) {
-            console.log(response.data);
-        };
-        NavigationService.getdashboarddata($scope.user.id, $scope.user.access_id, $scope.date.from, $scope.date.to).then(getdashboarddatasuccess, getdashboarddataerror);*/
-        $scope.date = {
-                from: "",
-                to: ""
-            };
 
         /*GET THE DATE FROM 2 DATE FIELDS IN CONTENT.HTML AND CALL THE FUNCTION ON CLICK*/
-        $scope.getdashboarddatadate = function () {
-            console.log("getdashboarddatadate entered");
-
-            var fromdate = $filter('date')($scope.date.from, 'yyyy-MM-dd');
-            var todate = $filter('date')($scope.date.to, 'yyyy-MM-dd');
-
-            $scope.date = {
-              from: fromdate,
-              to:todate
-            };
-            console.log($scope.date);
-
+        $scope.getdashboarddatabydate = function () {
             var getdashboarddatasuccess = function (response) {
                 console.log(response.data);
                 $scope.dashboarddata = response.data;
@@ -76,9 +55,11 @@ phonecatControllers.controller('home', ['$scope', 'TemplateService', 'Navigation
             var getdashboarddataerror = function (response) {
                 console.log(response.data);
             };
-
             NavigationService.getdashboarddata($scope.user.id, $scope.user.access_id, $scope.date.from, $scope.date.to).then(getdashboarddatasuccess, getdashboarddataerror);
         };
+
+        /*INITIALLY CALL DASHBOARD FUNCTION*/
+        $scope.getdashboarddatabydate();
 
         /*GET CONCEPTS EXCEL*/
         $scope.getconceptsexceldata = function () {
@@ -719,7 +700,7 @@ phonecatControllers.controller('questionsCtrl', ['$scope', 'TemplateService', 'N
                 'count': 0,
                 'userid': $rootScope.user.id,
                 'access': $rootScope.user.access_id,
-                'limit': 1000,
+                'limit': 50,
                 'conceptid': '0',
                 'chapterid': '0',
                 'subjectid': '0',
@@ -731,7 +712,7 @@ phonecatControllers.controller('questionsCtrl', ['$scope', 'TemplateService', 'N
                 'count': 0,
                 'userid': $rootScope.user.id,
                 'access': $rootScope.user.access_id,
-                'limit': 1000,
+                'limit': 50,
                 'conceptid': '0',
                 'chapterid': '0',
                 'subjectid': '0',
