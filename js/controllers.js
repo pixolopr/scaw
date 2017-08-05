@@ -762,9 +762,10 @@ phonecatControllers.controller('questionsCtrl', ['$scope', 'TemplateService', 'N
           getquestions();
       }
       
+      $scope.pagenumber=0;
       $scope.fetchquestions = function() {
           getquestions();
-      }
+      }    
 
         $scope.getdata = function (objname, id) {
             var getdatasuccess = function (response) {

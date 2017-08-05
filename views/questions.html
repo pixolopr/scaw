@@ -64,7 +64,8 @@
                 </button>
             </div>
             <div class="col-md-4">
-
+                <input type="number" ng-model="pagenumber">
+                <button type="button" ng-click="getpagedata((pagenumber-currentpage)-1)">Go to Page</button>
             </div>
         </div>
     </div>
@@ -95,9 +96,6 @@
                         <button type="button" class="btn btn-default" ng-click="deletequestion(q.id)">Delete</button>-->
                         <i class="material-icons questionicon" aria-hidden="true" ng-click="gotocreatequestion(q.id)">mode_edit</i>
                         <i class="material-icons questionicon redcolor" aria-hidden="true" ng-click="deletequestion(q.id)">delete</i>
-
-
-
                     </td>
                 </tr>
             </tbody>
