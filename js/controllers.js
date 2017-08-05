@@ -56,14 +56,18 @@ phonecatControllers.controller('home', ['$scope', 'TemplateService', 'Navigation
                 to: ""
             };
 
+        /*GET THE DATE FROM 2 DATE FIELDS IN CONTENT.HTML AND CALL THE FUNCTION ON CLICK*/
         $scope.getdashboarddatadate = function () {
             console.log("getdashboarddatadate entered");
 
             var fromdate = $filter('date')($scope.date.from, 'yyyy-MM-dd');
             var todate = $filter('date')($scope.date.to, 'yyyy-MM-dd');
-            console.log($scope.date);
-            
 
+            $scope.date = {
+              from: fromdate,
+              to:todate
+            };
+            console.log($scope.date);
 
             var getdashboarddatasuccess = function (response) {
                 console.log(response.data);
@@ -74,7 +78,7 @@ phonecatControllers.controller('home', ['$scope', 'TemplateService', 'Navigation
             };
 
             NavigationService.getdashboarddata($scope.user.id, $scope.user.access_id, $scope.date.from, $scope.date.to).then(getdashboarddatasuccess, getdashboarddataerror);
-        }
+        };
 
         /*GET CONCEPTS EXCEL*/
         $scope.getconceptsexceldata = function () {
@@ -190,6 +194,7 @@ phonecatControllers.controller('usersCtrl', ['$scope', 'TemplateService', 'Navig
         };
 
   }]);
+
 phonecatControllers.controller('adduserCtrl', ['$scope', 'TemplateService', 'NavigationService', '$routeParams', '$location',
   function ($scope, TemplateService, NavigationService, $routeParams, $location) {
         $scope.template = TemplateService;
@@ -239,7 +244,6 @@ phonecatControllers.controller('adduserCtrl', ['$scope', 'TemplateService', 'Nav
                 NavigationService.getstandardsbyboardid($scope.user.board_id).then(getstandardsbyboardidsuccess, getstandardsbyboardiderror);
             };
         };
-
 
         /*GET ALL DATA*/
         var getaccesssuccess = function (response) {
@@ -327,16 +331,13 @@ phonecatControllers.controller('adduserCtrl', ['$scope', 'TemplateService', 'Nav
             };
         };
 
-
-
-
   }]);
+
 phonecatControllers.controller('syllabusCtrl', ['$scope', 'TemplateService', 'NavigationService', '$location', 'FileUploader', '$rootScope',
   function ($scope, TemplateService, NavigationService, $location, FileUploader, $rootScope) {
         $scope.template = TemplateService;
         TemplateService.content = "views/syllabus.html";
         $scope.title = "syllabus";
-
 
         /*INITIALIZATIONS*/
 
@@ -366,7 +367,6 @@ phonecatControllers.controller('syllabusCtrl', ['$scope', 'TemplateService', 'Na
             };
         };
 
-
         var getdata = function (objname, id) {
             var getdatasuccess = function (response) {
                 console.log(response.data);
@@ -375,7 +375,6 @@ phonecatControllers.controller('syllabusCtrl', ['$scope', 'TemplateService', 'Na
                 _.forEach($scope[objname], function (value) {
                     value.sync = true;
                 });
-
                 $rootScope.path = $scope.path;
             };
             var getdataerror = function (response) {
@@ -387,7 +386,6 @@ phonecatControllers.controller('syllabusCtrl', ['$scope', 'TemplateService', 'Na
         $scope.changepath = function (currpath, objectname, obj) {
             $scope.path.currentpath = currpath;
             $scope.path[objectname] = obj;
-
 
             /*GET DATA OF THAT THING*/
             if (currpath == 'boards') {
@@ -529,13 +527,8 @@ phonecatControllers.controller('syllabusCtrl', ['$scope', 'TemplateService', 'Na
                 } else {
                     NavigationService.createdata(obj.name, $scope.addid, $scope.path.currentpath, sortorder).then(createdatasuccess, createdataerror, $scope.files);
                 };
-
-
             };
-
         };
-
-
 
         var getboards = function () {
             var getboardssuccess = function (response) {
@@ -580,16 +573,13 @@ phonecatControllers.controller('syllabusCtrl', ['$scope', 'TemplateService', 'Na
                         NavigationService.updatesortorder($scope.path.currentpath, value.id, so).then(updatesortordersuccess, updatesortordererror);
                     };
                 });
-
             }
         };
-
 
         /*GO TO CARD CREATOR*/
         $scope.gotocardcreator = function (cid) {
             $location.path('/cardcreator/' + cid);
         };
-
 
         /*UPLOAD IMAGE*/
         var uploader = $scope.uploader = new FileUploader({
@@ -649,10 +639,7 @@ phonecatControllers.controller('syllabusCtrl', ['$scope', 'TemplateService', 'Na
         };
 
         console.info('uploader', uploader);
-
-
   }]);
-
 
 phonecatControllers.controller('addsyllabusdataCtrl', ['$scope', 'TemplateService', 'NavigationService', '$routeParams', '$location',
   function ($scope, TemplateService, NavigationService, $routeParams, $location) {
@@ -683,9 +670,6 @@ phonecatControllers.controller('addsyllabusdataCtrl', ['$scope', 'TemplateServic
             };
             NavigationService.createdata($scope.data.name, $scope.parentid, $scope.addname).then(createdatasuccess, createdataerror);
         };
-
-
-
   }]);
 
 phonecatControllers.controller('questionsCtrl', ['$scope', 'TemplateService', 'NavigationService', '$location', '$http', '$rootScope', '$interval',
@@ -693,9 +677,6 @@ phonecatControllers.controller('questionsCtrl', ['$scope', 'TemplateService', 'N
         $scope.template = TemplateService;
         TemplateService.content = "views/questions.html";
         $scope.title = "questions";
-
-
-
 
         /*INITIALIZATION*/
 
@@ -769,9 +750,6 @@ phonecatControllers.controller('questionsCtrl', ['$scope', 'TemplateService', 'N
         var getquestionserror = function (response) {
             console.log(response.data);
         };
-
-
-
 
         /*
           PARAMS TO SEND GET QUESTIONS
@@ -900,8 +878,6 @@ phonecatControllers.controller('questionsCtrl', ['$scope', 'TemplateService', 'N
             $scope.files = files;
         };
 
-
-
         $scope.submit = function () {
 
             $rootScope.showupload = true;
@@ -961,16 +937,13 @@ phonecatControllers.controller('questionsCtrl', ['$scope', 'TemplateService', 'N
                 })
                 .error(function () {});
         };
-
-
-}]);
+  }]);
 
 phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService', 'NavigationService', '$location', '$routeParams', 'textAngularManager', '$rootScope', '$interval', '$anchorScroll',
   function ($scope, TemplateService, NavigationService, $location, $routeParams, textAngularManager, $rootScope, $interval, $anchorScroll) {
         $scope.template = TemplateService;
         TemplateService.content = "views/createquestion.html";
         $scope.title = "questions";
-
 
         //INITIALIZATIONS
         $scope.user = $rootScope.user;
@@ -1098,13 +1071,9 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
                     console.log($scope[objectname]);
                     console.log($scope[objectname][objectname]);
                 }, 1000, 1);
-
-
-
-
                 //textAngularManager.refreshEditor('carddata0');
-
             };
+
             var mathmltolatexerror = function (response) {
                 console.log(response.data);
             };
@@ -1127,7 +1096,6 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
                             for (var sb = 0; sb < $scope.boards[b].standards[stdid].subjects.length; sb++) {
                                 if ($scope.boards[b].standards[stdid].subjects[sb].id == $scope.subjectid) {
                                     $scope.dropdown.subject = sb;
-
                                     $scope.chapterchange('mark');
                                 };
                             };
@@ -1256,7 +1224,6 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
         $scope.checkcons = function () {
             for (var cs = 0; cs < $scope.concept.concepts.length; cs++) {
                 if ($scope.concept.concepts[cs]) {
-
                     console.log(cs);
                 } else {
 
@@ -1315,7 +1282,6 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
                 formdata.append(key, value);
             });
 
-
             //console.log($scope.files);
             formdata.append('questionimage', $scope.files[0]);
             formdata.append('answerimage', $scope.files[1]);
@@ -1332,7 +1298,6 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
             };
             formdata.append('concepts', conceptsarray);
 
-
             if ($scope.editid == 0) {
                 NavigationService.uploadfullquestiondata(formdata).success(function (response) {
                     console.log(response);
@@ -1344,7 +1309,6 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
                     $location.path('/questions');
                 });
             };
-
         };
 
         $scope.createquestion = function () {
@@ -1461,9 +1425,6 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
                 NavigationService.createquestion($scope.question).then(createquestionsuccess, createquestionerror);
             };
         };
-
-
-
   }]);
 
 phonecatControllers.controller('cardcreatorCtrl', ['$scope', 'TemplateService', 'NavigationService', '$location', '$routeParams', 'textAngularManager', 'FileUploader', '$filter', '$rootScope', '$window', '$interval', '$anchorScroll',
@@ -1518,9 +1479,6 @@ phonecatControllers.controller('cardcreatorCtrl', ['$scope', 'TemplateService', 
              editor.insertInto(document.getElementById('editorContainer'));
          };*/
 
-
-
-
         $scope.loadmathseditor = function () {
             editor = com.wiris.jsEditor.JsEditor.newInstance({
                 'language': 'en'
@@ -1562,7 +1520,6 @@ phonecatControllers.controller('cardcreatorCtrl', ['$scope', 'TemplateService', 
             }, 500, 1);
         };
 
-
         $rootScope.addmathequation = function (el) {
             console.log(editor.getMathML());
             var mathmltolatexsuccess = function (response) {
@@ -1573,10 +1530,7 @@ phonecatControllers.controller('cardcreatorCtrl', ['$scope', 'TemplateService', 
 
                 el.$editor().wrapSelection('insertHTML', $rootScope.math.code, true);
 
-
-
                 textAngularManager.refreshEditor('carddata0');
-
             };
             var mathmltolatexerror = function (response) {
                 console.log(response.data);
@@ -1639,7 +1593,6 @@ phonecatControllers.controller('cardcreatorCtrl', ['$scope', 'TemplateService', 
                         NavigationService.updatecardsortorder(value.id, so).then(updatesortordersuccess, updatesortordererror);
                     };
                 });
-
             }
         };
 
@@ -1672,14 +1625,7 @@ phonecatControllers.controller('cardcreatorCtrl', ['$scope', 'TemplateService', 
                     };
                 });
             };
-
-
         };
-
-
-
-
-
 
         $scope.createcard = function () {
 
@@ -1749,7 +1695,6 @@ phonecatControllers.controller('cardcreatorCtrl', ['$scope', 'TemplateService', 
             });
         };
 
-
         /*ADD CARD*/
         $scope.addcard = function () {
             $scope.cards.push({
@@ -1759,7 +1704,6 @@ phonecatControllers.controller('cardcreatorCtrl', ['$scope', 'TemplateService', 
                 'sync': false
             });
         };
-
 
         /*DUPLICATE CARD*/
         $scope.duplicatecard = function (ind) {
@@ -1783,7 +1727,6 @@ phonecatControllers.controller('cardcreatorCtrl', ['$scope', 'TemplateService', 
                 $scope.cards.splice(ind, 1);
             };
         };
-
 
         /*UPLOAD IMAGE*/
         var uploader = $scope.uploader = new FileUploader({
@@ -1884,8 +1827,6 @@ phonecatControllers.controller('cardviewerCtrl', ['$scope', 'TemplateService', '
             console.log(response.data);
         };
         NavigationService.getcardsbyconceptid($scope.editid).then(getcardsbyconceptidsuccess, getcardsbyconceptiderror);
-
-
   }]);
 
 phonecatControllers.controller('mathjaxeditorCtrl', ['$scope', 'TemplateService', 'NavigationService',
@@ -1899,7 +1840,6 @@ phonecatControllers.controller('contact', ['$scope', 'TemplateService', 'Navigat
   function ($scope, TemplateService, NavigationService) {
         $scope.template = TemplateService;
   }]);
-
 
 phonecatControllers.controller('headerctrl', ['$scope', 'TemplateService', '$location', '$rootScope', 'NavigationService',
  function ($scope, TemplateService, $location, $rootScope, NavigationService) {
@@ -1927,8 +1867,6 @@ phonecatControllers.controller('headerctrl', ['$scope', 'TemplateService', '$loc
             $location.path('/login');
         };
 
-
-
         //DROP IMAGE ON TEXT EDITOR
         $rootScope.dropHandler = function (file, insertAction) {
             if (file.type.substring(0, 5) !== "image") {
@@ -1941,8 +1879,6 @@ phonecatControllers.controller('headerctrl', ['$scope', 'TemplateService', '$loc
                 alert("file size cannot exceed 0.5MB");
                 return;
             };
-
-
 
             var formdata = new FormData();
             formdata.append('image', file);
@@ -1962,10 +1898,5 @@ phonecatControllers.controller('headerctrl', ['$scope', 'TemplateService', '$loc
                 reader.readAsDataURL(file);
             });
             return true;
-
-
         };
-
-
-
   }]);
