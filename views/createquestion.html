@@ -179,6 +179,7 @@
                             </div>
                             <div class="col-md-4" ng-if="editid != 0 && questionimage !=''">
                                 <img src="{{questionimage | imagepath}}" style="width: 100%;max-height: 120px;">
+                                <a class="textcenter deletequestionlink" ng-click="removeimage('question')">Remove Image</a>
                             </div>
                         </div>
 
@@ -236,7 +237,7 @@
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="first-name">Concepts <span class="required">*</span>
                                 </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class="col-md-9 col-sm-9 col-xs-12">
                                     <p ng-repeat="con in conceptsdropdown">
                                         <input type="checkbox" id="{{'checkbox'+$index}}" ng-model="concept.concepts[$index]" />
                                         <label for="{{'checkbox'+$index}}">{{con.name}} - {{con.id}}</label>
@@ -282,6 +283,7 @@
                             </div>
                             <div class="col-md-4" ng-if="editid != 0 && answerimage !=''">
                                 <img src="{{answerimage | imagepath}}" style="width: auto;height: 120px;">
+                                <a class="textcenter deletequestionlink" ng-click="removeimage('answer')">Remove Image</a>
                             </div>
                         </div>
 

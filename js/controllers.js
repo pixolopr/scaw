@@ -661,6 +661,10 @@ phonecatControllers.controller('questionsCtrl', ['$scope', 'TemplateService', 'N
 
         /*INITIALIZATION*/
 
+        $scope.search = {
+            id: ""
+        };
+
         if ($rootScope.qafilter) {
 
             console.log("Take from rootscope");
@@ -700,7 +704,7 @@ phonecatControllers.controller('questionsCtrl', ['$scope', 'TemplateService', 'N
                 'count': 0,
                 'userid': $rootScope.user.id,
                 'access': $rootScope.user.access_id,
-                'limit': 50,
+                'limit': "20",
                 'conceptid': '0',
                 'chapterid': '0',
                 'subjectid': '0',
@@ -720,13 +724,16 @@ phonecatControllers.controller('questionsCtrl', ['$scope', 'TemplateService', 'N
                 'boardid': '0'
             };
         };
-        
+
         $scope.currentpage = 0;
-      
+        $scope.srnumberreference = 0;
+
         var getquestionssuccess = function (response) {
             console.log(response.data);
+            $scope.search.id = "";
             $scope.questions = response.data.questions;
             $scope.totalquestions = response.data.totalquestions;
+            $scope.srnumberreference = $scope.currentpage;
             $scope.totalpages = Math.ceil($scope.totalquestions / $scope.filter.limit);
             for (var q = 0; q < $scope.questions.length; q++) {
 
@@ -754,18 +761,18 @@ phonecatControllers.controller('questionsCtrl', ['$scope', 'TemplateService', 'N
         var getquestions = function () {
             NavigationService.getquestions($scope.filter).then(getquestionssuccess, getquestionserror);
         };
-      
-      /*WHEN NEXT AND PREVIOUS BUTTON CLICKED*/
-      $scope.getpagedata = function(inc) {
-          $scope.currentpage += inc;
-          $scope.filter.count = $scope.currentpage * $scope.filter.limit;
-          getquestions();
-      }
-      
-      $scope.pagenumber=0;
-      $scope.fetchquestions = function() {
-          getquestions();
-      }    
+
+        /*WHEN NEXT AND PREVIOUS BUTTON CLICKED*/
+        $scope.getpagedata = function (inc) {
+            $scope.currentpage += inc;
+            $scope.filter.count = $scope.currentpage * $scope.filter.limit;
+            getquestions();
+        }
+
+        $scope.pagenumber = 0;
+        $scope.fetchquestions = function () {
+            getquestions();
+        };
 
         $scope.getdata = function (objname, id) {
             var getdatasuccess = function (response) {
@@ -775,6 +782,11 @@ phonecatControllers.controller('questionsCtrl', ['$scope', 'TemplateService', 'N
 
                 getquestions();
             };
+
+            $scope.currentpage = 0;
+            $scope.filter.count = '0';
+            $rootScope.qafilter.count = '0';
+
             var getdataerror = function (response) {
                 console.log(response.data, id);
             };
@@ -820,6 +832,30 @@ phonecatControllers.controller('questionsCtrl', ['$scope', 'TemplateService', 'N
                 NavigationService.getdata(id, objname).then(getdatasuccess, getdataerror);
             };
 
+        };
+
+        /*SEARCH QUESTION BY ID*/
+        $scope.searchquestionbyid = function () {
+            console.log($scope.search.id);
+            var searchquestionbyidsuccess = function (response) {
+                console.log(response.data);
+                $scope.srnumberreference = 0;
+                $scope.questions = [];
+                $scope.questions.push(response.data);
+                $scope.totalquestions = 1;
+                $scope.totalpages = 1;
+            };
+            var searchquestionbyiderror = function (response) {
+                console.log(response.data);
+            };
+            NavigationService.searchquestionbyid($scope.search.id).then(searchquestionbyidsuccess, searchquestionbyiderror);
+        };
+
+        /*REMOVE SEARCH*/
+        $scope.checksearchremove = function () {
+            if ($scope.search.id == "") {
+                getquestions();
+            };
         };
 
         /*GET ALL BOARDS INITIALLY*/
@@ -1199,6 +1235,22 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
                     NavigationService.getquestionconcepts($scope.editid).then(getquestionconceptssuccess, getquestionconceptserror);
                 };
             };
+        };
+
+        $scope.removeimage = function (ind) {
+            if (ind == "question") {
+                $scope.questionimage = "";
+            } else {
+                $scope.answerimage = "";
+            };
+
+            var removeimagesuccess = function (response) {
+                console.log(response.data);
+            };
+            var removeimageerror = function (response) {
+                console.log(response.data);
+            };
+            NavigationService.removeimage(ind, $scope[ind].id).then(removeimagesuccess, removeimageerror);
         };
 
         var getfulldropdownsuccess = function (response) {

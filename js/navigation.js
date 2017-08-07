@@ -258,6 +258,21 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             });
         },
+        searchquestionbyid: function (id) {
+            return $http.get(adminurl + 'questions/getbyid', {
+                params: {
+                    id: id
+                }
+            });
+        },
+        removeimage: function (type,id) {
+            return $http.get(adminurl + 'questions/removeimage', {
+                params: {
+                    id: id,
+                    type: type
+                }
+            });
+        },
         addconcepttoquestion: function (qid, cid) {
             return $http.get(adminurl + 'question_concept/insert', {
                 params: {
@@ -389,7 +404,7 @@ var navigationservice = angular.module('navigationservice', [])
                     mml: mathml
                 }
             });
-        }, 
+        },
         latextomathml: function (latex) {
             return $http.get('http://www.wiris.net/demo/editor/latex2mathml', {
                 params: {
@@ -407,18 +422,16 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             });
         },
-        geteditorsandteachers: function(){
+        geteditorsandteachers: function () {
             return $http.get(adminurl + 'access/geteditorsandteachers', {
-                params: {
-                }
+                params: {}
             });
         },
         getbackup: function () {
             $http.get(adminurl + 'access/getbackup', {
-                params: {
-                }
+                params: {}
             });
-                },
+        },
 
 
     }

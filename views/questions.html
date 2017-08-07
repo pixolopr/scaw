@@ -2,13 +2,13 @@
     <div class="col-md-12 col-sm-12 col-xs-12 paddingtop">
 
         <div class="searchicon">
-            <i class="material-icons ">search</i> <label><input ng-model="searchText"></label>
+            <input ng-model="search.id" class="questionsearch" placeholder="Search Question ID" ng-change="checksearchremove()"><a ng-click="searchquestionbyid()"><i class="material-icons questionsearchicon">search</i></a>
         </div>
 
         <div class="row">
             <div class="col-md-2">
                 <button type="button" class="btn btn-default primarybg" ng-click="gotocreatequestion(0)">
-               Create</button>
+                    Create</button>
             </div>
             <div class="col-md-6 questionsfilterdiv">
                 <select class="displayinlineblock" style="width: 15%;" ng-model="filter.boardid" ng-change="getdata('standards', filter.boardid)">
@@ -46,26 +46,30 @@
         </div>
         <div class="row">
             <div class="col-md-4">
-                <select ng-model="filter.limit" id="pageSize" ng-change="fetchquestions()" class="form-control">
+                Show:
+                <select ng-model="filter.limit" id="pageSize" ng-change="fetchquestions()" class="form-control questionlimitdropdown">
                     <option value="5">5</option>
                     <option value="10">10</option>
                     <option value="15">15</option>
                     <option value="20">20</option>
                     <option value="50">50</option>
                 </select>
+                Questions
             </div>
-            <div class="col-md-4">
-                <button ng-disabled="currentpage == 0" ng-click="getpagedata(-1)">
-                    Previous
-                </button>
-                {{currentpage+1}}/{{totalpages}}
-                <button ng-disabled="currentpage >= totalpages" ng-click="getpagedata(1)">
-                    Next
-                </button>
+            <div class="col-md-3">
+
             </div>
-            <div class="col-md-4">
-                <input type="number" ng-model="pagenumber">
-                <button type="button" ng-click="getpagedata((pagenumber-currentpage)-1)">Go to Page</button>
+            <div class="col-md-5">
+
+                <a class="waves-effect waves-light btn primarybg padding0" ng-disabled="currentpage == 0" ng-click="getpagedata(-1)"><i class="material-icons right questionspagearrow">keyboard_arrow_left</i></a> {{currentpage+1}}/{{totalpages}}
+                <a class="waves-effect waves-light btn primarybg padding0" ng-disabled="currentpage >= totalpages" ng-click="getpagedata(1)"><i class="material-icons right questionspagearrow">keyboard_arrow_right</i></a>
+
+                <div class="floatright">
+                    <input type="number" ng-model="pagenumber" class="questionlimitdropdown">
+                    <button class="btn waves-effect waves-light primarybg" type="submit" ng-click="getpagedata((pagenumber-currentpage)-1)">Go
+                        <i class="material-icons right">send</i>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -84,8 +88,8 @@
 
 
             <tbody>
-                <tr ng-repeat="q in questions | filter:searchText">
-                    <td>{{(currentpage*filter.limit)+$index+1}}</td>
+                <tr ng-repeat="q in questions">
+                    <td>{{(srnumberreference*filter.limit)+$index+1}}</td>
                     <td ng-if="q.format == '1'" style="max-width: 58vw;">{{q.question}}</td>
                     <td id="mathtablequestion" ng-if="q.format == '2'" ng-bind-html="q.question" style="max-width: 58vw;"></td>
                     <td>{{q.type}}</td>
