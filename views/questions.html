@@ -79,6 +79,7 @@
             <thead>
                 <tr>
                     <th>Sr.</th>
+                    <th>ID</th>
                     <th>Question</th>
                     <th>Type</th>
                     <th>Options</th>
@@ -90,6 +91,7 @@
             <tbody>
                 <tr ng-repeat="q in questions">
                     <td>{{(srnumberreference*filter.limit)+$index+1}}</td>
+                    <td>{{q.id}}</td>
                     <td ng-if="q.format == '1'" style="max-width: 58vw;">{{q.question}}</td>
                     <td id="mathtablequestion" ng-if="q.format == '2'" ng-bind-html="q.question" style="max-width: 58vw;"></td>
                     <td>{{q.type}}</td>
