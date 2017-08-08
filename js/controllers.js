@@ -34,6 +34,20 @@ phonecatControllers.controller('home', ['$scope', 'TemplateService', 'Navigation
             to: ""
         };
 
+        $scope.myLimit = 7; /*Limit no. of editors displayed on the dashboard*/
+        $scope.showbutton = "Show More Editors"; /*Button that shows more or less editors*/
+
+        $scope.showmoreusers = function () {
+          if($scope.showbutton == "Show More Editors") {
+            $scope.myLimit = $scope.dashboarddata.editorquestiondata.size;
+            $scope.showbutton = "Show Less Editors";
+          }
+          else if ($scope.showbutton = "Show Less Editors") {
+            $scope.myLimit = 7;
+            $scope.showbutton = "Show More Editors";
+          }
+        }
+
         /*GET TODAYS AND YESTERDATS DATES FOR INITIAL VALUES*/
         $scope.getDatetime = new Date();
         var todaysdate = new Date();
