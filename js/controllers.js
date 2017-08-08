@@ -141,12 +141,13 @@ phonecatControllers.controller('usersCtrl', ['$scope', 'TemplateService', 'Navig
         //SET USERR ACCESS TYPE
         $scope.users = [];
         $scope.pagenumber = 0;
-        $scope.limit = 10;
+        $scope.limit = 42;
         $scope.useraccesstype = 4;
         var getuserssuccess = function (response) {
             console.log(response.data);
             $scope.users = response.data.users;
             $scope.usercount = response.data.count;
+            console.log($scope.usercount);
         };
         var getuserserror = function (response) {
             console.log(response.data);

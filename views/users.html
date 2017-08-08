@@ -9,6 +9,26 @@
         </div>
     </div>
     <div class="row">
+        <div class="col-md-4">
+            Show:
+            <select id="pageSize" class="form-control questionlimitdropdown">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+            </select>
+            Users
+        </div>
+        <div class="col-md-3">
+
+        </div>
+        <div class="col-md-5">
+            <a class="waves-effect waves-light btn primarybg padding0"><i class="material-icons right questionspagearrow">keyboard_arrow_left</i></a>
+            <a class="waves-effect waves-light btn primarybg padding0"><i class="material-icons right questionspagearrow">keyboard_arrow_right</i></a>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header primarybg row" data-background-color="">
@@ -17,8 +37,7 @@
                         <p class="category">This is where you can Add/Edit/Delete Users</p>
                     </div>
                     <div class="col-md-4">
-                        <div class="fixed-action-btn horizontal click-to-toggle" style="position: initial;
-">
+                        <div class="fixed-action-btn horizontal click-to-toggle" style="position: initial;">
                             <a class="btn-floating btn-large primarylightbg floatright">
                                 <i class="material-icons">menu</i>
                             </a>
@@ -51,10 +70,10 @@
                                     <br> Answered: {{user.answered}}
                                 </td>
                                 <td>
-                                   
+
                                     <i class="material-icons questionicon" aria-hidden="true" ng-click="adduser(useraccesstype, user.id)">mode_edit</i>
                         <i class="material-icons questionicon redcolor" aria-hidden="true" ng-click="deleteuser(user.id)">delete</i>
-                                   
+
                                    <!-- <a class="actionbutton1 waves-effect waves-light" ng-click="adduser(useraccesstype, user.id)"><i class="material-icons">mode_edit</i></a>
                                     <a class="actionbutton2 waves-effect waves-light" ng-click="deleteuser(user.id)"><i class="material-icons">delete</i></a>-->
                                 </td>
