@@ -1,12 +1,12 @@
 <!--ADMINISTRATOR DASHBOARD-->
 <div class="row">
-  <div class="col-md-6">
-    <input type="date" ng-model="date.from">
-  </div>
-  <div class="col-md-6">
-    <input type="date" ng-model="date.to">
-  </div>
-  <button type="button" class="btn btn-default primarybg" ng-click="getdashboarddatabydate()">Submit Date</button>
+    <div class="col-md-6">
+        <input type="date" ng-model="date.from">
+    </div>
+    <div class="col-md-6">
+        <input type="date" ng-model="date.to">
+    </div>
+    <button type="button" class="btn btn-default primarybg" ng-click="getdashboarddatabydate()">Submit Date</button>
 </div>
 
 <div class="container-fluid" ng-if="user.access_id == '1'">
@@ -134,7 +134,7 @@
                             <th class="textcenter">Number Of Questions</th>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="eq in dashboarddata.editorquestiondata | limitTo : myLimit">
+                            <tr ng-repeat="eq in dashboarddata.editorquestiondata | limitTo : editorslimit">
                                 <td>{{$index+1}}</td>
                                 <td>{{eq.name}}</td>
                                 <td class="textcenter">{{eq.count}}</td>
@@ -142,7 +142,7 @@
                         </tbody>
                     </table>
                     <br>
-                    <button type="button" class="btn btn-default primarybg" ng-bind="showbutton" ng-click="showmoreusers()"></button>
+                    <button type="button" class="btn btn-default primarybg" ng-bind="showbuttontext" ng-click="showmoreusers()" ng-if="showbutton"></button>
                 </div>
             </div>
         </div>

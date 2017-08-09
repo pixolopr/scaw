@@ -34,19 +34,19 @@ phonecatControllers.controller('home', ['$scope', 'TemplateService', 'Navigation
             to: ""
         };
 
-        $scope.myLimit = 7; /*Limit no. of editors displayed on the dashboard*/
-        $scope.showbutton = "Show More Editors"; /*Button that shows more or less editors*/
+        $scope.editorslimit = 7; /*Limit no. of editors displayed on the dashboard*/
+        $scope.showbuttontext = "See all of them"; /*Button that shows more or less editors*/
+        $scope.showbutton = false;
 
         $scope.showmoreusers = function () {
-          if($scope.showbutton == "Show More Editors") {
-            $scope.myLimit = $scope.dashboarddata.editorquestiondata.size;
-            $scope.showbutton = "Show Less Editors";
-          }
-          else if ($scope.showbutton = "Show Less Editors") {
-            $scope.myLimit = 7;
-            $scope.showbutton = "Show More Editors";
-          }
-        }
+            if ($scope.showbuttontext == "See all of them") {
+                $scope.editorslimit = $scope.dashboarddata.editorquestiondata.size;
+                $scope.showbuttontext = "See few of them";
+            } else {
+                $scope.editorslimit = 7;
+                $scope.showbuttontext = "See all of them";
+            }
+        };
 
         /*GET TODAYS AND YESTERDATS DATES FOR INITIAL VALUES*/
         $scope.getDatetime = new Date();
@@ -65,6 +65,12 @@ phonecatControllers.controller('home', ['$scope', 'TemplateService', 'Navigation
             var getdashboarddatasuccess = function (response) {
                 console.log(response.data);
                 $scope.dashboarddata = response.data;
+
+                if (response.data.editorquestiondata.length > $scope.editorslimit) {
+                    $scope.showbutton = true;
+                } else {
+                    $scope.showbutton = false;
+                };
             };
             var getdashboarddataerror = function (response) {
                 console.log(response.data);
