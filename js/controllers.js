@@ -35,16 +35,16 @@ phonecatControllers.controller('home', ['$scope', 'TemplateService', 'Navigation
         };
 
         $scope.editorslimit = 7; /*Limit no. of editors displayed on the dashboard*/
-        $scope.showbuttontext = "See all of them"; /*Button that shows more or less editors*/
+        $scope.showmorebuttontext = "See all of them"; /*Button that shows more or less editors*/
         $scope.showbutton = false;
 
         $scope.showmoreusers = function () {
-            if ($scope.showbuttontext == "See all of them") {
+            if ($scope.showmorebuttontext == "See all of them") {
                 $scope.editorslimit = $scope.dashboarddata.editorquestiondata.size;
-                $scope.showbuttontext = "See few of them";
+                $scope.showmorebuttontext = "See few of them";
             } else {
                 $scope.editorslimit = 7;
-                $scope.showbuttontext = "See all of them";
+                $scope.showmorebuttontext = "See all of them";
             }
         };
 
