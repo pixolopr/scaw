@@ -144,36 +144,65 @@ phonecatControllers.controller('usersCtrl', ['$scope', 'TemplateService', 'Navig
         TemplateService.content = "views/users.html";
         $scope.title = "users";
 
+        /*User Pagination*/
+        $scope.page = {
+          size: 5
+        };
+        $scope.currentpage = 0;
+        $scope.count = $scope.currentpage * $scope.page.size;
+
+        /*When the options of pagesize is changed*/
+        $scope.fetchusers = function() {
+          console.log("option value "+ $scope.page.size);
+          getusers();
+        }
+
+        /*When Next and Previous buttons clicked*/
+        $scope.getusersdata = function(inc) {
+          $scope.currentpage += inc;
+          $scope.count = $scope.currentpage * $scope.page.size;
+          getusers();
+        }
+
         //SET USERR ACCESS TYPE
         $scope.users = [];
-        $scope.pagenumber = 0;
-        $scope.limit = 1000;
+        //$scope.pagenumber = 0;
+        //$scope.limit = 1000;
         $scope.useraccesstype = 4;
+
         var getuserssuccess = function (response) {
             console.log(response.data);
             $scope.users = response.data.users;
             $scope.usercount = response.data.count;
+            $scope.totalpages = Math.ceil($scope.usercount / $scope.page.size);
             console.log($scope.usercount);
+            console.log("Total Pages"+$scope.totalpages);
         };
+
         var getuserserror = function (response) {
             console.log(response.data);
         };
+
         var getusers = function () {
-            len = $scope.pagenumber * $scope.limit;
-            NavigationService.getusers($scope.useraccesstype, len, $scope.limit).then(getuserssuccess, getuserserror);
+            //len = $scope.pagenumber * $scope.limit;
+            NavigationService.getusers($scope.useraccesstype, $scope.count, $scope.page.size).then(getuserssuccess, getuserserror);
+            //NavigationService.getusers($scope.useraccesstype, len, $scope.limit).then(getuserssuccess, getuserserror);
         };
+
         getusers();
+
         $scope.changeuser = function (uat) {
+            $scope.count = 0;
+            $scope.page.size = 5;
             $scope.useraccesstype = uat;
             $scope.users = [];
             getusers();
         };
 
-        $scope.changepage = function (page) {
+        /*$scope.changepage = function (page) {
             $scope.pagenumber = page;
             getusers();
-        };
-
+        };*/
 
         /*ADD USER*/
         $scope.adduser = function (id, eid) {

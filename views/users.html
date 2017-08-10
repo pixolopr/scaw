@@ -8,10 +8,10 @@
             <a class="waves-effect waves-light btn primarybutton" ng-click="changeuser(2)" ng-class="{'primarybg': useraccesstype == 2}">Editors</a>
         </div>
     </div>
-    <!--<div class="row">
+    <div class="row" ng-if="usercount>0">
         <div class="col-md-4">
             Show:
-            <select id="pageSize" class="form-control questionlimitdropdown">
+            <select ng-model="page.size" id="pagesize" ng-change="fetchusers()" class="form-control questionlimitdropdown">
                 <option value="5">5</option>
                 <option value="10">10</option>
                 <option value="15">15</option>
@@ -24,10 +24,11 @@
 
         </div>
         <div class="col-md-5">
-            <a class="waves-effect waves-light btn primarybg padding0"><i class="material-icons right questionspagearrow">keyboard_arrow_left</i></a>
-            <a class="waves-effect waves-light btn primarybg padding0"><i class="material-icons right questionspagearrow">keyboard_arrow_right</i></a>
+            <a class="waves-effect waves-light btn primarybg padding0" ng-disabled="currentpage == 0" ng-click="getusersdata(-1)"><i class="material-icons right questionspagearrow">keyboard_arrow_left</i></a>
+            {{currentpage+1}}/{{totalpages}}
+            <a class="waves-effect waves-light btn primarybg padding0" ng-disabled="currentpage >= totalpages-1" ng-click="getusersdata(1)"><i class="material-icons right questionspagearrow">keyboard_arrow_right</i></a>
         </div>
-    </div>-->
+    </div>
     <div class="row">
         <div class="col-md-12">
             <div class="card">
