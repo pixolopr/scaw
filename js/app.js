@@ -268,6 +268,26 @@ firstapp.config(function ($provide) {
 });
 
 firstapp.config(function ($provide) {
+    $provide.decorator('taOptions', ['taRegisterTool', '$delegate',
+                function (taRegisterTool, taOptions) {
+            // $delegate is the taOptions we are decorating
+            // register the tool with textAngular
+            taRegisterTool('editequation', {
+                iconclass: "fa fa-usd",
+                action: function () {
+                    return this.$editor().wrapSelection('insertHTML', '$$   $$');
+                },
+                activeState: function () {
+                    //return this.$editor().queryCommandState('subscript');
+                }
+            });
+            // add the button to the default toolbar definition
+            taOptions.toolbar[1].push('editequation');
+            return taOptions;
+}]);
+});
+
+/*firstapp.config(function ($provide) {
     $provide.decorator('taOptions', ['taRegisterTool', '$delegate', 'taSelection', '$rootScope',
                 function (taRegisterTool, taOptions, taSelection, $rootScope) {
             // $delegate is the taOptions we are decorating
@@ -285,7 +305,7 @@ firstapp.config(function ($provide) {
             taOptions.toolbar[1].push('editequation');
             return taOptions;
 }]);
-});
+});*/
 
 firstapp.config(function ($provide) {
     function createTable(colCount, rowCount) {

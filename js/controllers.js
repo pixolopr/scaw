@@ -146,22 +146,22 @@ phonecatControllers.controller('usersCtrl', ['$scope', 'TemplateService', 'Navig
 
         /*User Pagination*/
         $scope.page = {
-          size: 5
+            size: 5
         };
         $scope.currentpage = 0;
         $scope.count = $scope.currentpage * $scope.page.size;
 
         /*When the options of pagesize is changed*/
-        $scope.fetchusers = function() {
-          console.log("option value "+ $scope.page.size);
-          getusers();
+        $scope.fetchusers = function () {
+            console.log("option value " + $scope.page.size);
+            getusers();
         }
 
         /*When Next and Previous buttons clicked*/
-        $scope.getusersdata = function(inc) {
-          $scope.currentpage += inc;
-          $scope.count = $scope.currentpage * $scope.page.size;
-          getusers();
+        $scope.getusersdata = function (inc) {
+            $scope.currentpage += inc;
+            $scope.count = $scope.currentpage * $scope.page.size;
+            getusers();
         }
 
         //SET USERR ACCESS TYPE
@@ -176,7 +176,7 @@ phonecatControllers.controller('usersCtrl', ['$scope', 'TemplateService', 'Navig
             $scope.usercount = response.data.count;
             $scope.totalpages = Math.ceil($scope.usercount / $scope.page.size);
             console.log($scope.usercount);
-            console.log("Total Pages"+$scope.totalpages);
+            console.log("Total Pages" + $scope.totalpages);
         };
 
         var getuserserror = function (response) {
@@ -1041,6 +1041,15 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
             'answer': ''
         };
 
+        /*SETTING UP PAGE*/
+        $interval(function () {
+
+            $(document).ready(function () {
+                $('.collapsible').collapsible();
+            });
+
+        }, 1000, 1);
+
         /*$rootScope.$watch(function () {
             var math = document.getElementById("MathExample");
             MathJax.Hub.Queue(["Typeset", MathJax.Hub],math);
@@ -1163,9 +1172,9 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
         };
 
         var setdropdownvalus = function (dropdownids) {
-            $scope.boardid = dropdownids.boardid;
-            $scope.standardid = dropdownids.standardid;
-            $scope.subjectid = dropdownids.subjectid;
+            $scope.boardid = dropdownids.board;
+            $scope.standardid = dropdownids.standard;
+            $scope.subjectid = dropdownids.subject;
 
             for (var b = 0; b < $scope.boards.length; b++) {
                 if ($scope.boards[b].id == $scope.boardid) {
@@ -1178,6 +1187,7 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
                             for (var sb = 0; sb < $scope.boards[b].standards[stdid].subjects.length; sb++) {
                                 if ($scope.boards[b].standards[stdid].subjects[sb].id == $scope.subjectid) {
                                     $scope.dropdown.subject = sb;
+                                    console.log(sb);
                                     $scope.chapterchange('mark');
                                 };
                             };
@@ -1185,10 +1195,16 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
                     };
                 };
             };
+            
+            /*SHOW LOADER*/
+            $('#cqloadermodal').hide();
         };
 
 
         if ($scope.editid != '0') {
+
+            /*SHOW LOADER*/
+            $('#cqloadermodal').show();
 
             var getquestionfulldatasuccess = function (response) {
                 console.log(response.data);
@@ -1200,6 +1216,7 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
                 /*GET BOARD STANDARD SUBJECT VALUE AND DROPDOWNS*/
                 var getalleditdropdownssuccess = function (response) {
                     console.log(response.data);
+                    $scope.dropdown = response.data;
                     setdropdownvalus(response.data);
                     console.log($scope.dropdown);
                 };
@@ -1287,6 +1304,7 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
             };
         };
 
+        /*REMOVE IMAGE*/
         $scope.removeimage = function (ind) {
             if (ind == "question") {
                 $scope.questionimage = "";
@@ -1302,6 +1320,7 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
             };
             NavigationService.removeimage(ind, $scope[ind].id).then(removeimagesuccess, removeimageerror);
         };
+
 
         var getfulldropdownsuccess = function (response) {
             console.log(response.data);
@@ -1342,6 +1361,10 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
 
         /*UPLOAD QUESTION-ANSWER-IMAGE-CONCEPTS*/
         $scope.submit = function () {
+
+            /*SHOW LOADER*/
+            $('#cqloadermodal').show();
+
             /*STORE FOR NEXT TIME*/
             $rootScope.question = $scope.question;
             $rootScope.dropdown = $scope.dropdown;
@@ -1399,11 +1422,15 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
             if ($scope.editid == 0) {
                 NavigationService.uploadfullquestiondata(formdata).success(function (response) {
                     console.log(response);
+                    /*HIDE LOADER*/
+                    $('#cqloadermodal').hide();
                     $location.path('/questions');
                 });
             } else {
                 NavigationService.editfullquestiondata(formdata).success(function (response) {
                     console.log(response);
+                    /*HIDE LOADER*/
+                    $('#cqloadermodal').hide();
                     $location.path('/questions');
                 });
             };
@@ -1963,6 +1990,15 @@ phonecatControllers.controller('headerctrl', ['$scope', 'TemplateService', '$loc
 
         $scope.logout = function () {
             $location.path('/login');
+        };
+
+        /*OPEN EQUATION EDITOR*/
+        $rootScope.openequationeditor = function () {
+            $('#equationeditor').show();
+        };
+        /*CLOSE EQUATION EDITOR*/
+        $rootScope.closeequationeditor = function () {
+            $('#equationeditor').hide();
         };
 
         //DROP IMAGE ON TEXT EDITOR

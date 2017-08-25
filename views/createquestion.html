@@ -45,7 +45,7 @@
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <select id="heard" class="form-control questionselect" ng-model="dropdown.subject" required>
                                             <option value="nosubject" ng-selected="dropdown.subject == 'nosubject'">Select Subject</option>
-                                            <option value="{{$index}}" ng-repeat="sub in boards[dropdown.board].standards[dropdown.standard].subjects" ng-selected=" dropdown.subject == $index">{{sub.name}}</option>
+                                            <option value="{{$index}}" ng-repeat="sub in boards[dropdown.board].standards[dropdown.standard].subjects" ng-selected="dropdown.subject=='$index'">{{sub.name}}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -197,7 +197,11 @@
                                             <text-angular name="questiondata" ng-model="question.question" ng-focus="setdatavariable('question')" ta-target-toolbars="htmlcontent" ta-file-drop="dropHandler" style="background-color: #eeeeee;"></text-angular>
                                         </div>
                                         <div class="col-md-6">
-                                            <div id="editorContainer" ng-init="loadmathseditor()"></div>
+                                            <!--<div id="editorContainer" ng-init="loadmathseditor()"></div>-->
+
+                                            <div>
+                                                <button style="width:100%" ng-click="openequationeditor()" class="btn modal-trigger primarybg">EQUATION EDITOR</button>
+                                            </div>
 
                                             <text-angular-toolbar name="htmlcontent" ta-toolbar="[['h5','p','pre','quote','arrowrightsymbol','arrowbothsymbol',],
 ['bold','italics','underline','strikeThrough','superscript','subscript','table'],['ul','ol','justifyLeft','justifyCenter','justifyRight','justifyFull','indent','outdent'],
@@ -299,7 +303,10 @@
                                             <text-angular name="answerdata" ng-model="answer.answer" ng-focus="setdatavariable('answer')" ta-target-toolbars="answerhtmlcontent" ta-file-drop="dropHandler" style="background-color: #eeeeee;"></text-angular>
                                         </div>
                                         <div class="col-md-6">
-                                            <div id="editorContainer2" ng-init="loadmathseditor()"></div>
+                                            <!--<div id="editorContainer2" ng-init="loadmathseditor()"></div>-->
+                                            <div>
+                                                <button style="width:100%" ng-click="openequationeditor()" class="btn modal-trigger primarybg">EQUATION EDITOR</button>
+                                            </div>
 
                                             <text-angular-toolbar name="answerhtmlcontent" ta-toolbar="[['h5','p','pre','quote','arrowrightsymbol','arrowbothsymbol',],
 ['bold','italics','underline','strikeThrough','superscript','subscript','table'],['ul','ol','justifyLeft','justifyCenter','justifyRight','justifyFull','indent','outdent'],
@@ -358,7 +365,11 @@
                                     </ul>
                                 </div>
                                 <div class="col-md-6">
-                                    <div id="editorContainer3" ng-init="loadmathseditor()"></div>
+                                    <!--<div id="editorContainer3" ng-init="loadmathseditor()"></div>-->
+
+                                    <div>
+                                        <button style="width:100%" ng-click="openequationeditor()" class="btn modal-trigger primarybg">EQUATION EDITOR</button>
+                                    </div>
 
                                     <text-angular-toolbar name="optionshtml" ta-toolbar="[['h5','p','pre','quote','arrowrightsymbol','arrowbothsymbol',],
 ['bold','italics','underline','strikeThrough','superscript','subscript','table'],['ul','ol','justifyLeft','justifyCenter','justifyRight','justifyFull','indent','outdent'],
@@ -461,3 +472,5 @@
         </div>
     </div>
 </div>
+
+
