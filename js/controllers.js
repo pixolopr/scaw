@@ -730,6 +730,7 @@ phonecatControllers.controller('questionsCtrl', ['$scope', 'TemplateService', 'N
             $scope.filter = $rootScope.qafilter;
 
             console.log($scope.filter);
+
         } else {
 
             console.log("Fresh maal");
@@ -781,15 +782,23 @@ phonecatControllers.controller('questionsCtrl', ['$scope', 'TemplateService', 'N
         var getquestionssuccess = function (response) {
             console.log(response.data);
             $scope.search.id = "";
-            $scope.questions = response.data.questions;
-            $scope.totalquestions = response.data.totalquestions;
-            $scope.srnumberreference = $scope.currentpage;
-            $scope.totalpages = Math.ceil($scope.totalquestions / $scope.filter.limit);
+            $scope.questions = response.data;
+
             for (var q = 0; q < $scope.questions.length; q++) {
 
             };
         };
         var getquestionserror = function (response) {
+            console.log(response.data);
+        };
+
+        /*GET QUESTION COUNT*/
+        var getquestionscountsuccess = function (response) {
+            $scope.totalquestions = response.data;
+            $scope.srnumberreference = $scope.currentpage;
+            $scope.totalpages = Math.ceil($scope.totalquestions / $scope.filter.limit);
+        };
+        var getquestionscounterror = function () {
             console.log(response.data);
         };
 
@@ -810,6 +819,7 @@ phonecatControllers.controller('questionsCtrl', ['$scope', 'TemplateService', 'N
 
         var getquestions = function () {
             NavigationService.getquestions($scope.filter).then(getquestionssuccess, getquestionserror);
+            NavigationService.getquestionscount($scope.filter).then(getquestionscountsuccess, getquestionscounterror);
         };
 
         /*WHEN NEXT AND PREVIOUS BUTTON CLICKED*/
@@ -914,6 +924,7 @@ phonecatControllers.controller('questionsCtrl', ['$scope', 'TemplateService', 'N
             $scope.boards = response.data;
 
             NavigationService.getquestions($scope.filter).then(getquestionssuccess, getquestionserror);
+            NavigationService.getquestionscount($scope.filter).then(getquestionscountsuccess, getquestionscounterror);
         };
         var getboardserror = function (response) {
             console.log(response.data);
@@ -943,6 +954,7 @@ phonecatControllers.controller('questionsCtrl', ['$scope', 'TemplateService', 'N
             var deletequestionandanswersuccess = function (response) {
                 console.log(response.data);
                 NavigationService.getquestions($scope.filter).then(getquestionssuccess, getquestionserror);
+                NavigationService.getquestionscount($scope.filter).then(getquestionscountsuccess, getquestionscounterror);
             };
             var deletequestionandanswererror = function (response) {
                 console.log(response.data);
@@ -989,6 +1001,7 @@ phonecatControllers.controller('questionsCtrl', ['$scope', 'TemplateService', 'N
                     $rootScope.showupload = false;
                 };
                 NavigationService.getquestions($scope.filter).then(getquestionssuccess, getquestionserror);
+                NavigationService.getquestionscount($scope.filter).then(getquestionscountsuccess, getquestionscounterror);
             });
         };
 
@@ -1055,6 +1068,7 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
             MathJax.Hub.Queue(["Typeset", MathJax.Hub],math);
             return true;
         });*/
+
         var matheditor;
         var objectname = '';
         $scope.setdatavariable = function (ind) {
@@ -1172,6 +1186,9 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
         };
 
         var setdropdownvalus = function (dropdownids) {
+
+            console.log("BOARDS AVAILABLE ?");
+            console.log($scope.boards);
             $scope.boardid = dropdownids.board;
             $scope.standardid = dropdownids.standard;
             $scope.subjectid = dropdownids.subject;
@@ -1195,9 +1212,41 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
                     };
                 };
             };
-            
+
             /*SHOW LOADER*/
             $('#cqloadermodal').hide();
+        };
+
+        var getfulldropdown = function () {
+            /*DROPDOWN ARRAY*/
+            var getfulldropdownsuccess = function (response) {
+                console.log(response.data);
+                console.log($rootScope.question);
+                console.log($rootScope.dropdownvals);
+                $scope.boards = response.data;
+
+                if ($scope.editid != "0") {
+                    /*GET BOARD STANDARD SUBJECT VALUE AND DROPDOWNS*/
+                    var getalleditdropdownssuccess = function (response) {
+                        console.log(response.data);
+                        $scope.dropdown = response.data;
+                        setdropdownvalus(response.data);
+                        console.log($scope.dropdown);
+                    };
+                    var getalleditdropdownserror = function (response) {
+                        console.log(response.data);
+                    };
+                    NavigationService.getalleditdropdownid($scope.question.chapter_id).then(getalleditdropdownssuccess, getalleditdropdownserror);
+                } else {
+                    if ($rootScope.question) {
+                        setdropdownvalus($rootScope.dropdownvals);
+                    };
+                };
+            };
+            var getfulldropdownerror = function (response) {
+                console.log(response.data);
+            };
+            NavigationService.getfulldropdown().then(getfulldropdownsuccess, getfulldropdownerror);
         };
 
 
@@ -1213,17 +1262,31 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
                 $scope.questionimage = response.data.questionimage;
                 $scope.answerimage = response.data.answerimage;
 
-                /*GET BOARD STANDARD SUBJECT VALUE AND DROPDOWNS*/
-                var getalleditdropdownssuccess = function (response) {
+                /*DROPDOWN ARRAY*/
+                /*var getfulldropdownsuccess = function (response) {
                     console.log(response.data);
-                    $scope.dropdown = response.data;
-                    setdropdownvalus(response.data);
-                    console.log($scope.dropdown);
+                    console.log($rootScope.question);
+                    console.log($rootScope.dropdownvals);
+                    $scope.boards = response.data;
+
+                    //GET BOARD STANDARD SUBJECT VALUE AND DROPDOWNS
+                    var getalleditdropdownssuccess = function (response) {
+                        console.log(response.data);
+                        $scope.dropdown = response.data;
+                        setdropdownvalus(response.data);
+                        console.log($scope.dropdown);
+                    };
+                    var getalleditdropdownserror = function (response) {
+                        console.log(response.data);
+                    };
+                    NavigationService.getalleditdropdownid($scope.question.chapter_id).then(getalleditdropdownssuccess, getalleditdropdownserror);
                 };
-                var getalleditdropdownserror = function (response) {
+                var getfulldropdownerror = function (response) {
                     console.log(response.data);
                 };
-                NavigationService.getalleditdropdownid($scope.question.chapter_id).then(getalleditdropdownssuccess, getalleditdropdownserror);
+                NavigationService.getfulldropdown().then(getfulldropdownsuccess, getfulldropdownerror);*/
+                getfulldropdown();
+
             };
             var getquestionfulldataerror = function (response) {
                 console.log(response.data);
@@ -1267,6 +1330,23 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
                 console.log($rootScope.dropdownvals);
 
             };
+
+            getfulldropdown();
+
+            /*DROPDOWN ARRAY*/
+            /*var getfulldropdownsuccess = function (response) {
+                console.log(response.data);
+                console.log($rootScope.question);
+                console.log($rootScope.dropdownvals);
+                $scope.boards = response.data;
+                if ($scope.editid == "0" && $rootScope.question) {
+                    setdropdownvalus($rootScope.dropdownvals);
+                };
+            };
+            var getfulldropdownerror = function (response) {
+                console.log(response.data);
+            };
+            NavigationService.getfulldropdown().then(getfulldropdownsuccess, getfulldropdownerror);*/
         };
 
         $scope.dropdown = {
@@ -1322,17 +1402,7 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
         };
 
 
-        var getfulldropdownsuccess = function (response) {
-            console.log(response.data);
-            $scope.boards = response.data;
-            if ($rootScope.question) {
-                setdropdownvalus($rootScope.dropdownvals);
-            };
-        };
-        var getfulldropdownerror = function (response) {
-            console.log(response.data);
-        };
-        NavigationService.getfulldropdown().then(getfulldropdownsuccess, getfulldropdownerror);
+
 
         $scope.goback = function () {
             $location.path('/questions');
@@ -1376,13 +1446,13 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
 
             for (var b = 0; b < $scope.boards.length; b++) {
                 if (b == $scope.dropdown.board) {
-                    $rootScope.dropdownvals.boardid = $scope.boards[b].id;
+                    $rootScope.dropdownvals.board = $scope.boards[b].id;
                     for (s = 0; s < $scope.boards[b].standards.length; s++) {
                         if (s == $scope.dropdown.standard) {
-                            $rootScope.dropdownvals.standardid = $scope.boards[b].standards[s].id;
+                            $rootScope.dropdownvals.standard = $scope.boards[b].standards[s].id;
                             for (sub = 0; sub < $scope.boards[b].standards[s].subjects.length; sub++) {
                                 if (sub == $scope.dropdown.subject) {
-                                    $rootScope.dropdownvals.subjectid = $scope.boards[b].standards[s].subjects[sub].id;
+                                    $rootScope.dropdownvals.subject = $scope.boards[b].standards[s].subjects[sub].id;
                                 }
                             }
                         }

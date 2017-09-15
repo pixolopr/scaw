@@ -205,6 +205,21 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             });
         },
+        getquestionscount: function (filter) {
+            return $http.get(adminurl + 'questions/getquestionscount', {
+                params: {
+                    count: filter.count,
+                    limit: filter.limit,
+                    userid: filter.userid,
+                    access: filter.access,
+                    chapterid: filter.chapterid,
+                    conceptid: filter.conceptid,
+                    subjectid: filter.subjectid,
+                    standardid: filter.standardid,
+                    boardid: filter.boardid
+                }
+            });
+        },
         getfulldropdown: function () {
             return $http.get(adminurl + 'questions/getfulldropdown', {
                 params: {}
