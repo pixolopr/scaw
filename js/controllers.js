@@ -2078,9 +2078,9 @@ phonecatControllers.controller('headerctrl', ['$scope', 'TemplateService', '$loc
                 alert("only images can be added");
                 return;
             }
-            if (file.size > 500000) {
+            if (file.size > 50000000) {
                 // add your own code here
-                alert("file size cannot exceed 0.5MB");
+                alert("File size cannot exceed 5MB");
                 return;
             };
 

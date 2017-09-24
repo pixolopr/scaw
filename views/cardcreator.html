@@ -38,7 +38,10 @@
 
         <button ng-click="alert()">INSERT</button>-->
 
-        <div id="editorContainer" ng-init="loadmathseditor()"></div>
+        <!--<div id="editorContainer" ng-init="loadmathseditor()"></div>-->
+        <div>
+            <button style="width:100%" ng-click="openequationeditor()" class="btn modal-trigger primarybg">EQUATION EDITOR</button>
+        </div>
 
         <h3>Use Tools to Edit Content</h3>
         <text-angular-toolbar name="cardtoolbar" ta-toolbar-group-class="btngroupstyle" ta-toolbar-button-class="btngroupstylebutton" ta-toolbar-active-button-class="activetoolbarbtn"></text-angular-toolbar>

@@ -72,7 +72,7 @@
             <div class="col-md-12" style="z-index:{{path.concepts.length - $index}}" ng-repeat="concept in path.concepts" ng-if="path.currentpath == 'concepts'">
                 <div class="conceptbutton pointer" ng-if="concept.sync == true">
                     <div class="row marginbottom0">
-                        <div class="col-md-10">
+                        <div class="col-md-10" ng-click="gotocardcreator(concept.id)">
                             <h3 class="subjecttitle displayinline">{{concept.id}}</h3>
                             <h3 class="subjecttitle displayinline">{{concept.name | capitalize}}</h3>
                         </div>
