@@ -76,6 +76,7 @@
                                             <option value="2" ng-selected="question.type == 2">Test</option>
                                             <option value="3" ng-selected="question.type == 3">Doubt</option>
                                             <option value="4" ng-selected="question.type == 4">Others</option>
+                                            <option value="5" ng-selected="question.type == 5">Text Book</option>
                                         </select>
                                     </div>
                                 </div>
@@ -333,7 +334,7 @@
                                         <li>
                                             <div class="collapsible-header" ng-class="{'primarycolor':answer.option1 != ''}">
                                                 <i class="material-icons" ng-if="answer.option1 == ''">arrow_drop_down_circle</i>
-                                                <i class="material-icons" ng-if="answer.option1 != ''">done</i><strong>Option A</strong></div>
+                                                <i class="material-icons" ng-if="answer.option1 != ''">done</i><strong>Option A (Correct Answer) </strong></div>
                                             <div class="collapsible-body">
                                                 <text-angular name="option1data" ng-model="answer.option1" ng-focus="setdatavariable('option1')" ta-target-toolbars="optionshtml" ta-file-drop="dropHandler" class="optiontextangular" style="background-color: #eeeeee;"></text-angular>
                                             </div>
@@ -391,7 +392,7 @@
                                         <div class="collapsible-header" ng-class="{'primarycolor':answer.option1 != ''}">
                                             <i class="material-icons" ng-if="answer.option1 == ''">arrow_drop_down_circle</i>
                                             <i class="material-icons" ng-if="answer.option1 != ''">done</i>
-                                            <strong>Option A</strong></div>
+                                            <strong>Option A (Correct Answer) </strong></div>
                                         <div class="collapsible-body padding0">
                                             <textarea type="textarea" id="first-name" required="required" class="form-control col-md-7 col-xs-12 questionselect textareaoptions" ng-model="answer.option1"></textarea>
                                         </div>

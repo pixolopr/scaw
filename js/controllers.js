@@ -1554,6 +1554,7 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
                         var editanswererror = function (response) {
                             console.log(response.data);
                         };
+                        console.log($scope.answer);
                         NavigationService.editanswer($scope.answer).then(editanswersuccess, editanswererror);
                     };
                 };
@@ -1608,6 +1609,7 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
                         var createanswererror = function (response) {
                             console.log(response.data);
                         };
+                        console.log($scope.answer);
                         NavigationService.createanswer($scope.answer).then(createanswersuccess, createanswererror);
                     };
                 };
@@ -2083,10 +2085,11 @@ phonecatControllers.controller('headerctrl', ['$scope', 'TemplateService', '$loc
                 alert("File size cannot exceed 5MB");
                 return;
             };
-
+            
             var formdata = new FormData();
             formdata.append('image', file);
 
+            
             NavigationService.getimagename(formdata).success(function (response) {
                 console.log(response);
 
