@@ -1,0 +1,40 @@
+<h6 class="notification-title">Create Notification</h6>
+<div class="row">
+    <div class="col-md-6">
+
+        <!--User Type Dropdown-->
+        <p class="notification-label">Select User Type</p>
+        <select class="notification-input">
+            <option>Teacher</option>
+            <option>Inhouse Students</option>
+            <option>External Students</option>
+        </select>
+
+        <!--Standard Dropdown-->
+        <p class="notification-label">Select Standard</p>
+        <select class="notification-input">
+            <option>8</option>
+            <option>9</option>
+            <option>10</option>
+        </select>
+
+        <!--Message-->
+        <p class="notification-label">Type the message</p>
+        <textarea class="notification-input notification-message-field">
+            
+        </textarea>
+
+        <button type="button" class="btn btn-default primarybg" ng-click="sendNotification()">SEND NOTIFICATION</button>
+
+    </div>
+
+    <div class="col-md-6">
+        <img src="img/nexus.png" width="40%" />
+        <div class="notification-on-phone">
+            <div class="inner-notification">
+                <img src="img/logo.png" class="notification-icon" />
+                <p class="notification-text">Your marks have been displayed. Your marks have been displayed. Your marks have been displayed</p>
+            </div>
+        </div>
+    </div>
+</div>

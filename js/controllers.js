@@ -2040,11 +2040,14 @@ phonecatControllers.controller('contact', ['$scope', 'TemplateService', 'Navigat
 
 phonecatControllers.controller('headerctrl', ['$scope', 'TemplateService', '$location', '$rootScope', 'NavigationService',
  function ($scope, TemplateService, $location, $rootScope, NavigationService) {
+
         $scope.template = TemplateService;
 
         /*INITIALIZATIONS*/
         $rootScope.user = $.jStorage.get("user");
         $scope.user = $.jStorage.get("user");
+
+
         $scope.userarray = userarray;
         var isloggedinsuccess = function (response) {
             console.log(response.data);
@@ -2085,11 +2088,11 @@ phonecatControllers.controller('headerctrl', ['$scope', 'TemplateService', '$loc
                 alert("File size cannot exceed 5MB");
                 return;
             };
-            
+
             var formdata = new FormData();
             formdata.append('image', file);
 
-            
+
             NavigationService.getimagename(formdata).success(function (response) {
                 console.log(response);
 
@@ -2107,3 +2110,49 @@ phonecatControllers.controller('headerctrl', ['$scope', 'TemplateService', '$loc
             return true;
         };
   }]);
+
+phonecatControllers.controller('notificationsCtrl', ['$scope', 'TemplateService', '$location', '$rootScope', 'NavigationService',
+ function ($scope, TemplateService, $location, $rootScope, NavigationService) {
+
+
+        $scope.template = TemplateService;
+        TemplateService.content = "views/notifications.html";
+        $scope.title = "Notifications";
+
+        /*INITIALIZATIONS*/
+        $rootScope.user = $.jStorage.get("user");
+        $scope.user = $.jStorage.get("user");
+
+        /*routing*/
+        $scope.goToCreate = function () {
+            $location.path('/createnotification');
+        };
+
+
+ }]);
+
+
+phonecatControllers.controller('createNotificationCtrl', ['$scope', 'TemplateService', '$location', '$rootScope', 'NavigationService',
+ function ($scope, TemplateService, $location, $rootScope, NavigationService) {
+
+
+        $scope.template = TemplateService;
+        TemplateService.content = "views/createNotification.html";
+        $scope.title = "Create Notification";
+
+        /*INITIALIZATIONS*/
+        $rootScope.user = $.jStorage.get("user");
+        $scope.user = $.jStorage.get("user");
+
+
+
+        /*Functions*/
+        $scope.sendNotification = function () {
+            
+            /*ON SUCCESS*/
+            $('.notification-text').html("Marks for your test has been displayed on the noticeboard. Please visit nearest center.");
+            $('.inner-notification').addClass('show-inner-notification');
+            
+        };
+
+ }]);

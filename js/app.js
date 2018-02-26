@@ -50,6 +50,14 @@ firstapp.config(['$routeProvider',
             templateUrl: 'views/template.html',
             controller: 'cardviewerCtrl'
         }).
+        when('/notifications', {
+            templateUrl: 'views/template.html',
+            controller: 'notificationsCtrl'
+        }).
+        when('/createnotification', {
+            templateUrl: 'views/template.html',
+            controller: 'createNotificationCtrl'
+        }).
         when('/contact', {
             templateUrl: 'views/template.html',
             controller: 'contact'
