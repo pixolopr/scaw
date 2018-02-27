@@ -649,10 +649,10 @@
 }
 .notification-text {
   display: inline-flex;
-  font-size: 11px;
+  font-size: 8px;
   padding: 0px 5px;
   width: 83%;
-  line-height: 13px;
+  line-height: 9px;
   float: right;
   height: 27px;
   overflow: hidden;
