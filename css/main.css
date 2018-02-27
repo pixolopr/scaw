@@ -629,8 +629,8 @@
 }
 .notification-on-phone {
   position: absolute;
-  width: 30.6%;
-  left: 5.9%;
+  width: 30.3%;
+  left: 6.5%;
   top: 12%;
   height: 70px;
   overflow: hidden;
@@ -654,7 +654,7 @@
   width: 83%;
   line-height: 13px;
   float: right;
-  height: 40px;
+  height: 27px;
   overflow: hidden;
   margin: 0;
 }
