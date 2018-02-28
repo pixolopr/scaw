@@ -280,7 +280,7 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             });
         },
-        removeimage: function (type,id) {
+        removeimage: function (type, id) {
             return $http.get(adminurl + 'questions/removeimage', {
                 params: {
                     id: id,
@@ -447,6 +447,17 @@ var navigationservice = angular.module('navigationservice', [])
                 params: {}
             });
         },
+        sendnotification: function (notificationdetails) {
+            return $http.get(adminurl + 'notifications/sendgeneralnotificationnbystandards', {
+                params: {
+                    userstype: notificationdetails.usertype,
+                    standard: notificationdetails.standard,
+                    message: notificationdetails.message,
+                    urlid: notificationdetails.questionid,
+                    url: notificationdetails.questionid ? 'question' : 'home'
+                }
+            });
+        }
 
 
     }

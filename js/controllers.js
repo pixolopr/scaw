@@ -437,25 +437,25 @@ phonecatControllers.controller('syllabusCtrl', ['$scope', 'TemplateService', 'Na
             } else {
 
                 switch (currpath) {
-                    case 'standards':
-                        console.log("Standards");
-                        $scope.path.standard = [];
-                        $scope.path.subject = [];
+                case 'standards':
+                    console.log("Standards");
+                    $scope.path.standard = [];
+                    $scope.path.subject = [];
+                    $scope.path.chapter = [];
+                    $scope.path.concept = [];
+                    break;
+                case 'subjects':
+                    $scope.path.subject = [],
                         $scope.path.chapter = [];
-                        $scope.path.concept = [];
-                        break;
-                    case 'subjects':
-                        $scope.path.subject = [],
-                            $scope.path.chapter = [];
-                        $scope.path.concept = [];
-                        break;
-                    case 'chapters':
-                        $scope.path.chapter = [];
-                        $scope.path.concept = [];
-                        break;
-                    case 'concepts':
-                        break;
-                    default:
+                    $scope.path.concept = [];
+                    break;
+                case 'chapters':
+                    $scope.path.chapter = [];
+                    $scope.path.concept = [];
+                    break;
+                case 'concepts':
+                    break;
+                default:
 
                 }
 
@@ -2139,7 +2139,7 @@ phonecatControllers.controller('createNotificationCtrl', ['$scope', 'TemplateSer
         $scope.template = TemplateService;
         TemplateService.content = "views/createNotification.html";
         $scope.title = "Create Notification";
-
+        $scope.notification = {};
         /*INITIALIZATIONS*/
         $rootScope.user = $.jStorage.get("user");
         $scope.user = $.jStorage.get("user");
@@ -2148,11 +2148,17 @@ phonecatControllers.controller('createNotificationCtrl', ['$scope', 'TemplateSer
 
         /*Functions*/
         $scope.sendNotification = function () {
-            
-            /*ON SUCCESS*/
-            $('.notification-text').html("Marks for your test has been displayed on the noticeboard. Please visit nearest center.");
-            $('.inner-notification').addClass('show-inner-notification');
-            
+            NavigationService.sendnotification($scope.notification).then(function (response) {
+                /*ON SUCCESS*/
+                $('.notification-text').html($scope.notification.message);
+                $('.inner-notification').addClass('show-inner-notification');
+            }, function (error) {
+                console.log("Internet error");
+
+            });
+
+
+
         };
 
  }]);

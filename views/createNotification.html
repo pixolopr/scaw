@@ -4,25 +4,32 @@
 
         <!--User Type Dropdown-->
         <p class="notification-label">Select User Type</p>
-        <select class="notification-input">
-            <option>Teacher</option>
-            <option>Inhouse Students</option>
-            <option>External Students</option>
+        <select class="notification-input" ng-model="notification.usertype" ng-init="notification.usertype='1'">
+            <option value="1">Teacher</option>
+            <option value="2">Inhouse Students</option>
+            <option value="3">External Students</option>
+            <option value="2,3">All students</option>
         </select>
 
         <!--Standard Dropdown-->
-        <p class="notification-label">Select Standard</p>
-        <select class="notification-input">
-            <option>8</option>
-            <option>9</option>
-            <option>10</option>
-        </select>
-
+        <div ng-if="notification.usertype!='teacher'">
+            <p class="notification-label">Select Standard</p>
+            <select class="notification-input" ng-model="notification.standard" ng-init="notification.standard='1'">
+                <option value="1">8</option>
+                <option value="2">9</option>
+                <option value="3">10</option>
+            </select>
+        </div>
         <!--Message-->
         <p class="notification-label">Type the message</p>
-        <textarea class="notification-input notification-message-field">
-            
+        <textarea class="notification-input notification-message-field" ng-model="notification.message">
+
         </textarea>
+
+        <p class="notification-label">Enter Question ID</p>
+        <input type="text" class="notification-input notification-message-field" ng-model="notification.questionid" />
+
+
 
         <button type="button" class="btn btn-default primarybg" ng-click="sendNotification()">SEND NOTIFICATION</button>
 
