@@ -78,7 +78,7 @@
                                             <option value="3" ng-selected="question.type == 3">Doubt</option>
                                             <option value="4" ng-selected="question.type == 4">Others</option>
                                             <option value="5" ng-selected="question.type == 5">Text Book</option>
-                                            <option value="5" ng-selected="question.type == 7">Home Work</option>
+                                            <option value="7" ng-selected="question.type == 7">Home Work</option>
                                         </select>
                                     </div>
                                 </div>
@@ -194,14 +194,11 @@
                                 <label class="control-label col-md-12 col-sm-12 col-xs-12 createquestion" for="first-name">Question <span class="required">*</span>
                                 </label>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
-
                                     <div class="row">
                                         <div class="col-md-6">
                                             <text-angular name="questiondata" ng-model="question.question" ng-focus="setdatavariable('question')" ta-target-toolbars="htmlcontent" ta-file-drop="dropHandler" style="background-color: #eeeeee;"></text-angular>
                                         </div>
                                         <div class="col-md-6">
-                                            <!--<div id="editorContainer" ng-init="loadmathseditor()"></div>-->
-
                                             <div>
                                                 <button style="width:100%" ng-click="openequationeditor()" class="btn modal-trigger primarybg">EQUATION EDITOR</button>
                                             </div>
