@@ -169,6 +169,10 @@
 .slider.slider-danger .noUi-handle {
   border-color: #f44336;
 }
+.card-header .flag-questions-header{
+    background-color:  #f44336;
+    
+}
 
 /*!
 Animate.css - http://daneden.me/animate
@@ -3572,6 +3576,10 @@ footer .btn {
   padding: 15px;
   background-color: #999999;
 }
+.card .flag-questions-header{
+    background-color: #e91e63 !important; 
+}
+
 .card .card-header .title {
   color: #FFFFFF;
 }

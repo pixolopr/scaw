@@ -71,14 +71,23 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="heard">Type</label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <select id="heard" class="form-control questionselect" ng-model="question.type" required>
-                                            <option value="1" ng-selected="question.type == 1">Practice</option>
-                                            <option value="6" ng-selected="question.type == 6">Practice Card Question</option>
-                                            <option value="2" ng-selected="question.type == 2">Test</option>
-                                            <option value="3" ng-selected="question.type == 3">Doubt</option>
-                                            <option value="4" ng-selected="question.type == 4">Others</option>
-                                            <option value="5" ng-selected="question.type == 5">Text Book</option>
-                                            <option value="7" ng-selected="question.type == 7">Home Work</option>
+                                        <select id="heard" class="form-control questionselect" ng-model="question.questiontype_id" required>
+                                            <option value="1" ng-selected="question.questiontype_id
+ == 1">Practice</option>
+                                            <option value="6" ng-selected="question.questiontype_id
+ == 6">Practice Card Question</option>
+                                            <option value="2" ng-selected="question.questiontype_id
+ == 2">Test</option>
+                                            <option value="3" ng-selected="question.questiontype_id
+ == 3">Doubt</option>
+                                            <option value="4" ng-selected="question.questiontype_id
+ == 4">Others</option>
+                                            <option value="5" ng-selected="question.questiontype_id
+ == 5">Text Book</option>
+                                            <option value="7" ng-selected="question.questiontype_id
+ == 7">Home Work</option>
+                                       <option value="8" ng-selected="question.questiontype_id
+ == 8">School Assignment</option>
                                         </select>
                                     </div>
                                 </div>
@@ -472,5 +481,3 @@
         </div>
     </div>
 </div>
-
-

@@ -667,3 +667,9 @@
   height: 90px;
   border: none;
 }
+.card-header .flag-questions-header {
+  background-color: #f44336;
+}
+.text-question-edit{
+    color: #f44336;
+}

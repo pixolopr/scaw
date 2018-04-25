@@ -18,14 +18,14 @@ var userarray = [{
         'post': 'Teacher'
 }];
 
-phonecatControllers.controller('home', ['$scope', 'TemplateService', 'NavigationService', '$rootScope', '$filter', '$window',
-  function ($scope, TemplateService, NavigationService, $rootScope, $filter, $window) {
+phonecatControllers.controller('home', ['$scope', 'TemplateService', 'NavigationService', '$rootScope', '$filter', '$window','$location',
+  function ($scope, TemplateService, NavigationService, $rootScope, $filter, $window,$location) {
         $scope.template = TemplateService;
         TemplateService.content = "views/content.html";
         $scope.title = "dashboard";
         $scope.navigation = NavigationService.getnav();
         $rootScope.loginpage = false;
-
+        $scope.wrongquestions = [];
         /*INITIALIZATIONS*/
         $scope.user = $.jStorage.get("user");
 
@@ -92,6 +92,33 @@ phonecatControllers.controller('home', ['$scope', 'TemplateService', 'Navigation
             };
             NavigationService.getconceptsexceldata().then(getconceptsexceldatasuccess, getconceptsexceldataerror);
         };
+
+        /*REDIRECT TO EDIT PAGE*/
+        $scope.gotocreatequestion=function(questionsid){
+             $location.path('/createquestion/' + questionsid);
+        },
+        /*CHANGE STATUS OF QUESTION AFTER UPDATE*/
+        $scope.changestatusofquestion=function(index){
+            /*CALLBACK FUNCTIONS OF SETFLAGVALUE*/
+            setflagvaluesuccess=function(response){
+                $scope.wrongquestions.splice(index,1);
+            };
+            setflagvalueerror=function(error){
+                console.log(error);
+            }
+            NavigationService.setflagvalue($scope.wrongquestions[index].id).then(setflagvaluesuccess,setflagvalueerror);
+        },
+        /*GET QUESTIONS TO BE EDITED*/
+        //      CALLBACK FUNCTIONS
+        getflaggedquestionssuccess = function (response) {
+            $scope.wrongquestions = response.data;
+        };
+        getflaggedquestionserror = function (error) {
+            console.log(error);
+        };
+
+
+        NavigationService.getflaggedquestions($scope.user.id).then(getflaggedquestionssuccess, getflaggedquestionserror);
 
         /*TAKE BACKUP*/
         $scope.backupdb = function () {
@@ -437,25 +464,25 @@ phonecatControllers.controller('syllabusCtrl', ['$scope', 'TemplateService', 'Na
             } else {
 
                 switch (currpath) {
-                case 'standards':
-                    console.log("Standards");
-                    $scope.path.standard = [];
-                    $scope.path.subject = [];
-                    $scope.path.chapter = [];
-                    $scope.path.concept = [];
-                    break;
-                case 'subjects':
-                    $scope.path.subject = [],
+                    case 'standards':
+                        console.log("Standards");
+                        $scope.path.standard = [];
+                        $scope.path.subject = [];
                         $scope.path.chapter = [];
-                    $scope.path.concept = [];
-                    break;
-                case 'chapters':
-                    $scope.path.chapter = [];
-                    $scope.path.concept = [];
-                    break;
-                case 'concepts':
-                    break;
-                default:
+                        $scope.path.concept = [];
+                        break;
+                    case 'subjects':
+                        $scope.path.subject = [],
+                            $scope.path.chapter = [];
+                        $scope.path.concept = [];
+                        break;
+                    case 'chapters':
+                        $scope.path.chapter = [];
+                        $scope.path.concept = [];
+                        break;
+                    case 'concepts':
+                        break;
+                    default:
 
                 }
 
@@ -1258,10 +1285,13 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
             var getquestionfulldatasuccess = function (response) {
                 console.log(response.data);
                 $scope.question = response.data.question;
+                
                 $scope.answer = response.data.answer;
                 $scope.questionimage = response.data.questionimage;
                 $scope.answerimage = response.data.answerimage;
-
+                // $scope.question.type=response.data.question.questiontype_id;
+                // $scope.question.questionverified=response.data.question.verified;
+                // $scope.answer.answerverified=response.data.answer.answerverified;
                 /*DROPDOWN ARRAY*/
                 /*var getfulldropdownsuccess = function (response) {
                     console.log(response.data);
@@ -1299,7 +1329,7 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
                 'question': '',
                 'chapter_id': '',
                 'format': 1,
-                'type': '1',
+                'questiontype_id': '1',
                 'optionsavailable': '0',
                 'optionsformat': 1,
                 'difficulty': '1',
@@ -1322,7 +1352,7 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
             if ($rootScope.question) {
                 $scope.question.chapter_id = $rootScope.question.chapter_id;
                 $scope.question.format = $rootScope.question.format;
-                $scope.question.type = $rootScope.question.type;
+                $scope.question.questiontype_id = $rootScope.question.questiontype_id;
                 $scope.question.optionsavailable = $rootScope.question.optionsavailable;
                 $scope.question.difficulty = $rootScope.question.difficulty;
                 $scope.dropdown = $rootScope.dropdown;
@@ -1497,6 +1527,7 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
                     $location.path('/questions');
                 });
             } else {
+              console.log($scope.question);
                 NavigationService.editfullquestiondata(formdata).success(function (response) {
                     console.log(response);
                     /*HIDE LOADER*/

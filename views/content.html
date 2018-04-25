@@ -9,8 +9,7 @@
     <button type="button" class="btn btn-default primarybg" ng-click="getdashboarddatabydate()">Submit Date</button>
 </div>
 
-<div class="container-fluid" ng-if="user.access_id == '1'">
-
+<div class="container-fluid" ng-if="user.access_id == '1'||user.access_id == '3'">
     <!--<div class="row">
         <div class="col-md-4">
             <div class="card">
@@ -65,7 +64,7 @@
         </div>
     </div>-->
 
-    <div class="row">
+    <div class="row" ng-if="user.access_id == '1'">
         <div class="col-lg-6 col-md-12">
             <div class="card card-nav-tabs">
                 <div class="card-header" data-background-color="purple">
@@ -147,6 +146,45 @@
             </div>
         </div>
     </div>
+    <!--My div-->
+
+    <div class="col-lg-12 col-md-12" ng-if="wrongquestions.length>0">
+        <div class="card">
+            <div class="card-header flag-questions-header">
+                <h4 class="title"> Question to be edited</h4>
+                <p class="category">Number of questions added by the editor.</p>
+            </div>
+            <div class="card-content table-responsive">
+                <table class="table table-hover">
+                    <thead class="text-question-edit">
+                        <th>Sr.</th>
+                        <th>Question Test ID</th>
+                        <th class="textcenter"> Questions</th>
+                        <th class="textcenter"> Action</th>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="question in wrongquestions">
+                            <td>{{$index+1}}</td>
+                            <td>{{question.id}}</td>
+                            <td class="textcenter">{{question.question}}</td>
+                            <td class="textcenter" >
+                                <i class="material-icons questionicon " ng-click="gotocreatequestion(question.id)">mode_edit</i>
+                                <i class="material-icons questionicon approve-btn"  ng-click="changestatusofquestion($index)">check</i>  
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+             
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
 </div>
 
 <!--  Charts Plugin -->
