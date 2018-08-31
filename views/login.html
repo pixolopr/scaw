@@ -16,15 +16,19 @@
                         <input type="password" class="form-control logininput" id="pwd" ng-model="logindata.password">
                     </div>
                     <div class="loginforgotdiv">
-                       <a class="textcenter forgotpass">Forgot Password ?</a>
+                        <a class="textcenter forgotpass">Forgot Password ?</a>
                     </div>
+
+                    <span>{{errormessage}}</span>
                     <div class="textcenter">
                         <button type="submit" class="btn btn-default loginbutton">Login</button>
                     </div>
                 </form>
+                <!--
                 <div class="textcenter">
                     <button type="submit" class="btn btn-default loginbutton" style="width:100%;background-color:#d34836 !important">Google Login</button>
                 </div>
+-->
             </div>
         </div>
     </div>
@@ -33,7 +37,7 @@
 
 <script>
     // <![CDATA[
-    (function () {
+    (function() {
         var po = document.createElement('script');
         po.type = 'text/javascript';
         po.async = true;
@@ -42,4 +46,5 @@
         s.parentNode.insertBefore(po, s);
     })();
     // ]]>
+
 </script>

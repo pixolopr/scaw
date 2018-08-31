@@ -4,11 +4,11 @@
         <div class="col-md-12 marginbottom10px pointer navigation">
             <a class="navcolor" ng-click="changepath('boards', 'board',{})" ng-if="path.board.name">Board &nbsp; : </a>
             <a class="navcolor" ng-click="changepath('standards', 'board', path.board)" ng-if="path.board.name">{{path.board.name}} &nbsp;</a>
-            
+
             <a class="navcolor" ng-click="changepath('subjects', 'standard', path.standard)" ng-if="path.standard.name">>&nbsp;{{path.standard.name}} &nbsp; </a>
-            
+
             <a class="navcolor" ng-click="changepath('chapters', 'subject', path.subject)" ng-if="path.subject.name">>&nbsp; {{path.subject.name}} &nbsp; </a>
-            
+
             <a class="navcolor" ng-click="changepath('chapters', 'chapter',{})" ng-if="path.chapter.name">>&nbsp;{{path.chapter.name}}</a>
         </div>
 
@@ -36,13 +36,13 @@
         <!--SUBJECTs-->
         <div class="col-md-3 textcenter marginbottom10px" ng-repeat="sub in path.subjects" ng-if="path.currentpath == 'subjects'">
             <div class="primarybg marginauto subjectbutton pointer" ng-click="changepath('chapters', 'subject', sub)" ng-if="sub.sync == true">
-                <img src="{{sub.image | imagepath}}" width="60%">
+                <div ng-bind-html='sub.image'></div>
                 <H3 class="subjecttitle">{{sub.name | capitalize}}</H3>
             </div>
 
             <div class="primarybg marginauto subjectbutton" ng-if="sub.sync == false">
                 <img src="{{sub.image | imagepath}}" width="60%">
-                <input id="subjectimage" class="questionschoosefile" type="file" aria-label="Add Image to your Subject" class="upload" name="file" onchange="angular.element(this).scope().LoadFileData(this.files, 1)" multiple="">
+                <!--                <input id="subjectimage" class="questionschoosefile" type="file" aria-label="Add Image to your Subject" class="upload" name="file" onchange="angular.element(this).scope().LoadFileData(this.files, 1)" multiple="">-->
                 <input type="text" ng-model="sub.name">
                 <button ng-click="syncdata(sub, $index)">Add</button>
             </div>
@@ -78,11 +78,11 @@
                         </div>
                         <div class="col-md-2">
                             <i class="material-icons concepticons" aria-hidden="true" ng-click="deletedata($index)">delete</i>
-                            
+
                             <i class="material-icons concepticons" aria-hidden="true" ng-click="editdata($index)">mode_edit</i>
-                           
+
                             <i class="material-icons concepticons secondarycolor" aria-hidden="true" ng-click="gotocardcreator(concept.id)">arrow_forward</i>
-                           
+
                         </div>
                     </div>
                 </div>

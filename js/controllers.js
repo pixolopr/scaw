@@ -18,8 +18,8 @@ var userarray = [{
         'post': 'Teacher'
 }];
 
-phonecatControllers.controller('home', ['$scope', 'TemplateService', 'NavigationService', '$rootScope', '$filter', '$window','$location',
-  function ($scope, TemplateService, NavigationService, $rootScope, $filter, $window,$location) {
+phonecatControllers.controller('home', ['$scope', 'TemplateService', 'NavigationService', '$rootScope', '$filter', '$window', '$location',
+  function ($scope, TemplateService, NavigationService, $rootScope, $filter, $window, $location) {
         $scope.template = TemplateService;
         TemplateService.content = "views/content.html";
         $scope.title = "dashboard";
@@ -94,25 +94,25 @@ phonecatControllers.controller('home', ['$scope', 'TemplateService', 'Navigation
         };
 
         /*REDIRECT TO EDIT PAGE*/
-        $scope.gotocreatequestion=function(questionsid){
-             $location.path('/createquestion/' + questionsid);
-        },
-        /*CHANGE STATUS OF QUESTION AFTER UPDATE*/
-        $scope.changestatusofquestion=function(index){
-            /*CALLBACK FUNCTIONS OF SETFLAGVALUE*/
-            setflagvaluesuccess=function(response){
-                $scope.wrongquestions.splice(index,1);
+        $scope.gotocreatequestion = function (questionsid) {
+                $location.path('/createquestion/' + questionsid);
+            },
+            /*CHANGE STATUS OF QUESTION AFTER UPDATE*/
+            $scope.changestatusofquestion = function (index) {
+                /*CALLBACK FUNCTIONS OF SETFLAGVALUE*/
+                setflagvaluesuccess = function (response) {
+                    $scope.wrongquestions.splice(index, 1);
+                };
+                setflagvalueerror = function (error) {
+                    console.log(error);
+                }
+                NavigationService.setflagvalue($scope.wrongquestions[index].id).then(setflagvaluesuccess, setflagvalueerror);
+            },
+            /*GET QUESTIONS TO BE EDITED*/
+            //      CALLBACK FUNCTIONS
+            getflaggedquestionssuccess = function (response) {
+                $scope.wrongquestions = response.data;
             };
-            setflagvalueerror=function(error){
-                console.log(error);
-            }
-            NavigationService.setflagvalue($scope.wrongquestions[index].id).then(setflagvaluesuccess,setflagvalueerror);
-        },
-        /*GET QUESTIONS TO BE EDITED*/
-        //      CALLBACK FUNCTIONS
-        getflaggedquestionssuccess = function (response) {
-            $scope.wrongquestions = response.data;
-        };
         getflaggedquestionserror = function (error) {
             console.log(error);
         };
@@ -147,21 +147,39 @@ phonecatControllers.controller('loginCtrl', ['$scope', 'TemplateService', 'Navig
             'password': ''
         };
 
+
         $scope.dologin = function () {
+
+
             var dologinsuccess = function (response) {
-                console.log(response.data);
+                console.log('Login button is pressed !');
+                console.log(response);
                 if (response.data != 'false') {
                     $rootScope.loginpage = false;
                     $scope.user = response.data;
                     $.jStorage.set("user", response.data);
                     $location.path('/home');
                     //STORE IN JSTORAGE IF NEEDED
+                } else {
+                    $scope.errormessage = 'Email and password do not match !';
+
                 };
             };
             var dologinerror = function (response) {
                 console.log(response.data);
+
+
             };
-            NavigationService.dologin($scope.logindata.email, $scope.logindata.password).then(dologinsuccess, dologinerror);
+
+            $scope.errormessage = '';
+            if ($scope.logindata.email != '' && $scope.logindata.password != '') {
+                NavigationService.dologin($scope.logindata.email, $scope.logindata.password).then(dologinsuccess, dologinerror);
+            } else {
+                $scope.errormessage = 'All fields are compulsory!';
+            }
+
+
+
         };
   }]);
 
@@ -268,8 +286,9 @@ phonecatControllers.controller('adduserCtrl', ['$scope', 'TemplateService', 'Nav
             'access_id': '',
             'name': '',
             'school': '',
-            'board_id': '',
-            'standard_id': '',
+            'board_id': 0,
+            'standard_id': 0,
+            'stream_id': 0,
             'email': '',
             'contact': '',
             'password': '',
@@ -388,6 +407,15 @@ phonecatControllers.controller('adduserCtrl', ['$scope', 'TemplateService', 'Nav
                 alert("Passwords do not match");
             };
         };
+
+
+        $scope.gobacktousers = function () {
+            $location.path('/users');
+        }
+
+
+
+
 
   }]);
 
@@ -574,12 +602,12 @@ phonecatControllers.controller('syllabusCtrl', ['$scope', 'TemplateService', 'Na
 
                 var sortorder = ind + 1;
                 if ($scope.path.currentpath == "subjects") {
-
+                    var pid = $scope.path.standard.id;
                     var formdata = new FormData();
-                    formdata.append(name, name);
-                    formdata.append(parentid, pid);
-                    formdata.append(sortorder, sortorder);
-                    formdata.append(subjectimage, $scope.files[0]);
+                    formdata.append('name', obj.name);
+                    formdata.append('parentid', pid);
+                    formdata.append('sortorder', sortorder);
+                    formdata.append('subjectimage', $scope.files[0]);
 
                     NavigationService.createsubject(formdata).then(createdatasuccess, createdataerror);
                 } else {
@@ -1285,7 +1313,7 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
             var getquestionfulldatasuccess = function (response) {
                 console.log(response.data);
                 $scope.question = response.data.question;
-                
+
                 $scope.answer = response.data.answer;
                 $scope.questionimage = response.data.questionimage;
                 $scope.answerimage = response.data.answerimage;
@@ -1520,6 +1548,7 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
             formdata.append('concepts', conceptsarray);
 
             if ($scope.editid == 0) {
+                console.log($scope.question)
                 NavigationService.uploadfullquestiondata(formdata).success(function (response) {
                     console.log(response);
                     /*HIDE LOADER*/
@@ -1527,7 +1556,7 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
                     $location.path('/questions');
                 });
             } else {
-              console.log($scope.question);
+                console.log($scope.question);
                 NavigationService.editfullquestiondata(formdata).success(function (response) {
                     console.log(response);
                     /*HIDE LOADER*/
@@ -2073,7 +2102,7 @@ phonecatControllers.controller('headerctrl', ['$scope', 'TemplateService', '$loc
  function ($scope, TemplateService, $location, $rootScope, NavigationService) {
 
         $scope.template = TemplateService;
-
+        console.log('Always called');
         /*INITIALIZATIONS*/
         $rootScope.user = $.jStorage.get("user");
         $scope.user = $.jStorage.get("user");
@@ -2095,6 +2124,7 @@ phonecatControllers.controller('headerctrl', ['$scope', 'TemplateService', '$loc
         //$rootScope.loginpage = false;
 
         $scope.logout = function () {
+            $.jStorage.flush();
             $location.path('/login');
         };
 
