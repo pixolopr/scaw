@@ -419,8 +419,8 @@ phonecatControllers.controller('adduserCtrl', ['$scope', 'TemplateService', 'Nav
 
   }]);
 
-phonecatControllers.controller('syllabusCtrl', ['$scope', 'TemplateService', 'NavigationService', '$location', 'FileUploader', '$rootScope',
-  function ($scope, TemplateService, NavigationService, $location, FileUploader, $rootScope) {
+phonecatControllers.controller('syllabusCtrl', ['$scope', 'TemplateService', 'NavigationService', '$location', 'FileUploader', '$rootScope', '$sce',
+  function ($scope, TemplateService, NavigationService, $location, FileUploader, $rootScope, $sce) {
         $scope.template = TemplateService;
         TemplateService.content = "views/syllabus.html";
         $scope.title = "syllabus";
@@ -460,7 +460,11 @@ phonecatControllers.controller('syllabusCtrl', ['$scope', 'TemplateService', 'Na
                 $scope[objname] = response.data;
                 _.forEach($scope[objname], function (value) {
                     value.sync = true;
+                    if (objname == 'subjects') {
+                        value.image = $sce.trustAsHtml(value.image);
+                    }
                 });
+
                 $rootScope.path = $scope.path;
             };
             var getdataerror = function (response) {
