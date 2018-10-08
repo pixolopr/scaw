@@ -72,6 +72,7 @@
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12 createquestion" for="heard">Type</label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <select id="heard" class="form-control questionselect" ng-model="question.questiontype_id" required>
+                                           <option ng-repeat="opt in options"></option>
                                             <option value="1" ng-selected="question.questiontype_id== 1">Practice</option>
                                             <option value="6" ng-selected="question.questiontype_id== 6">Practice Card Question</option>
                                             <option value="2" ng-selected="question.questiontype_id == 2">Test</option>
