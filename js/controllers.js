@@ -1277,6 +1277,20 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
             /*SHOW LOADER*/
             $('#cqloadermodal').hide();
         };
+      
+      //GET ALL THE QUESTION TYPES
+      var getallquestiontypes = function(){
+          var getallquestiontypessuccess = function(response){
+                console.log(response.data);
+                $scope.questiontypes = response.data;
+          };
+          var getallquestiontypeserror = function(response){
+                console.log(response.data);
+                alert("Could not get question type, Try Refreshing the page.");
+          };
+          NavigationService.getallquestiontypes().then(getallquestiontypessuccess, getallquestiontypeserror);
+      };
+      getallquestiontypes();
 
         var getfulldropdown = function () {
             /*DROPDOWN ARRAY*/

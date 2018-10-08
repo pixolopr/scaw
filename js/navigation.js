@@ -474,12 +474,9 @@ var navigationservice = angular.module('navigationservice', [])
                     }
                 });
             },
-            getallquestiontypes: function (questionid) {
-                return $http.get(adminurl + 'questions/changequestionflag', {
-                    params: {
-                        id: questionid,
-                        value: 0
-                    }
+            getallquestiontypes: function () {
+                return $http.get(adminurl + 'questiontypes/getall', {
+                    params: {}
                 });
             },
 
