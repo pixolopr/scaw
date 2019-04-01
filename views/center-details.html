@@ -1,0 +1,192 @@
+<div class="container-fluid">
+
+    <div class="row">
+        <div>
+            <h4>Cities</h4>
+
+            <button class="btn btn-info btn-lg adddatabtn" ng-click="addnewvalue()">Add Center</button>
+        </div>
+
+        <a ng-click="showmodal('cities','view-modal')">See All Cities</a>
+
+
+    </div>
+
+
+    <div class="row">
+        <div>
+            <h4>Centers</h4>
+            <button class="btn btn-info btn-lg adddatabtn" ng-click="addnewvalue()">Add Center</button>
+        </div>
+        <a ng-click="showmodal('centers','view-modal')">See All Centers</a>
+
+    </div>
+    <div class="row">
+        <div>
+            <h4>Batches</h4>
+            <button class="btn btn-info btn-lg adddatabtn" ng-click="addnewvalue()">Add Center</button>
+        </div>
+        <a ng-click="showmodal('batches','view-modal')">See All Batches</a>
+
+    </div>
+
+
+
+</div>
+
+<!-- Modal -->
+<!--
+
+<div id="cities" class="modal fade view-modal" role="dialog">
+    <div class="modal-dialog">
+
+         Modal content
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h4 class="modal-title">Cities</h4>
+            </div>
+            <div class="modal-body">
+             
+            </div>
+            <div class="modal-footer">
+               
+            </div>
+        </div>
+
+    </div>
+</div>
+-->
+
+<div id="modal1" class="modal view-modal bottom-sheet">
+    <div class="modal-content">
+        <div ng-repeat="detail in details">
+            <h6>{{detail.name?detail.name:''}}</h6>
+            <table>
+                <tr>
+                    <th>
+                        id
+                    </th>
+                    <th>
+                        name
+                    </th>
+
+                </tr>
+                <tr ng-repeat="subdetail in key!=''?(detail[key]):cities">
+
+                    <td>
+                        {{subdetail.id}}
+                    </td>
+                    <td>
+                        {{subdetail.name}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" ng-click="closemodal()" class="btn btn-default" data-dismiss="modal">Close</button>
+    </div>
+</div>
+
+
+
+
+<div id="modal1" class="modal insert-modal bottom-sheet">
+    <div class="modal-content">
+        <div>
+            <form class="col s12">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input placeholder="Placeholder" id="first_name" type="text" class="validate">
+                        <label for="first_name">Name</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="last_name" type="text" class="validate">
+                        <label for="last_name">Name</label>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+    <!--
+
+<div id="centers" class="view-modal modal fade view-modal" role="dialog">
+    <div class="modal-dialog">
+
+         Modal content
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h4 class="modal-title">Centers</h4>
+            </div>
+            <div class="modal-body">
+                <div ng-repeat="city in cities ">
+                    <h6>{{city.name}}</h6>
+                    <table>
+                        <tr>
+                            <th>id</th>
+                            <th>name</th>
+                        </tr>
+                        <tr ng-repeat="centre in city.centres">
+
+                            <td>
+                                {{centre.id}}
+                            </td>
+                            <td>
+                                {{centre.name}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" ng-click="closemodal()" class="btn btn-default"
+                    data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+-->
+
+    <!--
+<div id="batches" class="modal fade view-modal" role="dialog">
+    <div class="modal-dialog">
+
+         Modal content
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h4 class="modal-title">Batches</h4>
+            </div>
+            <div class="modal-body">
+                <div ng-repeat="centre in centers ">
+                    <h6>{{centre.name}}</h6>
+                    <table>
+                        <tr>
+                            <th>id</th>
+                            <th>name</th>
+                        </tr>
+                        <tr ng-repeat="batch in centre.batches">
+
+                            <td>
+                                {{batch.id}}
+                            </td>
+                            <td>
+                                {{batch.name}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" ng-click="closemodal()" class="btn btn-default"
+                    data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>-->

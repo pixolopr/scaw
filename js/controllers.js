@@ -8,18 +8,19 @@ var imageurl = "http://learnwithinq.com/adminpanel/rest/uploads/";
 var userarray = [{
         'image': 'admin.png',
         'post': 'Administrator'
-},
+    },
     {
         'image': 'edit.png',
         'post': 'Editor'
-},
+    },
     {
         'image': 'teach.png',
         'post': 'Teacher'
-}];
+    }
+];
 
 phonecatControllers.controller('home', ['$scope', 'TemplateService', 'NavigationService', '$rootScope', '$filter', '$window', '$location',
-  function ($scope, TemplateService, NavigationService, $rootScope, $filter, $window, $location) {
+    function ($scope, TemplateService, NavigationService, $rootScope, $filter, $window, $location) {
         $scope.template = TemplateService;
         TemplateService.content = "views/content.html";
         $scope.title = "dashboard";
@@ -131,10 +132,11 @@ phonecatControllers.controller('home', ['$scope', 'TemplateService', 'Navigation
             //NavigationService.getbackup().then(getbackupsuccess, getbackuperror);
             $window.open('http://www.learnwithinq.com/adminpanel/rest/index.php/access/getbackup');
         };
-  }]);
+    }
+]);
 
 phonecatControllers.controller('loginCtrl', ['$scope', 'TemplateService', 'NavigationService', '$rootScope', '$location',
-  function ($scope, TemplateService, NavigationService, $rootScope, $location) {
+    function ($scope, TemplateService, NavigationService, $rootScope, $location) {
         $scope.template = TemplateService;
         TemplateService.content = "views/login.html";
         $scope.title = "dashboard";
@@ -181,10 +183,11 @@ phonecatControllers.controller('loginCtrl', ['$scope', 'TemplateService', 'Navig
 
 
         };
-  }]);
+    }
+]);
 
 phonecatControllers.controller('usersCtrl', ['$scope', 'TemplateService', 'NavigationService', '$location',
-  function ($scope, TemplateService, NavigationService, $location) {
+    function ($scope, TemplateService, NavigationService, $location) {
         $scope.template = TemplateService;
         TemplateService.content = "views/users.html";
         $scope.title = "users";
@@ -269,10 +272,11 @@ phonecatControllers.controller('usersCtrl', ['$scope', 'TemplateService', 'Navig
             NavigationService.deleteuser(id).then(deleteusersuccess, deleteusererror);
         };
 
-  }]);
+    }
+]);
 
 phonecatControllers.controller('adduserCtrl', ['$scope', 'TemplateService', 'NavigationService', '$routeParams', '$location',
-  function ($scope, TemplateService, NavigationService, $routeParams, $location) {
+    function ($scope, TemplateService, NavigationService, $routeParams, $location) {
         $scope.template = TemplateService;
         TemplateService.content = "views/adduser.html";
         $scope.title = "users";
@@ -417,10 +421,11 @@ phonecatControllers.controller('adduserCtrl', ['$scope', 'TemplateService', 'Nav
 
 
 
-  }]);
+    }
+]);
 
 phonecatControllers.controller('syllabusCtrl', ['$scope', 'TemplateService', 'NavigationService', '$location', 'FileUploader', '$rootScope', '$sce',
-  function ($scope, TemplateService, NavigationService, $location, FileUploader, $rootScope, $sce) {
+    function ($scope, TemplateService, NavigationService, $location, FileUploader, $rootScope, $sce) {
         $scope.template = TemplateService;
         TemplateService.content = "views/syllabus.html";
         $scope.title = "syllabus";
@@ -729,10 +734,11 @@ phonecatControllers.controller('syllabusCtrl', ['$scope', 'TemplateService', 'Na
         };
 
         console.info('uploader', uploader);
-  }]);
+    }
+]);
 
 phonecatControllers.controller('addsyllabusdataCtrl', ['$scope', 'TemplateService', 'NavigationService', '$routeParams', '$location',
-  function ($scope, TemplateService, NavigationService, $routeParams, $location) {
+    function ($scope, TemplateService, NavigationService, $routeParams, $location) {
         $scope.template = TemplateService;
         TemplateService.content = "views/addsyllabusdata.html";
         $scope.title = "syllabus";
@@ -760,10 +766,11 @@ phonecatControllers.controller('addsyllabusdataCtrl', ['$scope', 'TemplateServic
             };
             NavigationService.createdata($scope.data.name, $scope.parentid, $scope.addname).then(createdatasuccess, createdataerror);
         };
-  }]);
+    }
+]);
 
 phonecatControllers.controller('questionsCtrl', ['$scope', 'TemplateService', 'NavigationService', '$location', '$http', '$rootScope', '$interval',
-  function ($scope, TemplateService, NavigationService, $location, $http, $rootScope, $interval) {
+    function ($scope, TemplateService, NavigationService, $location, $http, $rootScope, $interval) {
         $scope.template = TemplateService;
         TemplateService.content = "views/questions.html";
         $scope.title = "questions";
@@ -1091,10 +1098,11 @@ phonecatControllers.controller('questionsCtrl', ['$scope', 'TemplateService', 'N
                 })
                 .error(function () {});
         };
-  }]);
+    }
+]);
 
 phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService', 'NavigationService', '$location', '$routeParams', 'textAngularManager', '$rootScope', '$interval', '$anchorScroll',
-  function ($scope, TemplateService, NavigationService, $location, $routeParams, textAngularManager, $rootScope, $interval, $anchorScroll) {
+    function ($scope, TemplateService, NavigationService, $location, $routeParams, textAngularManager, $rootScope, $interval, $anchorScroll) {
         $scope.template = TemplateService;
         TemplateService.content = "views/createquestion.html";
         $scope.title = "questions";
@@ -1154,7 +1162,7 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
             } else if (document.selection && document.selection.type != "Control") {
                 text = document.selection.createRange().text;
             }
-            
+
             //NEED TO DO THIS TWICE
             text = text.replace("$$", "");
             text = text.replace("$$", "");
@@ -1277,20 +1285,20 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
             /*SHOW LOADER*/
             $('#cqloadermodal').hide();
         };
-      
-      //GET ALL THE QUESTION TYPES
-      var getallquestiontypes = function(){
-          var getallquestiontypessuccess = function(response){
+
+        //GET ALL THE QUESTION TYPES
+        var getallquestiontypes = function () {
+            var getallquestiontypessuccess = function (response) {
                 console.log(response.data);
                 $scope.questiontypes = response.data;
-          };
-          var getallquestiontypeserror = function(response){
+            };
+            var getallquestiontypeserror = function (response) {
                 console.log(response.data);
                 alert("Could not get question type, Try Refreshing the page.");
-          };
-          NavigationService.getallquestiontypes().then(getallquestiontypessuccess, getallquestiontypeserror);
-      };
-      getallquestiontypes();
+            };
+            NavigationService.getallquestiontypes().then(getallquestiontypessuccess, getallquestiontypeserror);
+        };
+        getallquestiontypes();
 
         var getfulldropdown = function () {
             /*DROPDOWN ARRAY*/
@@ -1702,10 +1710,11 @@ phonecatControllers.controller('createquestionCtrl', ['$scope', 'TemplateService
                 NavigationService.createquestion($scope.question).then(createquestionsuccess, createquestionerror);
             };
         };
-  }]);
+    }
+]);
 
 phonecatControllers.controller('cardcreatorCtrl', ['$scope', 'TemplateService', 'NavigationService', '$location', '$routeParams', 'textAngularManager', 'FileUploader', '$filter', '$rootScope', '$window', '$interval', '$anchorScroll',
-  function ($scope, TemplateService, NavigationService, $location, $routeParams, textAngularManager, FileUploader, $filter, $rootScope, $window, $interval, $anchorScroll) {
+    function ($scope, TemplateService, NavigationService, $location, $routeParams, textAngularManager, FileUploader, $filter, $rootScope, $window, $interval, $anchorScroll) {
         $scope.template = TemplateService;
         TemplateService.content = "views/cardcreator.html";
         $scope.title = "syllabus";
@@ -2064,10 +2073,11 @@ phonecatControllers.controller('cardcreatorCtrl', ['$scope', 'TemplateService', 
 
         console.info('uploader', uploader);
 
-                }]);
+    }
+]);
 
 phonecatControllers.controller('cardviewerCtrl', ['$scope', 'TemplateService', 'NavigationService', '$routeParams', '$location',
-  function ($scope, TemplateService, NavigationService, $routeParams, $location) {
+    function ($scope, TemplateService, NavigationService, $routeParams, $location) {
         $scope.template = TemplateService;
         TemplateService.content = "views/cardviewer.html";
         $scope.title = "syllabus";
@@ -2104,22 +2114,25 @@ phonecatControllers.controller('cardviewerCtrl', ['$scope', 'TemplateService', '
             console.log(response.data);
         };
         NavigationService.getcardsbyconceptid($scope.editid).then(getcardsbyconceptidsuccess, getcardsbyconceptiderror);
-  }]);
+    }
+]);
 
 phonecatControllers.controller('mathjaxeditorCtrl', ['$scope', 'TemplateService', 'NavigationService',
-  function ($scope, TemplateService, NavigationService) {
+    function ($scope, TemplateService, NavigationService) {
         $scope.template = TemplateService;
 
         console.log("MATH JAX EDITOR");
-  }]);
+    }
+]);
 
 phonecatControllers.controller('contact', ['$scope', 'TemplateService', 'NavigationService',
-  function ($scope, TemplateService, NavigationService) {
+    function ($scope, TemplateService, NavigationService) {
         $scope.template = TemplateService;
-  }]);
+    }
+]);
 
 phonecatControllers.controller('headerctrl', ['$scope', 'TemplateService', '$location', '$rootScope', 'NavigationService',
- function ($scope, TemplateService, $location, $rootScope, NavigationService) {
+    function ($scope, TemplateService, $location, $rootScope, NavigationService) {
 
         $scope.template = TemplateService;
         console.log('Always called');
@@ -2190,10 +2203,11 @@ phonecatControllers.controller('headerctrl', ['$scope', 'TemplateService', '$loc
             });
             return true;
         };
-  }]);
+    }
+]);
 
 phonecatControllers.controller('notificationsCtrl', ['$scope', 'TemplateService', '$location', '$rootScope', 'NavigationService',
- function ($scope, TemplateService, $location, $rootScope, NavigationService) {
+    function ($scope, TemplateService, $location, $rootScope, NavigationService) {
 
 
         $scope.template = TemplateService;
@@ -2210,11 +2224,12 @@ phonecatControllers.controller('notificationsCtrl', ['$scope', 'TemplateService'
         };
 
 
- }]);
+    }
+]);
 
 
 phonecatControllers.controller('createNotificationCtrl', ['$scope', 'TemplateService', '$location', '$rootScope', 'NavigationService',
- function ($scope, TemplateService, $location, $rootScope, NavigationService) {
+    function ($scope, TemplateService, $location, $rootScope, NavigationService) {
 
 
         $scope.template = TemplateService;
@@ -2242,4 +2257,99 @@ phonecatControllers.controller('createNotificationCtrl', ['$scope', 'TemplateSer
 
         };
 
- }]);
+    }
+]);
+
+
+
+phonecatControllers.controller('centerdetailsCtrl', ['$scope', 'TemplateService', 'NavigationService', '$rootScope', '$filter', '$window', '$location',
+    function ($scope, TemplateService, NavigationService, $rootScope, $filter, $window, $location) {
+
+        $scope.template = TemplateService;
+        TemplateService.content = "views/center-details.html";
+        $scope.title = "Center Details";
+        $scope.alldata = [];
+        $scope.cities = [];
+        $scope.centers = [];
+        $scope.batches = [];
+        $scope.details = [];
+
+
+        $(document).ready(function () {
+            $('.view-modal').modal();
+        });
+
+        $scope.showmodal = function (id, headertitle) {
+            $scope.header = id;
+            $('.view-modal').show();
+
+            if (id == 'centers') {
+                $scope.key = 'centres';
+                $scope.details = $scope.cities;
+
+            } else if (id == 'batches') {
+                $scope.key = 'batches';
+                $scope.details = $scope.centers;
+            } else if (id == 'cities') {
+                $scope.key = '';
+                $scope.details = new Array($scope.cities.length);
+            }
+            console.log($scope.details);
+        }
+        $scope.closemodal = function () {
+            $('.view-modal').hide();
+        }
+
+
+        $scope.addnewvalue = function () {
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+        getallbatchessuccess = function (response) {
+            console.log(response);
+            $scope.alldata = response.data;
+
+            $scope.alldata.forEach(function (value, key) {
+                var citydata = {
+                    id: value.id,
+                    name: value.name,
+                    centres: value.centres
+                }
+
+                $scope.cities.push(citydata);
+
+                value.centres.forEach(function (center, key) {
+                    var centerdata = {
+                        id: center.id,
+                        name: center.name,
+                        batches: center.batches,
+                        city: center.city
+                    };
+                    $scope.centers.push(centerdata);
+                })
+
+
+
+            });
+
+            console.log($scope.cities, $scope.centers);
+
+        }
+        getallbatcheserror = function (error) {
+            console.log(error);
+        }
+        NavigationService.getallbatches().then(getallbatchessuccess, getallbatcheserror);
+    }
+]);

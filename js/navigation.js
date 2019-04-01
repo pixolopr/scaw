@@ -2,11 +2,11 @@ var navigationservice = angular.module('navigationservice', [])
 
     .factory('NavigationService', function ($http) {
 
-    if(window.location.origin == "http://localhost"){
-            var adminurl = "http://localhost/rest/rest/index.php/";
-        }else{
-             var adminurl = "http://learnwithinq.com/adminpanel/rest/index.php/";
-        };
+        //    if(window.location.origin == "http://localhost"){
+        //            var adminurl = "http://localhost/rest/rest/index.php/";
+        //        }else{
+        var adminurl = "http://learnwithinq.com/adminpanel/rest/index.php/";
+        //        };
 
         var navigation = [{
             name: "Home",
@@ -32,6 +32,11 @@ var navigationservice = angular.module('navigationservice', [])
             name: "Contact",
             classis: "",
             link: "#/contact",
+            subnav: []
+    }, {
+            name: "Centers-details",
+            classis: "",
+            link: "#/center-details",
             subnav: []
     }];
 
@@ -477,7 +482,11 @@ var navigationservice = angular.module('navigationservice', [])
                     params: {}
                 });
             },
-
+            getallbatches: function () {
+                return $http.get(adminurl + 'batches/getallbatches', {
+                    params: {}
+                });
+            },
 
         }
     });

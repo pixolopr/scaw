@@ -561,7 +561,7 @@
 }
 .logouser {
   position: relative;
-  padding: 69px 0px!important;
+  padding: 69px 0px !important;
   z-index: 4;
   text-align: -webkit-center;
 }
@@ -581,7 +581,7 @@
   color: #03bdd6 !important;
 }
 .pixolo:hover {
-  color: crimson!important;
+  color: crimson !important;
 }
 .textareaquestion {
   border: 1.2px solid rgba(0, 0, 0, 0.14) !important;
@@ -667,9 +667,7 @@
   height: 90px;
   border: none;
 }
-.card-header .flag-questions-header {
-  background-color: #f44336;
-}
-.text-question-edit{
-    color: #f44336;
+.view-modal {
+  bottom: 30% !important;
+  overflow: scroll;
 }

@@ -23,6 +23,12 @@
                     <p>Users</p>
                 </a>
             </li>
+            <li ng-class="{'active':title=='Center Details'}" ng-if="user.access_id == 1">
+                <a href="#/center-details">
+                    <i class="material-icons">person</i>
+                    <p>Centers/batches</p>
+                </a>
+            </li>
             <li ng-class="{'active':title=='syllabus'}" ng-if="user.access_id == 1">
                 <a href="#/syllabus">
                     <i class="material-icons">content_paste</i>
@@ -36,13 +42,13 @@
                 </a>
             </li>
             <li ng-class="{'active':title=='concepts'}" ng-if="user.access_id == 1">
-                <a href="">
+                <a href="#/concepts">
                     <i class="material-icons">library_books</i>
                     <p>Concepts</p>
                 </a>
             </li>
             <li ng-class="{'active':title=='leaderboard'}" ng-if="user.access_id == 1">
-                <a href="">
+                <a href="#/leaderboard">
                     <i class="material-icons">bubble_chart</i>
                     <p>Leaderboard</p>
                 </a>

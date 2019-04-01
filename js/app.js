@@ -62,6 +62,10 @@ firstapp.config(['$routeProvider',
             templateUrl: 'views/template.html',
             controller: 'contact'
         }).
+         when('/center-details', {
+            templateUrl: 'views/template.html',
+            controller: 'centerdetailsCtrl'
+        }).
         otherwise({
             redirectTo: '/login'
         });
