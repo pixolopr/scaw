@@ -62,9 +62,13 @@ firstapp.config(['$routeProvider',
             templateUrl: 'views/template.html',
             controller: 'contact'
         }).
-         when('/center-details', {
+        when('/center-details', {
             templateUrl: 'views/template.html',
             controller: 'centerdetailsCtrl'
+        }).
+        when('/batch-user/:batch_id', {
+            templateUrl: 'views/template.html',
+            controller: 'batchusersCtrl'
         }).
         otherwise({
             redirectTo: '/login'

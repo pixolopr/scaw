@@ -2273,42 +2273,81 @@ phonecatControllers.controller('centerdetailsCtrl', ['$scope', 'TemplateService'
         $scope.centers = [];
         $scope.batches = [];
         $scope.details = [];
-
+        $scope.newdata = {};
 
         $(document).ready(function () {
             $('.view-modal').modal();
         });
 
         $scope.showmodal = function (id, headertitle) {
-            $scope.header = id;
+            $scope.modalheader = id;
             $('.view-modal').show();
 
-            if (id == 'centers') {
-                $scope.key = 'centres';
-                $scope.details = $scope.cities;
-
-            } else if (id == 'batches') {
-                $scope.key = 'batches';
-                $scope.details = $scope.centers;
-            } else if (id == 'cities') {
-                $scope.key = '';
-                $scope.details = new Array($scope.cities.length);
-            }
+            //            if (id == 'centers') {
+            //                $scope.key = 'centres';
+            //                $scope.details = $scope.cities;
+            //
+            //            } else if (id == 'batches') {
+            //                $scope.key = 'batches';
+            //                $scope.details = $scope.centers;
+            //            } else if (id == 'cities') {
+            //                $scope.key = '';
+            //                $scope.details = new Array($scope.cities.length);
+            //            }
             console.log($scope.details);
         }
-        $scope.closemodal = function () {
-            $('.view-modal').hide();
+        $scope.closemodal = function (modalname) {
+            $('.' + modalname).hide();
         }
 
 
-        $scope.addnewvalue = function () {
+        $scope.addnewvalue = function (header) {
+
+            $scope.modalheader = header;
+            $('.insert-modal').show();
 
 
+
+        };
+
+
+        insertbycontrollersuccess = function (response) {
+
+            console.log(response);
+        }
+        insertbycontrollererror = function (error) {
+
+            console.log(error);
+        }
+
+        $scope.adddata = function () {
+
+            NavigationService.insertbycontroller($scope.modalheader, $scope.newdata).then(insertbycontrollersuccess, insertbycontrollererror)
 
 
 
         }
 
+        deletedatasuccess = function (response) {
+            consoole.log(response);
+        }
+        deletedataerror = function (error) {
+            consoole.log(error);
+        }
+
+        $scope.deletedata = function (id) {
+
+            NavigationService.deletebycontrollerandid($scope.modalheader, id).then(deletedatasuccess, deletedataerror)
+
+        }
+
+
+
+        $scope.addstudentsinbatches = function (id) {
+
+            $location.path('/batch-user/' + id);
+
+        }
 
 
 
@@ -2353,3 +2392,71 @@ phonecatControllers.controller('centerdetailsCtrl', ['$scope', 'TemplateService'
         NavigationService.getallbatches().then(getallbatchessuccess, getallbatcheserror);
     }
 ]);
+phonecatControllers.controller('batchusersCtrl', ['$scope', 'TemplateService', 'NavigationService', '$rootScope', '$filter', '$window', '$location', '$routeParams',
+    function ($scope, TemplateService, NavigationService, $rootScope, $filter, $window, $location, $routeParams) {
+
+        $scope.template = TemplateService;
+        TemplateService.content = "views/user_batch.html";
+        var batch_id = $routeParams.batch_id;
+        $scope.batchdetails = [];
+        getstudentstoaddinbatchsuccess = function (response) {
+            $scope.batchdetails = response.data;
+            console.log(response);
+        }
+        getstudentstoaddinbatcherror = function (error) {
+            console.log(error);
+        }
+        NavigationService.getstudentstoaddinbatch(batch_id).then(getstudentstoaddinbatchsuccess, getstudentstoaddinbatcherror);
+
+
+
+
+        var addandremovestudent = function (addto, removefrom, student) {
+
+            var index = $scope.batchdetails[removefrom].indexOf(student);
+            console.log(index);
+            if (index != -1) {
+                $scope.batchdetails[removefrom].splice(index, 1);
+            }
+
+
+            $scope.batchdetails[addto].push(student);
+
+        }
+
+        $scope.removestudentfromgroup = function (student) {
+            deletebycontrollerandidsuccess = function (response) {
+                console.log(response);
+                addandremovestudent('students_to_add', 'students', student);
+
+            }
+            deletebycontrollerandiderror = function (error) {
+                console.log(error);
+            }
+            console.log(student);
+            NavigationService.deletemanyby('user_batch', 'user_id', student.id).then(deletebycontrollerandidsuccess, deletebycontrollerandiderror);
+
+        }
+
+        $scope.addstudenttogroup = function (student) {
+
+            insertbycontrollersuccess = function (response) {
+                console.log(response);
+
+                addandremovestudent('students', 'students_to_add', student);
+
+            }
+            insertbycontrollererror = function (error) {
+                console.log(error);
+            }
+
+            console.log(student);
+            var data = {
+                batch_id: $scope.batchdetails.id,
+                user_id: student.id
+            }
+            NavigationService.insertbycontroller('user_batch', data).then(insertbycontrollersuccess, insertbycontrollererror);
+
+        }
+
+    }])

@@ -4,11 +4,11 @@
         <div>
             <h4>Cities</h4>
 
-            <button class="btn btn-info btn-lg adddatabtn" ng-click="addnewvalue()">Add Center</button>
+            <button class="btn btn-info btn-lg adddatabtn" ng-click="addnewvalue('cities')">Add City</button>
         </div>
 
-        <a ng-click="showmodal('cities','view-modal')">See All Cities</a>
 
+        <button class="btn btn-info btn-lg adddatabtn" ng-click="showmodal('cities','view-modal')">See All Cities</button>
 
     </div>
 
@@ -16,18 +16,18 @@
     <div class="row">
         <div>
             <h4>Centers</h4>
-            <button class="btn btn-info btn-lg adddatabtn" ng-click="addnewvalue()">Add Center</button>
+            <button class="btn btn-info btn-lg adddatabtn" ng-click="addnewvalue('centres')">Add Center</button>
         </div>
-        <a ng-click="showmodal('centers','view-modal')">See All Centers</a>
 
+        <button class="btn btn-info btn-lg adddatabtn" ng-click="showmodal('centers','view-modal')">See All Centers</button>
     </div>
     <div class="row">
         <div>
             <h4>Batches</h4>
-            <button class="btn btn-info btn-lg adddatabtn" ng-click="addnewvalue()">Add Center</button>
+            <button class="btn btn-info btn-lg adddatabtn" ng-click="addnewvalue('batches')">Add Branch</button>
         </div>
-        <a ng-click="showmodal('batches','view-modal')">See All Batches</a>
 
+        <button class="btn btn-info btn-lg adddatabtn" ng-click="showmodal('batches','view-modal')">See All Batches</button>
     </div>
 
 
@@ -60,32 +60,97 @@
 
 <div id="modal1" class="modal view-modal bottom-sheet">
     <div class="modal-content">
-        <div ng-repeat="detail in details">
-            <h6>{{detail.name?detail.name:''}}</h6>
+
+        <table ng-if="modalheader=='cities'">
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Action
+                </th>
+            </tr>
+            <tr ng-repeat="city in cities">
+
+                <td>
+                    {{city.id}}
+                </td>
+                <td>
+                    {{city.name}}
+                </td>
+                <td>
+                    <i class="material-icons questionicon redcolor" aria-hidden="true" ng-click="deletedata(city.id)">delete</i>
+                </td>
+            </tr>
+
+        </table>
+        <div ng-repeat="city in cities" ng-if="modalheader=='centers'">
+            <h6>{{city.name}}</h6>
             <table>
                 <tr>
                     <th>
-                        id
+                        ID
                     </th>
                     <th>
-                        name
+                        Name
                     </th>
-
+                    <th>
+                        Action
+                    </th>
                 </tr>
-                <tr ng-repeat="subdetail in key!=''?(detail[key]):cities">
+                <tr ng-repeat="center in city.centres">
 
                     <td>
-                        {{subdetail.id}}
+                        {{center.id}}
                     </td>
                     <td>
-                        {{subdetail.name}}
+                        {{center.name}}
+                    </td>
+                    <td>
+                        <i class="material-icons questionicon redcolor" aria-hidden="true" ng-click="deletedata(center.id)">delete</i>
                     </td>
                 </tr>
+
             </table>
         </div>
+
+        <div ng-repeat="center in centers" ng-if="modalheader=='batches'">
+            <h6>{{center.name}}</h6>
+            <table>
+                <tr>
+                    <th>
+                        ID
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Action
+                    </th>
+                </tr>
+                <tr ng-repeat="batch in center.batches" ng-if="modalheader=='batches'" ng-click="addstudentsinbatches(batch.id)">
+
+                    <td>
+                        {{batch.id}}
+                    </td>
+                    <td>
+                        {{batch.name}}
+                    </td>
+                    <td>
+                        <i class="material-icons questionicon redcolor" aria-hidden="true" ng-click="deletedata(batch.id)">delete</i>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+
+
     </div>
     <div class="modal-footer">
-        <button type="button" ng-click="closemodal()" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" ng-click="closemodal('view-modal')" class="btn btn-default" data-dismiss="modal">Close</button>
     </div>
 </div>
 
@@ -97,21 +162,41 @@
         <div>
             <form class="col s12">
                 <div class="row">
-                    <div class="input-field col s6">
-                        <input placeholder="Placeholder" id="first_name" type="text" class="validate">
+                    <div class="input-field col s12">
+                        <input id="first_name" ng-model="newdata.name" type="text" class="validate">
                         <label for="first_name">Name</label>
                     </div>
-                    <div class="input-field col s6">
-                        <input id="last_name" type="text" class="validate">
-                        <label for="last_name">Name</label>
+
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <select ng-model="newdata.city_id" ng-if="modalheader=='centres'">
+                            <option value="">Choose City</option>
+                            <option ng-repeat="city in cities" value="{{city.id}}">{{city.name}}</option>
+
+                        </select>
+                        <select ng-model="newdata.centre_id" ng-if="modalheader=='batches'">
+                            <option value="">Choose Center</option>
+                            <option ng-repeat="center in centers" value="{{center.id}}">{{center.name}}</option>
+
+                        </select>
+
                     </div>
+                </div>
+                <div class="row">
+                    <button class="btn waves-effect waves-light " type="button" ng-click="adddata()" name="action">Submit
+                        <i class="material-icons right">send</i>
+                    </button>
                 </div>
             </form>
 
         </div>
-
+        <div class="modal-footer">
+            <button type="button" ng-click="closemodal('insert-modal')" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
     </div>
-    <!--
+</div>
+<!--
 
 <div id="centers" class="view-modal modal fade view-modal" role="dialog">
     <div class="modal-dialog">
@@ -152,7 +237,7 @@
 </div>
 -->
 
-    <!--
+<!--
 <div id="batches" class="modal fade view-modal" role="dialog">
     <div class="modal-dialog">
 

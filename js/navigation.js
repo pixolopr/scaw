@@ -487,6 +487,39 @@ var navigationservice = angular.module('navigationservice', [])
                     params: {}
                 });
             },
+            insertbycontroller: function (controller, data) {
+                return $http.get(adminurl + controller + '/insert', {
+                    params: {
+                        data: data
+                    }
+                });
+
+
+            },
+            deletebycontrollerandid: function (controller, id) {
+                return $http.get(adminurl + controller + '/deletebyid', {
+                    params: {
+                        id: id
+                    }
+                });
+            },
+            getstudentstoaddinbatch: function (batchid) {
+                return $http.get(adminurl + 'batches/getstudentstoaddinbatch', {
+                    params: {
+                        batch_id: batchid
+                    }
+                });
+
+            },
+            deletemanyby: function (controller, field, value) {
+                return $http.get(adminurl + controller + '/deletemanyby', {
+                    params: {
+                        field: field,
+                        value: value
+                    }
+                });
+
+            },
 
         }
     });
