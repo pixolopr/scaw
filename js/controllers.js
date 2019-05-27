@@ -301,6 +301,14 @@ phonecatControllers.controller('adduserCtrl', ['$scope', 'TemplateService', 'Nav
         $scope.pass = {
             'confirmpassword': ''
         };
+        var explode=function() {
+           
+            $(document).ready(function () {
+                $('.collapsible').collapsible();
+            });
+    
+        }
+        setTimeout(explode, 2000);
 
         /*GET BOARD DROPDOWN*/
         var getboardssuccess = function (response) {
