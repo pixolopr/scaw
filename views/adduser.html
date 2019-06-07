@@ -134,8 +134,8 @@
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-4 select-board-wrapper">
+                        <div ng-if="usertypename == 'Teacher'" class="row dropdown-selection" >
+                            <div class=" select-board-wrapper" ng-repeat="board in boardsdata">
                                 <!-- <div class="form-group label-floating">
                                     <label class="control-label inputsize">Board</label>
                                     <select class="inputselect" ng-model="user.board_id" ng-change="getstandards()">
@@ -147,10 +147,10 @@
                                 <!-- <div class="boards-wrapper"> -->
                                 <ul class="collapsible">
                                     <li>
-                                        <div class="collapsible-header board-name">CBSE<i class="board-tick-svg"><svg
+                                        <div class="collapsible-header board-name" ng-click="addteacherboard(board.id)">{{board.name}}<i class="board-tick-svg"><svg
                                                     width="20" height="20" viewBox="0 0 20 20" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg">
-                                                    <circle cx="10" cy="10" r="10" fill="#00BCD4" />
+                                                    <circle id="board{{board.id}}" cx="10" cy="10" r="10" fill="#767676" />
                                                     <g clip-path="url(#clip0)">
                                                         <path
                                                             d="M7.2416 12.6078L4.71999 10.0862L3.3335 11.4727L6.66109 14.8003L6.66491 14.7965L7.27239 15.4039L16.6668 6.00945L15.2534 4.59601L7.2416 12.6078Z"
@@ -164,29 +164,13 @@
                                                     </defs>
                                                 </svg>
                                             </i></div>
-                                        <div class="collapsible-body std-body"><span class="chapter-name">Chapter 1</span><svg width="20"
-                                                height="20" class="chapter-svg" viewBox="0 0 20 20" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <circle cx="10" cy="10" r="10" fill="#00BCD4" />
-                                                <g clip-path="url(#clip0)">
-                                                    <path
-                                                        d="M7.2416 12.6078L4.71999 10.0862L3.3335 11.4727L6.66109 14.8003L6.66491 14.7965L7.27239 15.4039L16.6668 6.00945L15.2534 4.59601L7.2416 12.6078Z"
-                                                        fill="white" />
-                                                </g>
-                                                <defs>
-                                                    <clipPath id="clip0">
-                                                        <rect width="13.3333" height="13.3333" fill="white"
-                                                            transform="translate(3.3335 3.33331)" />
-                                                    </clipPath>
-                                                </defs>
-                                            </svg>
-                                        </div>
+                                        
                                     </li>
-                                    <li>
-                                        <div class="collapsible-header std-header">8th Standard<i
+                                    <li ng-repeat="standard in board.standards">
+                                        <div class="collapsible-header std-header" ng-click="addteacherstandard(standard.id)">{{standard.name}}<i
                                                 class="board-tick-svg"><svg width="20" height="20" viewBox="0 0 20 20"
                                                     fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <circle cx="10" cy="10" r="10" fill="#767676" />
+                                                    <circle id="stand{{standard.id}}" cx="10" cy="10" r="10" fill="#767676" />
                                                     <g clip-path="url(#clip0)">
                                                         <path
                                                             d="M7.2416 12.6078L4.71999 10.0862L3.3335 11.4727L6.66109 14.8003L6.66491 14.7965L7.27239 15.4039L16.6668 6.00945L15.2534 4.59601L7.2416 12.6078Z"
@@ -200,10 +184,11 @@
                                                     </defs>
                                                 </svg>
                                             </i></div>
-                                            <div class="collapsible-body std-body"><span class="chapter-name">Chapter 1</span><svg width="20"
+                                            <div ng-repeat="subject in standard.subjects" class="collapsible-body std-body" style="display: block !important" >
+                                                <div ng-repeat="chapter in subject.chapters" class="std-body" ng-click="addtecherchap(chapter.id)"><span class="chapter-name">{{chapter.name}}</span><svg width="20"
                                                 height="20" class="chapter-svg" viewBox="0 0 20 20" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
-                                                <circle cx="10" cy="10" r="10" fill="#00BCD4" />
+                                                <circle id="chap{{chapter.id}}" cx="10" cy="10" r="10" fill="#767676" />
                                                 <g clip-path="url(#clip0)">
                                                     <path
                                                         d="M7.2416 12.6078L4.71999 10.0862L3.3335 11.4727L6.66109 14.8003L6.66491 14.7965L7.27239 15.4039L16.6668 6.00945L15.2534 4.59601L7.2416 12.6078Z"
@@ -216,310 +201,17 @@
                                                     </clipPath>
                                                 </defs>
                                             </svg>
+                                            </div>
                                         </div>
                                     </li>
-                                    <li>
-                                        <div class="collapsible-header std-header">8th Standard</div>
-                                        <div class="collapsible-body std-body"><span class="chapter-name">Chapter 1</span><svg width="20"
-                                            height="20" class="chapter-svg" viewBox="0 0 20 20" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <circle cx="10" cy="10" r="10" fill="#00BCD4" />
-                                            <g clip-path="url(#clip0)">
-                                                <path
-                                                    d="M7.2416 12.6078L4.71999 10.0862L3.3335 11.4727L6.66109 14.8003L6.66491 14.7965L7.27239 15.4039L16.6668 6.00945L15.2534 4.59601L7.2416 12.6078Z"
-                                                    fill="white" />
-                                            </g>
-                                            <defs>
-                                                <clipPath id="clip0">
-                                                    <rect width="13.3333" height="13.3333" fill="white"
-                                                        transform="translate(3.3335 3.33331)" />
-                                                </clipPath>
-                                            </defs>
-                                        </svg>
-                                    </div>
-                                    </li>
-                                    <li>
-                                        <div class="collapsible-header std-header">8th Standard
-                                            
-
-                                        </div>
-                                        <div class="collapsible-body std-body"><span class="chapter-name">Chapter 1</span><svg width="20"
-                                            height="20" class="chapter-svg" viewBox="0 0 20 20" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <circle cx="10" cy="10" r="10" fill="#00BCD4" />
-                                            <g clip-path="url(#clip0)">
-                                                <path
-                                                    d="M7.2416 12.6078L4.71999 10.0862L3.3335 11.4727L6.66109 14.8003L6.66491 14.7965L7.27239 15.4039L16.6668 6.00945L15.2534 4.59601L7.2416 12.6078Z"
-                                                    fill="white" />
-                                            </g>
-                                            <defs>
-                                                <clipPath id="clip0">
-                                                    <rect width="13.3333" height="13.3333" fill="white"
-                                                        transform="translate(3.3335 3.33331)" />
-                                                </clipPath>
-                                            </defs>
-                                        </svg>
-                                    </div>
-                                    </li>
-                                   
+                                    
                                 </ul>
 
 
 
-                                <!-- </div> -->
+                                
                             </div>
-                            <div class="col-md-4 select-board-wrapper">
-                                <!-- <div class="form-group label-floating">
-                                    <label class="control-label inputsize">Board</label>
-                                    <select class="inputselect" ng-model="user.board_id" ng-change="getstandards()">
-                                        <option value="" disabled selected>Choose your option</option>
-                                        <option value="{{board.id}}" ng-selected="board.id == user.board_id"
-                                            ng-repeat="board in boards">{{board.name}}</option>
-                                    </select>
-                                </div> -->
-                                <ul class="collapsible">
-                                    <li>
-                                        <div class="collapsible-header board-name">CBSE<i class="board-tick-svg"><svg
-                                                    width="20" height="20" viewBox="0 0 20 20" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <circle cx="10" cy="10" r="10" fill="#00BCD4" />
-                                                    <g clip-path="url(#clip0)">
-                                                        <path
-                                                            d="M7.2416 12.6078L4.71999 10.0862L3.3335 11.4727L6.66109 14.8003L6.66491 14.7965L7.27239 15.4039L16.6668 6.00945L15.2534 4.59601L7.2416 12.6078Z"
-                                                            fill="white" />
-                                                    </g>
-                                                    <defs>
-                                                        <clipPath id="clip0">
-                                                            <rect width="13.3333" height="13.3333" fill="white"
-                                                                transform="translate(3.3335 3.33331)" />
-                                                        </clipPath>
-                                                    </defs>
-                                                </svg>
-                                            </i></div>
-                                        <div class="collapsible-body std-body"><span class="chapter-name">Chapter 1</span><svg width="20"
-                                                height="20" class="chapter-svg" viewBox="0 0 20 20" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <circle cx="10" cy="10" r="10" fill="#00BCD4" />
-                                                <g clip-path="url(#clip0)">
-                                                    <path
-                                                        d="M7.2416 12.6078L4.71999 10.0862L3.3335 11.4727L6.66109 14.8003L6.66491 14.7965L7.27239 15.4039L16.6668 6.00945L15.2534 4.59601L7.2416 12.6078Z"
-                                                        fill="white" />
-                                                </g>
-                                                <defs>
-                                                    <clipPath id="clip0">
-                                                        <rect width="13.3333" height="13.3333" fill="white"
-                                                            transform="translate(3.3335 3.33331)" />
-                                                    </clipPath>
-                                                </defs>
-                                            </svg>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="collapsible-header std-header">8th Standard<i
-                                                class="board-tick-svg"><svg width="20" height="20" viewBox="0 0 20 20"
-                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <circle cx="10" cy="10" r="10" fill="#00BCD4" />
-                                                    <g clip-path="url(#clip0)">
-                                                        <path
-                                                            d="M7.2416 12.6078L4.71999 10.0862L3.3335 11.4727L6.66109 14.8003L6.66491 14.7965L7.27239 15.4039L16.6668 6.00945L15.2534 4.59601L7.2416 12.6078Z"
-                                                            fill="white" />
-                                                    </g>
-                                                    <defs>
-                                                        <clipPath id="clip0">
-                                                            <rect width="13.3333" height="13.3333" fill="white"
-                                                                transform="translate(3.3335 3.33331)" />
-                                                        </clipPath>
-                                                    </defs>
-                                                </svg>
-                                            </i></div>
-                                            <div class="collapsible-body std-body"><span class="chapter-name">Chapter 1</span><svg width="20"
-                                                height="20" class="chapter-svg" viewBox="0 0 20 20" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <circle cx="10" cy="10" r="10" fill="#00BCD4" />
-                                                <g clip-path="url(#clip0)">
-                                                    <path
-                                                        d="M7.2416 12.6078L4.71999 10.0862L3.3335 11.4727L6.66109 14.8003L6.66491 14.7965L7.27239 15.4039L16.6668 6.00945L15.2534 4.59601L7.2416 12.6078Z"
-                                                        fill="white" />
-                                                </g>
-                                                <defs>
-                                                    <clipPath id="clip0">
-                                                        <rect width="13.3333" height="13.3333" fill="white"
-                                                            transform="translate(3.3335 3.33331)" />
-                                                    </clipPath>
-                                                </defs>
-                                            </svg>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="collapsible-header std-header">8th Standard</div>
-                                        <div class="collapsible-body std-body"><span class="chapter-name">Chapter 1</span><svg width="20"
-                                            height="20" class="chapter-svg" viewBox="0 0 20 20" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <circle cx="10" cy="10" r="10" fill="#00BCD4" />
-                                            <g clip-path="url(#clip0)">
-                                                <path
-                                                    d="M7.2416 12.6078L4.71999 10.0862L3.3335 11.4727L6.66109 14.8003L6.66491 14.7965L7.27239 15.4039L16.6668 6.00945L15.2534 4.59601L7.2416 12.6078Z"
-                                                    fill="white" />
-                                            </g>
-                                            <defs>
-                                                <clipPath id="clip0">
-                                                    <rect width="13.3333" height="13.3333" fill="white"
-                                                        transform="translate(3.3335 3.33331)" />
-                                                </clipPath>
-                                            </defs>
-                                        </svg>
-                                    </div>
-                                    </li>
-                                    <li>
-                                        <div class="collapsible-header std-header">8th Standard</div>
-                                        <div class="collapsible-body std-body"><span class="chapter-name">Chapter 1</span><svg width="20"
-                                            height="20" class="chapter-svg" viewBox="0 0 20 20" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <circle cx="10" cy="10" r="10" fill="#00BCD4" />
-                                            <g clip-path="url(#clip0)">
-                                                <path
-                                                    d="M7.2416 12.6078L4.71999 10.0862L3.3335 11.4727L6.66109 14.8003L6.66491 14.7965L7.27239 15.4039L16.6668 6.00945L15.2534 4.59601L7.2416 12.6078Z"
-                                                    fill="white" />
-                                            </g>
-                                            <defs>
-                                                <clipPath id="clip0">
-                                                    <rect width="13.3333" height="13.3333" fill="white"
-                                                        transform="translate(3.3335 3.33331)" />
-                                                </clipPath>
-                                            </defs>
-                                        </svg>
-                                    </div>
-                                    </li>
-                                   
-                                </ul>
-                            </div>
-                            <div class="col-md-4 select-board-wrapper">
-                                <!-- <div class="form-group label-floating">
-                                    <label class="control-label inputsize">Standard</label>
-                                    <select class="inputselect" ng-model="user.standard_id">
-                                        <option value="" disabled selected>Choose your option</option>
-                                        <option value="{{std.id}}" ng-selected="std.id == user.standard_id"
-                                            ng-repeat="std in standards">{{std.name}}</option>
-                                    </select>
-                                </div> -->
-
-                                <ul class="collapsible">
-                                    <li>
-                                        <div class="collapsible-header board-name">CBSE<i class="board-tick-svg"><svg
-                                                    width="20" height="20" viewBox="0 0 20 20" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <circle cx="10" cy="10" r="10" fill="#00BCD4" />
-                                                    <g clip-path="url(#clip0)">
-                                                        <path
-                                                            d="M7.2416 12.6078L4.71999 10.0862L3.3335 11.4727L6.66109 14.8003L6.66491 14.7965L7.27239 15.4039L16.6668 6.00945L15.2534 4.59601L7.2416 12.6078Z"
-                                                            fill="white" />
-                                                    </g>
-                                                    <defs>
-                                                        <clipPath id="clip0">
-                                                            <rect width="13.3333" height="13.3333" fill="white"
-                                                                transform="translate(3.3335 3.33331)" />
-                                                        </clipPath>
-                                                    </defs>
-                                                </svg>
-                                            </i></div>
-                                        <div class="collapsible-body std-body"><span class="chapter-name">Chapter 1</span><svg width="20"
-                                                height="20" class="chapter-svg" viewBox="0 0 20 20" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <circle cx="10" cy="10" r="10" fill="#00BCD4" />
-                                                <g clip-path="url(#clip0)">
-                                                    <path
-                                                        d="M7.2416 12.6078L4.71999 10.0862L3.3335 11.4727L6.66109 14.8003L6.66491 14.7965L7.27239 15.4039L16.6668 6.00945L15.2534 4.59601L7.2416 12.6078Z"
-                                                        fill="white" />
-                                                </g>
-                                                <defs>
-                                                    <clipPath id="clip0">
-                                                        <rect width="13.3333" height="13.3333" fill="white"
-                                                            transform="translate(3.3335 3.33331)" />
-                                                    </clipPath>
-                                                </defs>
-                                            </svg>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="collapsible-header std-header">8th Standard<i
-                                                class="board-tick-svg"><svg width="20" height="20" viewBox="0 0 20 20"
-                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <circle cx="10" cy="10" r="10" fill="#00BCD4" />
-                                                    <g clip-path="url(#clip0)">
-                                                        <path
-                                                            d="M7.2416 12.6078L4.71999 10.0862L3.3335 11.4727L6.66109 14.8003L6.66491 14.7965L7.27239 15.4039L16.6668 6.00945L15.2534 4.59601L7.2416 12.6078Z"
-                                                            fill="white" />
-                                                    </g>
-                                                    <defs>
-                                                        <clipPath id="clip0">
-                                                            <rect width="13.3333" height="13.3333" fill="white"
-                                                                transform="translate(3.3335 3.33331)" />
-                                                        </clipPath>
-                                                    </defs>
-                                                </svg>
-                                            </i></div>
-                                            <div class="collapsible-body std-body"><span class="chapter-name">Chapter 1</span><svg width="20"
-                                                height="20" class="chapter-svg" viewBox="0 0 20 20" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <circle cx="10" cy="10" r="10" fill="#00BCD4" />
-                                                <g clip-path="url(#clip0)">
-                                                    <path
-                                                        d="M7.2416 12.6078L4.71999 10.0862L3.3335 11.4727L6.66109 14.8003L6.66491 14.7965L7.27239 15.4039L16.6668 6.00945L15.2534 4.59601L7.2416 12.6078Z"
-                                                        fill="white" />
-                                                </g>
-                                                <defs>
-                                                    <clipPath id="clip0">
-                                                        <rect width="13.3333" height="13.3333" fill="white"
-                                                            transform="translate(3.3335 3.33331)" />
-                                                    </clipPath>
-                                                </defs>
-                                            </svg>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="collapsible-header std-header">8th Standard</div>
-                                        <div class="collapsible-body std-body"><span class="chapter-name">Chapter 1</span><svg width="20"
-                                            height="20" class="chapter-svg" viewBox="0 0 20 20" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <circle cx="10" cy="10" r="10" fill="#00BCD4" />
-                                            <g clip-path="url(#clip0)">
-                                                <path
-                                                    d="M7.2416 12.6078L4.71999 10.0862L3.3335 11.4727L6.66109 14.8003L6.66491 14.7965L7.27239 15.4039L16.6668 6.00945L15.2534 4.59601L7.2416 12.6078Z"
-                                                    fill="white" />
-                                            </g>
-                                            <defs>
-                                                <clipPath id="clip0">
-                                                    <rect width="13.3333" height="13.3333" fill="white"
-                                                        transform="translate(3.3335 3.33331)" />
-                                                </clipPath>
-                                            </defs>
-                                        </svg>
-                                    </div>
-                                    </li>
-                                    <li>
-                                        <div class="collapsible-header std-header">8th Standard</div>
-                                        <div class="collapsible-body std-body"><span class="chapter-name">Chapter 1</span><svg width="20"
-                                            height="20" class="chapter-svg" viewBox="0 0 20 20" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <circle cx="10" cy="10" r="10" fill="#00BCD4" />
-                                            <g clip-path="url(#clip0)">
-                                                <path
-                                                    d="M7.2416 12.6078L4.71999 10.0862L3.3335 11.4727L6.66109 14.8003L6.66491 14.7965L7.27239 15.4039L16.6668 6.00945L15.2534 4.59601L7.2416 12.6078Z"
-                                                    fill="white" />
-                                            </g>
-                                            <defs>
-                                                <clipPath id="clip0">
-                                                    <rect width="13.3333" height="13.3333" fill="white"
-                                                        transform="translate(3.3335 3.33331)" />
-                                                </clipPath>
-                                            </defs>
-                                        </svg>
-                                    </div>
-                                    </li>
-                                   
-                                </ul>
-                            </div>
-
+                            
                         </div>
                         <div class="row">
                             <div class="col-md-12">

@@ -309,6 +309,17 @@ phonecatControllers.controller('adduserCtrl', ['$scope', 'TemplateService', 'Nav
     
         }
         setTimeout(explode, 2000);
+        
+        
+        var getfulldropdownsuccess = function(response){
+            console.log(response.data,"this");
+            $scope.boardsdata = response.data;
+        }
+        
+        var getfulldropdownerror = function(response){
+            console.log(response.data);
+        }
+        NavigationService.getfulldropdown().then(getfulldropdownsuccess, getfulldropdownerror);
 
         /*GET BOARD DROPDOWN*/
         var getboardssuccess = function (response) {
@@ -377,6 +388,20 @@ phonecatControllers.controller('adduserCtrl', ['$scope', 'TemplateService', 'Nav
         };
 
         /*ADD USER*/
+
+        $scope.addteacherboard =function(boardid){
+            $scope.user.board_id = boardid;
+            console.log($scope.user.board_id);
+            document.getElementById("board"+boardid).style.fill = "#03bdd6";
+        }
+        $scope.addteacherstandard =function(standardid){
+            $scope.user.standard_id = standardid;
+            document.getElementById("stand"+standardid).style.fill = "#03bdd6";
+            console.log($scope.user.standard_id);
+        }
+        $scope.addtecherchap = function(chaptid){
+            document.getElementById("chap"+chaptid).style.fill = "#03bdd6";
+        }
         $scope.createuser = function () {
             console.log($scope.user.password);
             console.log($scope.pass.confirmpassword);

@@ -96,6 +96,14 @@
   font-size: 14px;
   line-height: 16px;
 }
+.dropdown-selection{
+  display: flex;
+  flex-wrap: wrap;
+}
+.dropdown-selection .select-board-wrapper{
+  flex-basis: 30%;
+  margin: 0 15px 30px 15px;
+}
 
 
 /*SYLLABUS*/
