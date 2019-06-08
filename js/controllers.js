@@ -2432,6 +2432,8 @@ phonecatControllers.controller('batchusersCtrl', ['$scope', 'TemplateService', '
         TemplateService.content = "views/user_batch.html";
         var batch_id = $routeParams.batch_id;
         $scope.batchdetails = [];
+        
+        
         getstudentstoaddinbatchsuccess = function (response) {
             $scope.batchdetails = response.data;
             console.log(response);
@@ -2440,8 +2442,6 @@ phonecatControllers.controller('batchusersCtrl', ['$scope', 'TemplateService', '
             console.log(error);
         }
         NavigationService.getstudentstoaddinbatch(batch_id).then(getstudentstoaddinbatchsuccess, getstudentstoaddinbatcherror);
-
-
 
 
         var addandremovestudent = function (addto, removefrom, student) {
@@ -2472,10 +2472,11 @@ phonecatControllers.controller('batchusersCtrl', ['$scope', 'TemplateService', '
         }
 
         $scope.addstudenttogroup = function (student) {
+            document.getElementById("check"+student.id).style.fill = "#6AC259";
+            console.log("colored");
 
             insertbycontrollersuccess = function (response) {
                 console.log(response);
-
                 addandremovestudent('students', 'students_to_add', student);
 
             }

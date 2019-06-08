@@ -1,26 +1,160 @@
-<div class="container">
-    <h4>{{batchdetails.name}} Batch</h4>
+<style>
+    .batch-name {
+        font-weight: bold;
+        margin: 20px 0;
+    }
+
+    .student-container {
+        
+        background-color: #F7F7F7;
+        border: 1px solid #000;
+        box-sizing: border-box;
+        
+        margin: 20px;
+    }
+
+    .list-title {
+        text-align: center;
+        font-size: 13px;
+        font-weight: bold;
+        color: #A59F9F !important;
+        width: 100%;
+        padding: 10px;
+    }
+    .scroll-div{
+        overflow-y: scroll;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        height: 70vh;
+    }
+
+    .student-list {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 4px 7px;
+        border-radius: 25px;
+        background-color: #fff;
+        margin: 5px 2%;
+    }
+
+    .std-profile-div {
+        display: flex;
+        align-items: center;
+    }
+
+    .std-profile-div img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .student-name {
+        padding: 0 5px;
+        font-size: 15px;
+        font-weight: 600;
+    }
+    .student-cont{
+        padding: 0 5px;
+        font-size: 8px;
+        line-height: 6px;
+        color: #A59F9F !important;
+    }
+
+    .remove-list {
+        margin: 20px 20px 20px 0px !important;
+        background-color: #F7F7F7;
+    }
+    .remove-student{
+        width: 100%;
+    }
+    .add-student{
+        flex-basis: 46%;
+    }
+
+    .active-color {
+        color: #00bcd4 !important;
+    }
+
+    .uncheck-svg {
+        border-radius: 25px;
+        border: 1px solid #000;
+    }
+
+</style>
+
+<div class="container-fluid">
     <div class="row">
-        <div class="col s6">
-            <div class="row" ng-repeat="student in batchdetails.students">
-                <div class="col s6">{{student.name}}</div>
-                <div class="col s6"><button class="btn btn-info btn-lg adddatabtn" ng-click="removestudentfromgroup(student)">Remove</button></div>
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header cardhead primarybg" data-background-color="">
+                    <p class="title chapter-no">Batches</p>
+                    <p class="category">Create or Edit a Batches</p>
+                </div>
+
+                <div class="card-content">
+                    <form name="userform">
+                        <div class="container">
+                            <h4 class="batch-name">Batch Name :<span class="active-color"> {{batchdetails.name}}</span></h4>
+                            <div>
+                                <input ng-model="keyword" class="questionsearch" placeholder="Search Student" ><a><i class="material-icons questionsearchicon">search</i></a>
+                            </div>
+                            <div class="row">
+                               
+                                <div class="col s3 remove-list">
+                                <p class="list-title active-color">Students in {{batchdetails.name}}</p>
+                                   <div class="scroll-div">    
+                                    <div class="student-list remove-student" ng-repeat="student in batchdetails.students ">
+                                        <div class="std-profile-div">
+                                            <img src="img/boy.png" ng-if="(student.name | gender)=='boy'">
+                                            <img src="img/girl.png" ng-if="(student.name | gender)=='girl'">
+                                            <div>
+                                                <p class="student-name">{{student.name}}</p>
+                                                <p class="student-cont">{{student.contact}}</p>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <svg ng-click="removestudentfromgroup(student)" height="24" viewBox="0 0 512 512" width="24" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="m256 0c-141.164062 0-256 114.835938-256 256s114.835938 256 256 256 256-114.835938 256-256-114.835938-256-256-256zm112 277.332031h-224c-11.777344 0-21.332031-9.554687-21.332031-21.332031s9.554687-21.332031 21.332031-21.332031h224c11.777344 0 21.332031 9.554687 21.332031 21.332031s-9.554687 21.332031-21.332031 21.332031zm0 0" fill="#E33232" /></svg>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+
+                                <div class="col s6 student-container">
+                                    <p class="list-title">Students List</p>
+                                    <div class="scroll-div">
+                                    <div class="student-list add-student" ng-repeat="student in batchdetails.students_to_add | search:keyword">
+                                        <div class="std-profile-div">
+                                            <img src="img/boy.png" ng-if="(student.name | gender)=='boy'">
+                                            <img src="img/girl.png" ng-if="(student.name | gender)=='girl'">
+                                            <div>
+                                                <p class="student-name">{{student.name}}</p>
+                                                <p class="student-cont">{{student.contact}}</p>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <svg class="uncheck-svg" width="24" height="24" ng-click="addstudenttogroup(student)" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 426.667 426.667" style="enable-background:new 0 0 426.667 426.667;" xml:space="preserve">
+                                                <path id="check{{student.id}}" style="fill:#fff;" d="M213.333,0C95.518,0,0,95.514,0,213.333s95.518,213.333,213.333,213.333
+	c117.828,0,213.333-95.514,213.333-213.333S331.157,0,213.333,0z M174.199,322.918l-93.935-93.931l31.309-31.309l62.626,62.622
+	l140.894-140.898l31.309,31.309L174.199,322.918z" />
+                                            </svg>
+                                            <!--                                            <button class="btn btn-info btn-lg adddatabtn" >Add </button></div>-->
+
+                                        </div>
+
+                                    </div>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+                    </form>
+                </div>
             </div>
-
-
         </div>
-
-        <div class="col s6">
-            <div class="row" ng-repeat="student in batchdetails.students_to_add">
-                <div class="col s6">{{student.name}}</div>
-
-                <div class="col s6"><button class="btn btn-info btn-lg adddatabtn" ng-click="addstudenttogroup(student)">Add </button></div>
-
-            </div>
-
-        </div>
-
-
     </div>
-
 </div>

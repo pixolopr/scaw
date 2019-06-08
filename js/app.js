@@ -81,6 +81,40 @@ firstapp.filter('capitalize', function () {
     }
 });
 
+firstapp.filter('gender', function () {
+    return function (name) {
+        var firstname = name.split(" ");
+        var first = firstname[0];
+        var last = first.split("");
+        var lastword = last[last.length - 1];
+        if (lastword == 'i' || lastword == 'a') {
+            var value = "girl";
+            return value;
+        } else {
+            var value = "boy";
+            return value;
+        }
+    }
+});
+
+firstapp.filter('search',function(){
+   return function (items, keyword){
+       if(!keyword){
+           return items;
+       }
+       else {
+        var newItems = [];
+        var keyword = keyword.toLowerCase();
+        // create new set of items where 'keyword' exists in object data
+        for (var i of items) {
+          if (i.name.toLowerCase().indexOf(keyword) > -1 ) { newItems.push(i); }
+        }
+        // loop through materials checking if 'keyword' exists
+        return newItems;
+      }
+   } 
+});
+
 firstapp.config(function ($provide) {
     $provide.decorator('taOptions', ['taRegisterTool', '$delegate', '$rootScope', function (taRegisterTool, taOptions, $rootScope) {
         // $delegate is the taOptions we are decorating

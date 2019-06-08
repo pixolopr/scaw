@@ -1,4 +1,30 @@
-<div class="container-fluid">
+
+    <style>
+        .modal-heading{
+            text-align: center !important;
+            font-size: 20px;
+            font-weight: 500;
+            padding: 20px;
+        }
+        .modal-heading span{
+            color: #00bcd4;
+        }
+        .modal-table td,th{
+            border: 1px solid black;
+            text-align: center !important;
+            padding: 10px;
+        }
+        .modal-table tr:first-child{
+            background: #00bcd4;
+            color: #fff;
+        }
+        .modal-table tr td:nth-child(2){
+            cursor: pointer;
+        }
+        
+</style>
+
+    <div class="container-fluid">
 
     <div class="row">
         <div>
@@ -61,7 +87,7 @@
 <div id="modal1" class="modal view-modal bottom-sheet">
     <div class="modal-content">
 
-        <table ng-if="modalheader=='cities'">
+        <table class="modal-table" ng-if="modalheader=='cities'">
             <tr>
                 <th>
                     ID
@@ -88,8 +114,8 @@
 
         </table>
         <div ng-repeat="city in cities" ng-if="modalheader=='centers'">
-            <h6>{{city.name}}</h6>
-            <table>
+            <h6 class="modal-heading">City Name : <span>{{city.name}}</span></h6>
+            <table class="modal-table"> 
                 <tr>
                     <th>
                         ID
@@ -118,8 +144,8 @@
         </div>
 
         <div ng-repeat="center in centers" ng-if="modalheader=='batches'">
-            <h6>{{center.name}}</h6>
-            <table>
+            <h6 class="modal-heading">Center Name : <span>{{center.name}}</span></h6>
+            <table class="modal-table">
                 <tr>
                     <th>
                         ID
