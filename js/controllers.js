@@ -2,8 +2,8 @@ var phonecatControllers = angular.module('phonecatControllers', ['templateservic
 
 //var adminurl = "http://localhost/rest/rest/index.php/";
 //var imageurl = "http://localhost/rest/rest/uploads/";
-var adminurl = "http://learnwithinq.com/adminpanel/rest/index.php/";
-var imageurl = "http://learnwithinq.com/adminpanel/rest/uploads/";
+var adminurl = "https://api.learnwithinq.com/rest/index.php/";
+var imageurl = "https://api.learnwithinq.com/rest/uploads/";
 
 var userarray = [{
         'image': 'admin.png',

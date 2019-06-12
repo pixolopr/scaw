@@ -5,7 +5,7 @@ var navigationservice = angular.module('navigationservice', [])
         //    if(window.location.origin == "http://localhost"){
         //            var adminurl = "http://localhost/rest/rest/index.php/";
         //        }else{
-        var adminurl = "http://learnwithinq.com/adminpanel/rest/index.php/";
+        var adminurl = "https://api.learnwithinq.com/rest/index.php/";
         //        };
 
         var navigation = [{
