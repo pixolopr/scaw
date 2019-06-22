@@ -20,30 +20,86 @@
         .modal-table tr td:nth-child(2){
             cursor: pointer;
         }
-    .content-wrapper{
-       display: flex;
-        justify-content: space-around;
-    }
-    .content{
-       padding: 15px;
-    text-align: center; 
-    }
-    .action-div{
-         width: 150px;
-    background: #03bdd6;
-    height: 150px;
-    color: white;
-    font-size: 1.5em;
-    }
-    .action-text{
-            margin-top: 60px;
-        line-height: 20px;
-    }
+        .center-heading{
+            line-height: 15px;
+            font-size: 1.3em;
+            font-weight: 500;
+            text-align: center;
+            margin-top: 25px;
+        }
+        .action-wrapper{
+        padding: 0 25px;
+        height: 70px;
+        display: flex;
+        justify-content: space-between;
+        background-color: #F5F1F1;
+        padding-left: 0 25px;
+        align-items: center;
+        width: 80%;
+        margin: 35px auto;
+        border: black 1px solid;
+        }
+    
+        .action-text{
+        font-weight: 500;
+        font-size: 1.4em;
+        }
+        .arrow-svg{
+        width: 27px;
+        height: 27px;
+        }
+
 </style>
 
 <div class="container-fluid">
-
     <div class="col-md-12">
+        <div class="card">
+            <div class="content center-wrapper">
+                <p class="center-heading">Add information to classes</p>
+
+
+                <div class="action-wrapper">
+                    <p class="action-text">
+                        View or Add Cities to Classes
+                    </p>
+                    <!--ARROW SVG-->
+                    <svg class="arrow-svg" viewBox="0 0 41 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M14.4795 30.6978L40.5195 15.6L14.4795 0.502197V30.6978Z" fill="black" />
+                        <path d="M12.5895 10.9653H4.74949C2.36949 10.9653 0.479492 12.44 0.479492 14.1956V17.0044C0.479492 18.76 2.43949 20.2347 4.74949 20.2347H12.5195V10.9653H12.5895Z" fill="black" />
+                    </svg>
+
+
+                </div>
+                <div class="action-wrapper">
+                    <p class="action-text">
+                        View or Add Centers to Cities
+                    </p>
+                    <!--ARROW SVG-->
+                    <svg class="arrow-svg" viewBox="0 0 41 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M14.4795 30.6978L40.5195 15.6L14.4795 0.502197V30.6978Z" fill="black" />
+                        <path d="M12.5895 10.9653H4.74949C2.36949 10.9653 0.479492 12.44 0.479492 14.1956V17.0044C0.479492 18.76 2.43949 20.2347 4.74949 20.2347H12.5195V10.9653H12.5895Z" fill="black" />
+                    </svg>
+
+
+                </div>
+                <div class="action-wrapper">
+                    <p class="action-text">
+                        View or Add Branches to Centers
+                    </p>
+                    <!--ARROW SVG-->
+                    <svg class="arrow-svg" viewBox="0 0 41 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M14.4795 30.6978L40.5195 15.6L14.4795 0.502197V30.6978Z" fill="black" />
+                        <path d="M12.5895 10.9653H4.74949C2.36949 10.9653 0.479492 12.44 0.479492 14.1956V17.0044C0.479492 18.76 2.43949 20.2347 4.74949 20.2347H12.5195V10.9653H12.5895Z" fill="black" />
+                    </svg>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--  
+         <div class="col-md-12">
         <div class="card">
             <div class="card-header primarybg row" data-background-color="">
                 <div class="col-md-8">
@@ -66,7 +122,7 @@
                         <p class="action-text">See All Cities</p>
                     </div>
 
-                    <!--            <button class="btn btn-info btn-lg adddatabtn" >Add City</button>-->
+                                <button class="btn btn-info btn-lg adddatabtn" >Add City</button>
                 </div>
 
 
@@ -112,7 +168,7 @@
 
             </div>
         </div>
-    </div>
+    </div>-->
 
     <!-- Modal -->
     <!--
@@ -137,6 +193,19 @@
     </div>
 </div>
 -->
+
+    <div>
+
+
+
+
+
+
+
+
+
+
+     </div>
 
     <div id="modal1" class="modal view-modal bottom-sheet">
         <div class="modal-content">
