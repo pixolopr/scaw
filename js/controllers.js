@@ -301,22 +301,22 @@ phonecatControllers.controller('adduserCtrl', ['$scope', 'TemplateService', 'Nav
         $scope.pass = {
             'confirmpassword': ''
         };
-        var explode=function() {
-           
+        var explode = function () {
+
             $(document).ready(function () {
                 $('.collapsible').collapsible();
             });
-    
+
         }
         setTimeout(explode, 2000);
-        
-        
-        var getfulldropdownsuccess = function(response){
-            console.log(response.data,"this");
+
+
+        var getfulldropdownsuccess = function (response) {
+            console.log(response.data, "this");
             $scope.boardsdata = response.data;
         }
-        
-        var getfulldropdownerror = function(response){
+
+        var getfulldropdownerror = function (response) {
             console.log(response.data);
         }
         NavigationService.getfulldropdown().then(getfulldropdownsuccess, getfulldropdownerror);
@@ -389,18 +389,18 @@ phonecatControllers.controller('adduserCtrl', ['$scope', 'TemplateService', 'Nav
 
         /*ADD USER*/
 
-        $scope.addteacherboard =function(boardid){
+        $scope.addteacherboard = function (boardid) {
             $scope.user.board_id = boardid;
             console.log($scope.user.board_id);
-            document.getElementById("board"+boardid).style.fill = "#03bdd6";
+            document.getElementById("board" + boardid).style.fill = "#03bdd6";
         }
-        $scope.addteacherstandard =function(standardid){
+        $scope.addteacherstandard = function (standardid) {
             $scope.user.standard_id = standardid;
-            document.getElementById("stand"+standardid).style.fill = "#03bdd6";
+            document.getElementById("stand" + standardid).style.fill = "#03bdd6";
             console.log($scope.user.standard_id);
         }
-        $scope.addtecherchap = function(chaptid){
-            document.getElementById("chap"+chaptid).style.fill = "#03bdd6";
+        $scope.addtecherchap = function (chaptid) {
+            document.getElementById("chap" + chaptid).style.fill = "#03bdd6";
         }
         $scope.createuser = function () {
             console.log($scope.user.password);
@@ -2365,7 +2365,7 @@ phonecatControllers.controller('centerdetailsCtrl', ['$scope', 'TemplateService'
             consoole.log(response);
         }
         deletedataerror = function (error) {
-            consoole.log(error);
+            console.log(error);
         }
 
         $scope.deletedata = function (id) {
@@ -2432,8 +2432,8 @@ phonecatControllers.controller('batchusersCtrl', ['$scope', 'TemplateService', '
         TemplateService.content = "views/user_batch.html";
         var batch_id = $routeParams.batch_id;
         $scope.batchdetails = [];
-        
-        
+
+
         getstudentstoaddinbatchsuccess = function (response) {
             $scope.batchdetails = response.data;
             console.log(response);
@@ -2472,7 +2472,7 @@ phonecatControllers.controller('batchusersCtrl', ['$scope', 'TemplateService', '
         }
 
         $scope.addstudenttogroup = function (student) {
-            document.getElementById("check"+student.id).style.fill = "#6AC259";
+            document.getElementById("check" + student.id).style.fill = "#6AC259";
             console.log("colored");
 
             insertbycontrollersuccess = function (response) {
