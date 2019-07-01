@@ -2334,9 +2334,9 @@ phonecatControllers.controller('centerdetailsCtrl', ['$scope', 'TemplateService'
         }
 
 
-        $scope.addnewvalue = function (header) {
+        $scope.addnewvalue = function () {
 
-            $scope.modalheader = header;
+//            $scope.modalheader = header;
             $('.insert-modal').show();
 
 
@@ -2377,7 +2377,7 @@ phonecatControllers.controller('centerdetailsCtrl', ['$scope', 'TemplateService'
 
 
         $scope.addstudentsinbatches = function (id) {
-
+         
             $location.path('/batch-user/' + id);
 
         }
