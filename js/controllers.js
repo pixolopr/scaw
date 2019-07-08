@@ -2336,7 +2336,7 @@ phonecatControllers.controller('centerdetailsCtrl', ['$scope', 'TemplateService'
 
         $scope.addnewvalue = function () {
 
-//            $scope.modalheader = header;
+            //            $scope.modalheader = header;
             $('.insert-modal').show();
 
 
@@ -2354,30 +2354,61 @@ phonecatControllers.controller('centerdetailsCtrl', ['$scope', 'TemplateService'
         }
 
         $scope.adddata = function () {
+            var isvaliddata = true;
+            var controller = $scope.modalheader;
+            if ($scope.newdata.name && $scope.newdata.name != '') {
+                if ($scope.modalheader == 'centers') {
+                    controller = 'centres'
+                    if (!$scope.newdata.city_id || $scope.newdata.city_id == '') {
+                        isvaliddata = false;
+                    }
 
-            NavigationService.insertbycontroller($scope.modalheader, $scope.newdata).then(insertbycontrollersuccess, insertbycontrollererror)
+                } else if ($scope.modalheader == 'batches') {
+                    if (!$scope.newdata.centre_id || $scope.newdata.centre_id == '') {
+                        isvaliddata = false;
+                    }
+                }
+
+            } else {
+                isvaliddata = false;
+            }
+
+
+            if (isvaliddata) {
+                NavigationService.insertbycontroller(controller, $scope.newdata).then(insertbycontrollersuccess, insertbycontrollererror)
+
+            } else {
+                alert('All fields are required !');
+            }
+
 
 
 
         }
 
         deletedatasuccess = function (response) {
-            consoole.log(response);
+            console.log(response);
+            if (response.data == 'true') {
+
+            }
         }
         deletedataerror = function (error) {
             console.log(error);
         }
 
         $scope.deletedata = function (id) {
-
-            NavigationService.deletebycontrollerandid($scope.modalheader, id).then(deletedatasuccess, deletedataerror)
+            var controller = $scope.modalheader;
+            if (controller == 'centers') {
+                controller = 'centres';
+            }
+            NavigationService.deletebycontrollerandid(controller, id).then(deletedatasuccess, deletedataerror)
 
         }
 
 
 
         $scope.addstudentsinbatches = function (id) {
-         
+
             $location.path('/batch-user/' + id);
 
         }
