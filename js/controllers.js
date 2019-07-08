@@ -2454,6 +2454,14 @@ phonecatControllers.controller('centerdetailsCtrl', ['$scope', 'TemplateService'
             console.log(error);
         }
         NavigationService.getallbatches().then(getallbatchessuccess, getallbatcheserror);
+        
+        $scope.dropdowncity = '';
+        
+        $scope.changecenters = function(newdata){
+            $scope.datacenterdropdown = $scope.cities[newdata];
+            console.log($scope.datacenterdropdown.centres);
+            
+        }
     }
 ]);
 phonecatControllers.controller('batchusersCtrl', ['$scope', 'TemplateService', 'NavigationService', '$rootScope', '$filter', '$window', '$location', '$routeParams',
