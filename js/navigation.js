@@ -6,6 +6,7 @@ var navigationservice = angular.module('navigationservice', [])
         //            var adminurl = "http://localhost/rest/rest/index.php/";
         //        }else{
         var adminurl = "https://api.learnwithinq.com/rest/index.php/";
+//        var adminurl = "http://localhost/rest/index.php/";
         //        };
 
         var navigation = [{
@@ -496,6 +497,18 @@ var navigationservice = angular.module('navigationservice', [])
 
 
             },
+            
+            updatebycontroller: function (controller,id, data) {
+                return $http.get(adminurl + controller + '/updatebyid', {
+                    params: {
+                        id:id,
+                        data: data
+                    }
+                });
+
+
+            },
+                
             deletebycontrollerandid: function (controller, id) {
                 return $http.get(adminurl + controller + '/deletebyid', {
                     params: {

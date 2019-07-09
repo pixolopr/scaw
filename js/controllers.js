@@ -1,7 +1,7 @@
 var phonecatControllers = angular.module('phonecatControllers', ['templateservicemod', 'navigationservice']);
 
-//var adminurl = "http://localhost/rest/rest/index.php/";
-//var imageurl = "http://localhost/rest/rest/uploads/";
+//var adminurl = "http://localhost/rest/index.php/";
+//var imageurl = "http://localhost/rest/uploads/";
 var adminurl = "https://api.learnwithinq.com/rest/index.php/";
 var imageurl = "https://api.learnwithinq.com/rest/uploads/";
 
@@ -2344,6 +2344,8 @@ phonecatControllers.controller('centerdetailsCtrl', ['$scope', 'TemplateService'
         };
 
 
+
+
         insertbycontrollersuccess = function (response) {
 
             console.log(response);
@@ -2352,6 +2354,17 @@ phonecatControllers.controller('centerdetailsCtrl', ['$scope', 'TemplateService'
 
             console.log(error);
         }
+
+        updatebycontrollersuccess = function (response) {
+
+            console.log(response);
+        }
+        updatebycontrollererror = function (error) {
+
+            console.log(error);
+        }
+
+
 
         $scope.adddata = function () {
             var isvaliddata = true;
@@ -2374,17 +2387,32 @@ phonecatControllers.controller('centerdetailsCtrl', ['$scope', 'TemplateService'
             }
 
 
+
             if (isvaliddata) {
-                NavigationService.insertbycontroller(controller, $scope.newdata).then(insertbycontrollersuccess, insertbycontrollererror)
+                if (!$scope.newdata.id) {
+                    console.log($scope.newdata);
+                    console.log("add");
+                    NavigationService.insertbycontroller(controller, $scope.newdata).then(insertbycontrollersuccess, insertbycontrollererror)               
+                } else {
+
+                    console.log("update");
+                    console.log($scope.newdata);
+                     NavigationService.updatebycontroller(controller, $scope.newdata.id, $scope.newdata).then(updatebycontrollersuccess, updatebycontrollererror)
+                    
+                }
 
             } else {
                 alert('All fields are required !');
             }
 
-
-
-
         }
+
+        $scope.editvalue = function (editdatavalues) {
+            $('.insert-modal').show();
+            console.log(editdatavalues);
+            $scope.newdata.id = editdatavalues.id;
+            $scope.newdata.name = editdatavalues.name;
+        };
 
         deletedatasuccess = function (response) {
             console.log(response);
@@ -2392,6 +2420,7 @@ phonecatControllers.controller('centerdetailsCtrl', ['$scope', 'TemplateService'
 
             }
         }
+        
         deletedataerror = function (error) {
             console.log(error);
         }
@@ -2454,13 +2483,13 @@ phonecatControllers.controller('centerdetailsCtrl', ['$scope', 'TemplateService'
             console.log(error);
         }
         NavigationService.getallbatches().then(getallbatchessuccess, getallbatcheserror);
-        
+
         $scope.dropdowncity = '';
-        
-        $scope.changecenters = function(newdata){
+
+        $scope.changecenters = function (newdata) {
             $scope.datacenterdropdown = $scope.cities[newdata];
             console.log($scope.datacenterdropdown.centres);
-            
+
         }
     }
 ]);

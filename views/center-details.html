@@ -304,7 +304,7 @@
                 <p class="city-name">{{center.name}}</p>
                 <div ng-if="modalheader=='centers'">
                     <!--               EDIT SVG-->
-                    <svg class="editsvg" width="16" height="16" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg ng-click="editvalue(center);" class="editsvg" width="16" height="16" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M6.71453 16.9996L7.2323 16.4818L2.51826 11.7678L13.1249 1.16119C14.1012 0.184877 15.6841 0.184877 16.6604 1.16119L17.8389 2.3397C18.8152 3.31601 18.8152 4.89892 17.8389 5.87523L6.71453 16.9996ZM6.048 17.6546C5.59772 18.0373 5.02431 18.2496 4.429 18.2496H1.16715C0.937036 18.2496 0.750488 18.0631 0.750488 17.8329V14.5711C0.750488 13.9758 0.962815 13.4024 1.34553 12.9521L6.048 17.6546Z" fill="#00BCD4" />
                     </svg>
                     <!--               DELETE SVG-->
@@ -326,7 +326,7 @@
                     <p class="city-name">{{batch.name}}</p>
                     <div>
                         <!--               EDIT SVG-->
-                        <svg class="editsvg" width="16" height="16" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg ng-click="editvalue(batch);" class="editsvg" width="16" height="16" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M6.71453 16.9996L7.2323 16.4818L2.51826 11.7678L13.1249 1.16119C14.1012 0.184877 15.6841 0.184877 16.6604 1.16119L17.8389 2.3397C18.8152 3.31601 18.8152 4.89892 17.8389 5.87523L6.71453 16.9996ZM6.048 17.6546C5.59772 18.0373 5.02431 18.2496 4.429 18.2496H1.16715C0.937036 18.2496 0.750488 18.0631 0.750488 17.8329V14.5711C0.750488 13.9758 0.962815 13.4024 1.34553 12.9521L6.048 17.6546Z" fill="#00BCD4" />
                         </svg>
                         <!--               DELETE SVG-->
@@ -354,7 +354,7 @@
             </div>
             <div ng-if="modalheader=='cities'">
                 <!--               EDIT SVG-->
-                <svg class="editsvg" width="16" height="16" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg ng-click="editvalue(city);" class="editsvg" width="16" height="16" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M6.71453 16.9996L7.2323 16.4818L2.51826 11.7678L13.1249 1.16119C14.1012 0.184877 15.6841 0.184877 16.6604 1.16119L17.8389 2.3397C18.8152 3.31601 18.8152 4.89892 17.8389 5.87523L6.71453 16.9996ZM6.048 17.6546C5.59772 18.0373 5.02431 18.2496 4.429 18.2496H1.16715C0.937036 18.2496 0.750488 18.0631 0.750488 17.8329V14.5711C0.750488 13.9758 0.962815 13.4024 1.34553 12.9521L6.048 17.6546Z" fill="#00BCD4" />
                 </svg>
                 <!--               DELETE SVG-->
