@@ -410,15 +410,15 @@ phonecatControllers.controller('adduserCtrl', ['$scope', 'TemplateService', 'Nav
 
             if ($scope.user.password == $scope.pass.confirmpassword && $scope.user.password != '') {
                 if ($scope.user.name != '' && $scope.user.contact != '') {
-
+                    $scope.subjdata = JSON.stringify($scope.subjarray);
                     if ($scope.editid == 0) {
                         console.log($scope.user);
                         var createusersuccess = function (response) {
                             console.log(response.data);
 
-                            $scope.usersubjid = response.data;
+                            $scope.user.id = response.data;
                             console.log($scope.subjarray);
-                            $scope.subjdata = JSON.stringify($scope.subjarray);
+                            
                             if (response.data != 'false') {
                                 $location.path('/users');
                                 var addsubjectidsuccess = function (response) {
@@ -427,7 +427,7 @@ phonecatControllers.controller('adduserCtrl', ['$scope', 'TemplateService', 'Nav
                                 var addsubjectiderror = function (response) {
                                     console.log(response);
                                 }
-                                NavigationService.addsubjectid($scope.usersubjid, $scope.subjdata).then(addsubjectidsuccess, addsubjectiderror);
+                                NavigationService.addsubjectid($scope.user.id, $scope.subjdata).then(addsubjectidsuccess, addsubjectiderror);
                             };
                         };
                         var createusererror = function (response) {
@@ -439,12 +439,24 @@ phonecatControllers.controller('adduserCtrl', ['$scope', 'TemplateService', 'Nav
                         var editusersuccess = function (response) {
                             console.log(response.data);
                             if (response.data == 'true') {
+                                
+                                NavigationService.editteachersubject($scope.user.id, $scope.subjdata).then(editteachersubjectsuccess, editteachersubjecterror);
                                 $location.path('/users');
                             };
                         };
                         var editusererror = function (response) {
                             console.log(response.data);
                         };
+
+                        var editteachersubjectsuccess = function (response) {
+                            console.log(response);
+                        };
+
+                        var editteachersubjecterror = function (error) {
+                            console.log(error);
+                        }
+
+
                         NavigationService.edituser($scope.user).then(editusersuccess, editusererror);
                     };
 

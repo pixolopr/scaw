@@ -111,6 +111,7 @@ var navigationservice = angular.module('navigationservice', [])
                 });
             },
 
+            // ADD TEACHER SUBJECT ID
             addsubjectid: function (id, data) {
                 var formdata = new FormData();
                 formdata.append('user_id', id);
@@ -126,6 +127,23 @@ var navigationservice = angular.module('navigationservice', [])
                 });
             },
 
+
+            editteachersubject: function (id,data) {
+                var formdata = new FormData();
+                formdata.append('user_id', id);
+                formdata.append('subject_ids', data);
+                return $http({
+                    url: adminurl + 'users/editteachersubject',
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': undefined
+                    },
+                    data: formdata,
+                    transformRequest: angular.identity
+                });
+
+
+            },
 
             edituser: function (data) {
                 return $http.get(adminurl + 'users/edituser', {

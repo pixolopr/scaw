@@ -1,59 +1,4 @@
-<style>
-    .board-name {
-        color: #000000;
-        background: #EFEFEF;
-        text-align: center;
-        padding: 8px;
-        font-size: 14px;
-        line-height: 16px;
-    } 
-    .select-board-wrapper{
-        width: 36% !important;
-    }
 
-    .board-tick-svg {
-        margin: 0 0 0 5px;
-    }
-
-    .collapsible-header i {
-        float: right !important;
-    }
-    .collapsible{
-        width: 64%;
-    }
-
-    .std-header {
-        display: flex;
-        align-items: center;
-        background: #E1E1E1;
-        font-family: Roboto;
-        font-style: normal;
-        font-weight: bold;
-        font-size: 14px;
-        line-height: 16px;
-        padding: 10px;
-        border: 1px solid #cfcfcf;
-        color: #000000;
-    }
-
-    .board-tick-svg {
-        float: right;
-    }
-
-    .std-body {
-        display: flex;
-        border: 1px solid #cfcfcf;
-        padding: 1rem;
-    }
-    .chapter-svg{
-        margin: 0 0 0 5px;
-    }
-
-    
-    .chapter-name{
-        flex-basis: 96%;
-    }
-</style>
 
 <div class="container-fluid">
     <div class="row">
@@ -145,7 +90,7 @@
                                 </div> -->
 
                                 <!-- <div class="boards-wrapper"> -->
-                                <ul class="collapsible">
+                                <ul class="collapsible board-wrapper">
                                     <li>
                                         <div class="collapsible-header board-name" ng-click="addteacherboard(board.id)">{{board.name}}<i class="board-tick-svg"><svg
                                                     width="20" height="20" viewBox="0 0 20 20" fill="none"
