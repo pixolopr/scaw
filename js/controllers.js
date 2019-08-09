@@ -388,7 +388,7 @@ phonecatControllers.controller('adduserCtrl', ['$scope', 'TemplateService', 'Nav
         };
 
         /*ADD USER*/
-
+        $scope.subjarray = [];
         $scope.addteacherboard = function (boardid) {
             $scope.user.board_id = boardid;
             console.log($scope.user.board_id);
@@ -399,10 +399,12 @@ phonecatControllers.controller('adduserCtrl', ['$scope', 'TemplateService', 'Nav
             document.getElementById("stand" + standardid).style.fill = "#03bdd6";
             console.log($scope.user.standard_id);
         }
-        $scope.addtecherchap = function (chaptid) {
-            document.getElementById("chap" + chaptid).style.fill = "#03bdd6";
+        $scope.addtechersub = function (subid) {
+            document.getElementById("sub" + subid).style.fill = "#03bdd6";
+            $scope.subjarray.push(subid);
         }
         $scope.createuser = function () {
+            console.log($scope.subjarray);
             console.log($scope.user.password);
             console.log($scope.pass.confirmpassword);
 
@@ -413,8 +415,19 @@ phonecatControllers.controller('adduserCtrl', ['$scope', 'TemplateService', 'Nav
                         console.log($scope.user);
                         var createusersuccess = function (response) {
                             console.log(response.data);
+
+                            $scope.usersubjid = response.data;
+                            console.log($scope.subjarray);
+                            $scope.subjdata = JSON.stringify($scope.subjarray);
                             if (response.data != 'false') {
                                 $location.path('/users');
+                                var addsubjectidsuccess = function (response) {
+                                    console.log(response);
+                                }
+                                var addsubjectiderror = function (response) {
+                                    console.log(response);
+                                }
+                                NavigationService.addsubjectid($scope.usersubjid, $scope.subjdata).then(addsubjectidsuccess, addsubjectiderror);
                             };
                         };
                         var createusererror = function (response) {
@@ -2392,13 +2405,13 @@ phonecatControllers.controller('centerdetailsCtrl', ['$scope', 'TemplateService'
                 if (!$scope.newdata.id) {
                     console.log($scope.newdata);
                     console.log("add");
-                    NavigationService.insertbycontroller(controller, $scope.newdata).then(insertbycontrollersuccess, insertbycontrollererror)               
+                    NavigationService.insertbycontroller(controller, $scope.newdata).then(insertbycontrollersuccess, insertbycontrollererror)
                 } else {
 
                     console.log("update");
                     console.log($scope.newdata);
-                     NavigationService.updatebycontroller(controller, $scope.newdata.id, $scope.newdata).then(updatebycontrollersuccess, updatebycontrollererror)
-                    
+                    NavigationService.updatebycontroller(controller, $scope.newdata.id, $scope.newdata).then(updatebycontrollersuccess, updatebycontrollererror)
+
                 }
 
             } else {
@@ -2420,7 +2433,7 @@ phonecatControllers.controller('centerdetailsCtrl', ['$scope', 'TemplateService'
 
             }
         }
-        
+
         deletedataerror = function (error) {
             console.log(error);
         }
