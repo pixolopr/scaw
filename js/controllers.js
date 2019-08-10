@@ -400,8 +400,20 @@ phonecatControllers.controller('adduserCtrl', ['$scope', 'TemplateService', 'Nav
             console.log($scope.user.standard_id);
         }
         $scope.addtechersub = function (subid) {
-            document.getElementById("sub" + subid).style.fill = "#03bdd6";
-            $scope.subjarray.push(subid);
+//            document.getElementById("sub" + subid).style.fill = "#03bdd6";
+//            $scope.subjarray.push(subid);
+            console.log($scope.subjarray);
+            var arrindex = $scope.subjarray.indexOf(subid);
+            if(arrindex == -1){
+                $scope.subjarray.push(subid);
+                document.getElementById("sub" + subid).style.fill = "#03bdd6";
+            }
+            else{
+                $scope.subjarray.splice(arrindex, 1); 
+                document.getElementById("sub" + subid).style.fill = "#767676";
+            }
+            console.log($scope.subjarray);
+            
         }
         $scope.createuser = function () {
             console.log($scope.subjarray);
