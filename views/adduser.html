@@ -92,7 +92,7 @@
                                 <!-- <div class="boards-wrapper"> -->
                                 <ul class="collapsible board-wrapper">
                                     <li>
-                                        <div class="collapsible-header board-name" ng-click="addteacherboard(board.id)">{{board.name}}<i class="board-tick-svg"><svg
+                                        <div class="collapsible-header board-name" ng-click="addteacherboard(board)">{{board.name}}<i class="board-tick-svg"><svg
                                                     width="20" height="20" viewBox="0 0 20 20" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg">
                                                     <circle id="board{{board.id}}" cx="10" cy="10" r="10" fill="#767676" />
@@ -112,7 +112,7 @@
                                         
                                     </li>
                                     <li ng-repeat="standard in board.standards">
-                                        <div class="collapsible-header std-header" ng-click="addteacherstandard(standard.id)">{{standard.name}}<i
+                                        <div class="collapsible-header std-header" ng-click="addteacherstandard(standard)">{{standard.name}}<i
                                                 class="board-tick-svg"><svg width="20" height="20" viewBox="0 0 20 20"
                                                     fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <circle id="stand{{standard.id}}" cx="10" cy="10" r="10" fill="#767676" />

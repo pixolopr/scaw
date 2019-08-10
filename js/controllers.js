@@ -389,31 +389,64 @@ phonecatControllers.controller('adduserCtrl', ['$scope', 'TemplateService', 'Nav
 
         /*ADD USER*/
         $scope.subjarray = [];
-        $scope.addteacherboard = function (boardid) {
-            $scope.user.board_id = boardid;
-            console.log($scope.user.board_id);
-            document.getElementById("board" + boardid).style.fill = "#03bdd6";
+        $scope.addteacherboard = function (board) {
+            $scope.boardData = board;
+            console.log("board selected");
+            //            console.log($scope.boardData);
+            for (var i = 0; i < $scope.boardData.standards.length; i++) {
+                //                console.log($scope.boardData.standards[i]);
+                for (var j = 0; j < $scope.boardData.standards[i].subjects.length; j++) {
+                    console.log($scope.boardData.standards[i].subjects[j].id);
+                    var subjid = $scope.boardData.standards[i].subjects[j].id;
+                    var arrindexof = $scope.subjarray.indexOf(subjid);
+                    if (arrindexof == -1) {
+                        $scope.subjarray.push(subjid);
+                        document.getElementById("sub" + subjid).style.fill = "#03bdd6";
+                        document.getElementById("stand" + $scope.boardData.standards[i].id).style.fill = "#03bdd6";
+                        document.getElementById("board" + board.id).style.fill = "#03bdd6";
+                    } else {
+                        $scope.subjarray.splice(arrindexof, 1);
+                        document.getElementById("sub" + subjid).style.fill = "#767676";
+                        document.getElementById("stand" + $scope.boardData.standards[i].id).style.fill = "#767676";
+                        document.getElementById("board" + board.id).style.fill = "#767676";
+                    }
+                    console.log($scope.subjarray);
+                }
+            }
         }
-        $scope.addteacherstandard = function (standardid) {
-            $scope.user.standard_id = standardid;
-            document.getElementById("stand" + standardid).style.fill = "#03bdd6";
-            console.log($scope.user.standard_id);
+        $scope.addteacherstandard = function (standard) {
+            $scope.standardData = standard;
+            console.log($scope.standardData);
+            for (var k = 0; k < $scope.standardData.subjects.length; k++) {
+                console.log($scope.standardData.subjects[k].id);
+                var subjid = $scope.standardData.subjects[k].id
+                var arrindexof = $scope.subjarray.indexOf(subjid);
+                if (arrindexof == -1) {
+                    $scope.subjarray.push(subjid);
+                    document.getElementById("sub" + subjid).style.fill = "#03bdd6";
+                    document.getElementById("stand" + standard.id).style.fill = "#03bdd6";
+                } else {
+                    $scope.subjarray.splice(arrindexof, 1);
+                    document.getElementById("sub" + subjid).style.fill = "#767676";
+                    document.getElementById("stand" + standard.id).style.fill = "#767676";
+                }
+                console.log($scope.subjarray);
+            }
+            //            document.getElementById("stand" + standardid).style.fill = "#03bdd6";
+            //            console.log($scope.user.standard_id);
         }
         $scope.addtechersub = function (subid) {
-//            document.getElementById("sub" + subid).style.fill = "#03bdd6";
-//            $scope.subjarray.push(subid);
             console.log($scope.subjarray);
             var arrindex = $scope.subjarray.indexOf(subid);
-            if(arrindex == -1){
+            if (arrindex == -1) {
                 $scope.subjarray.push(subid);
                 document.getElementById("sub" + subid).style.fill = "#03bdd6";
-            }
-            else{
-                $scope.subjarray.splice(arrindex, 1); 
+            } else {
+                $scope.subjarray.splice(arrindex, 1);
                 document.getElementById("sub" + subid).style.fill = "#767676";
             }
             console.log($scope.subjarray);
-            
+
         }
         $scope.createuser = function () {
             console.log($scope.subjarray);
@@ -421,7 +454,7 @@ phonecatControllers.controller('adduserCtrl', ['$scope', 'TemplateService', 'Nav
             console.log($scope.pass.confirmpassword);
 
             if ($scope.user.password == $scope.pass.confirmpassword && $scope.user.password != '') {
-                if ($scope.user.name != '' && $scope.user.contact != '') {
+                if ($scope.user.name != '' && $scope.user.contact != '' && $scope.user.contact.length == 10) {
                     $scope.subjdata = JSON.stringify($scope.subjarray);
                     if ($scope.editid == 0) {
                         console.log($scope.user);
@@ -430,7 +463,7 @@ phonecatControllers.controller('adduserCtrl', ['$scope', 'TemplateService', 'Nav
 
                             $scope.user.id = response.data;
                             console.log($scope.subjarray);
-                            
+
                             if (response.data != 'false') {
                                 $location.path('/users');
                                 var addsubjectidsuccess = function (response) {
@@ -451,7 +484,7 @@ phonecatControllers.controller('adduserCtrl', ['$scope', 'TemplateService', 'Nav
                         var editusersuccess = function (response) {
                             console.log(response.data);
                             if (response.data == 'true') {
-                                
+
                                 NavigationService.editteachersubject($scope.user.id, $scope.subjdata).then(editteachersubjectsuccess, editteachersubjecterror);
                                 $location.path('/users');
                             };
